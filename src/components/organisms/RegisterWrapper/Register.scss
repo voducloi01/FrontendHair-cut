@@ -1,0 +1,30 @@
+.register-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+
+  .user-box{
+    display: flex;
+    flex-direction: column;
+  }
+}
+input[type='text'],
+input[type='password'] {
+
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.custom_button {
+  width: 100px;
+  height: 30px;
+  &:hover {
+    background-color: aquamarine;
+  }
+}
