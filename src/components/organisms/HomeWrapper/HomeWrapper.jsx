@@ -3,7 +3,7 @@ import React from 'react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { DATA_SLIDE } from '../../../constants/constant';
+import { DATA_SLIDE } from '@/constants/constant';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';

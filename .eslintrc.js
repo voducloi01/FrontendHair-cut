@@ -24,6 +24,11 @@ module.exports = {
     'react/display-name': 'off'
   },
   settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', 'src']]
+      }
+    },
     react: {
       version: 'detect'
     }

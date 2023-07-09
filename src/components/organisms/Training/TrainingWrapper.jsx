@@ -1,7 +1,7 @@
 import React from 'react';
-import { Col, Row, Icon } from 'framework7-react';
+import { Icon } from 'framework7-react';
 import './Training.scss';
-import { DATA_INFORMATION } from '../../../constants/constant';
+import { DATA_INFORMATION } from '@/constants/constant';
 const TrainingWrapper = () => {
   return (
     <div className="informationWrapper">
