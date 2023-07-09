@@ -1,8 +1,7 @@
 {
   "name": "hair-shop",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development vite",
