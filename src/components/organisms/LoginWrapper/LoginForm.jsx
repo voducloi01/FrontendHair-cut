@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { f7 } from 'framework7-react';
 import './LoginForm.scss';
-import API from '../../../services/axiosClient'
-import '../../../constants/constant'
-import { ROUTE_PATH } from '../../../constants/constant';
-
-
+import API from '@/services/axiosClient';
+import { ROUTE_PATH } from '@/constants/constant';
 
 const LoginWrapper = () => {
   const [email, setEmail] = useState('');
@@ -28,12 +25,11 @@ const LoginWrapper = () => {
     };
 
     try {
-      const response = await API.apiLogin(userData) 
+      const response = await API.apiLogin(userData);
       localStorage.setItem('token', response.data.data?.token);
       f7.view.main.router.navigate(ROUTE_PATH.product);
-
     } catch (error) {
-    console.log(error);
+      console.log(error);
     }
   };
 

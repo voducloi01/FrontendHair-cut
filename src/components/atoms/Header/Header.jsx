@@ -3,7 +3,7 @@ import './Header.scss';
 import { Link, f7 } from 'framework7-react';
 import SearchDialog from '../SearchDialog/SearchDialog';
 import { useState } from 'react';
-import { DATA_HEADER } from '../../../constants/constant';
+import { DATA_HEADER } from '@/constants/constant';
 const Header = () => {
   const [isShowSearchDialog, setIsShowSearchDialog] = useState(false);
 

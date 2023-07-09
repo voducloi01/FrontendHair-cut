@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './SeachDialog.scss';
+import './SearchDialog.scss';
 
 const SearchDialog = (props) => {
   return ReactDOM.createPortal(
     <div className="wrapper_search">
       <div className="wrapper_search">
         <div className="text_search">
-          <input type="text" className="search" placeholder=" Tìm Kiếm...." size="30" />
+          <input type="text" className="search" placeholder=" Tìm Kiếm...." />
         </div>
       </div>
       <div className="wrapper_imgclose">

@@ -18,7 +18,7 @@ const RegisterWrapper = () => {
     }
   };
 
-  const handleResgister = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const userData = {
       name: userName,
@@ -65,7 +65,7 @@ const RegisterWrapper = () => {
   return (
     <div className="register-box">
       <div>Register</div>
-      <form onSubmit={handleResgister}>
+      <form onSubmit={handleRegister}>
         {inputData.map((e) => (
           <div className="user-box" key={e.id}>
             <label>{e.title}</label>

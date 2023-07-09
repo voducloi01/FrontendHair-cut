@@ -1,8 +1,7 @@
 import React from 'react';
 import './ListPrice.scss';
-import { DATA_PRICELIST } from '../../../constants/constant';
 import { Col, Row } from 'framework7-react';
-import { DATA_COMBO } from '../../../constants/constant';
+import { DATA_COMBO, DATA_PRICELIST } from '@/constants/constant';
 
 function ListPriceWrapper() {
   function formatCash(str) {
