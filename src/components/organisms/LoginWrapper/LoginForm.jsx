@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { ENV } from '../../../constants/constant';
-import axios from 'axios';
 import { f7 } from 'framework7-react';
 import './LoginForm.scss';
+import API from '../../../services/axiosClient'
+import '../../../constants/constant'
+import { ROUTE_PATH } from '../../../constants/constant';
+
+
 
 const LoginWrapper = () => {
   const [email, setEmail] = useState('');
@@ -25,16 +28,12 @@ const LoginWrapper = () => {
     };
 
     try {
-      const response = await axios.post(`${ENV.host}/users/login`, userData);
-      if (response.status === 201) {
-        alert('Đăng nhập Thành Công !');
-        localStorage.setItem('token', response.data.data?.token);
-        f7.view.main.router.navigate('/');
-      } else {
-        alert('Thất Bại!');
-      }
+      const response = await API.apiLogin(userData) 
+      localStorage.setItem('token', response.data.data?.token);
+      f7.view.main.router.navigate(ROUTE_PATH.product);
+
     } catch (error) {
-      alert('Thất Bại!');
+    console.log(error);
     }
   };
 

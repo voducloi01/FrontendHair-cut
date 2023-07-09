@@ -1,0 +1,7 @@
+root = true
+
+[src/**.{ts,tsx,json,js,jsx, css, scss}]
+[.storybook/**.{ts,tsx,json,js,jsx, css, scss}]
+charset = utf-8
+indent_style = space
+indent_size = 2

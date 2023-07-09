@@ -25,9 +25,7 @@ export default ({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: [
-           '@import "./src/css/commons/responsive.scss";',
-          ]
+          additionalData: ['@import "./src/css/commons/responsive.scss";']
         }
       }
     },
@@ -38,6 +36,6 @@ export default ({ mode }) => {
     },
     server: {
       host: true
-    },
+    }
   });
 };
