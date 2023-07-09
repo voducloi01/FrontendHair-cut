@@ -4,7 +4,10 @@ import LoginWrapper from "../../../components/organisms/LoginWrapper/LoginForm";
 
 const Login = () =>  {
 
-    return (  <Page id="login" name="login">
+ 
+    return (  
+    <Page id="login" name="login">
+      
       <LoginWrapper />
   </Page>);
 }

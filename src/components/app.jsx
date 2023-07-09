@@ -1,9 +1,13 @@
 import React from 'react';
-import { useEffect } from 'react';
 import routes from '../js/router';
 import { App, f7, View } from 'framework7-react';
 import { Provider } from 'react-redux';
 import { store } from '../store';
+
+const clearToken = () => {
+  localStorage.removeItem('token');
+};
+
 const MyApp = () => {
   const offline = () => {
     f7.dialog.alert(t('dev-0023'));
@@ -13,12 +17,8 @@ const MyApp = () => {
     f7.dialog.close();
   };
 
-  useEffect(() => {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-    // }
-  }, []);
+
+
 
   const params = {
     name: 'Shop-Hair',
@@ -48,23 +48,24 @@ const MyApp = () => {
     }
   };
 
-  // Thiết lập thời gian chờ 15 phút
-  const logoutTimeout = 15 * 60 * 1000; // Đổi 15 phút thành mili giây
+  // // Thiết lập thời gian chờ 15 phút
+  // const logoutTimeout = 10000; // Đổi 15 phút thành mili giây
 
-  // Hàm xóa token và chuyển hướng đến trang đăng nhập
-  const logout = () => {
-    localStorage.removeItem('token');
-    App.views.main.router.navigate('/login');
-  };
+  // // Hàm xóa token và chuyển hướng đến trang đăng nhập
+  // const logout = () => {
+  //   console.log('aaaaaa');
+  //   localStorage.removeItem('token');
+  
+  // };
 
-  // Thiết lập hành động tự động xóa token sau 15 phút
-  const logoutTimer = setTimeout(logout, logoutTimeout);
+  // // Thiết lập hành động tự động xóa token sau 15 phút
+  // const logoutTimer = setTimeout(logout, logoutTimeout);
 
-  // Đặt sự kiện "click" để đặt lại hành động xóa token
-  document.addEventListener('click', () => {
-    clearTimeout(logoutTimer);
-    //logoutTimer = setTimeout(logout, logoutTimeout);
-  });
+  // // Đặt sự kiện "click" để đặt lại hành động xóa token
+  // document.addEventListener('click', () => {
+  //   clearTimeout(logoutTimer);
+  //   logoutTimer = setTimeout(logout, logoutTimeout);
+  // });
 
   return (
     <Provider store={store}>

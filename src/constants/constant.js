@@ -198,5 +198,5 @@ export const DATA_INFORMATION = [
 ];
 
 export const ENV = {
-  host : 'http://localhost:3000'
-}
+  host: 'http://localhost:3000'
+};
