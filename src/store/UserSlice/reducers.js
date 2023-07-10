@@ -1,8 +1,9 @@
 const updateUser = (state, action) => {
   return {
-    userName: action,
-    password: '',
-    token: ''
+    ...state,
+    userName: action.payload.userName,
+    password: action.payload.password,
+    token: action.payload.token
   };
 };
 

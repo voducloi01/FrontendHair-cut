@@ -4,7 +4,7 @@ import reducers from './reducers';
 const initState = {
   userName: '',
   password: '',
-  token: ''
+  token: null
 };
 
 export const userSlice = createSlice({
@@ -13,6 +13,6 @@ export const userSlice = createSlice({
   reducers: reducers
 });
 
-export const { getDataUser, loginUser } = userSlice.actions;
+export const { updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -17,6 +17,7 @@ const reducers = combineReducers({
   user: userSlice,
   count: countSlice
 });
+
 const ROOT_KEY = 'root';
 
 /** The configuration for redux-persist.
@@ -28,6 +29,7 @@ const persistConfig = {
   storage,
   whitelist: ['user']
 };
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 /* Creating a store with the persisted reducer. */

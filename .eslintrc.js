@@ -21,7 +21,8 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'off',
-    'react/display-name': 'off'
+    'react/display-name': 'off',
+    'no-unused-vars': 'off'
   },
   settings: {
     'import/resolver': {
