@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { f7 } from 'framework7-react';
-import './LoginForm.scss';
+import './LoginWrapper.scss';
 import API from '@/services/axiosClient';
 import { ROUTE_PATH } from '@/constants/constant';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '@/store/UserSlice';
 
 const LoginWrapper = () => {
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (e, type) => {
     if (type === 'email') {
@@ -26,8 +29,8 @@ const LoginWrapper = () => {
 
     try {
       const response = await API.apiLogin(userData);
-      localStorage.setItem('token', response.data.data?.token);
-      f7.view.main.router.navigate(ROUTE_PATH.product);
+      dispatch(updateUser({ email: email, password: password, token: response.data.data?.token }));
+      f7.views.main.router.navigate(ROUTE_PATH.product);
     } catch (error) {
       console.log(error);
     }
