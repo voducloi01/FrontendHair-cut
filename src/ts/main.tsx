@@ -19,7 +19,7 @@ import 'framework7/css/bundle';
 // import "../css/index.scss";
 
 // Import App Component
-import App from '@/components/app';
+import MyApp from '@/components/app';
 
 // // Import I18n
 // import "../i18n/i18n";
@@ -29,5 +29,4 @@ Framework7.use(Framework7React);
 
 // Mount React App
 const root = createRoot(document.getElementById('root')!);
-root.render(React.createElement(App));
-
+root.render(React.createElement(MyApp));
