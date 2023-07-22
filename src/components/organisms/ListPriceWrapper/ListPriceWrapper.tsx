@@ -1,18 +1,16 @@
-import React from 'react';
-import './ListPrice.scss';
-import { Col, Row } from 'framework7-react';
-import { DATA_COMBO, DATA_PRICELIST } from '@/constants/constant';
+import './ListPriceWrapper.scss';
 
-function ListPriceWrapper() {
-  function formatCash(str) {
-    return str
-      .split('')
-      .reverse()
-      .reduce((prev, next, index) => {
-        return (index % 3 ? next : next + ',') + prev;
-      });
-  }
+const ListPriceWrapper = () => {
+  // function formatCash(str) {
+  //   return str
+  //     .split('')
+  //     .reverse()
+  //     .reduce((prev, next, index) => {
+  //       return (index % 3 ? next : next + ',') + prev;
+  //     });
+  // }
   return (
+    //TODO update later
     <div className="wrapperListprice">
       <h1 className="title">Bảng giá </h1>
       <table>
@@ -22,7 +20,7 @@ function ListPriceWrapper() {
             <th>Giá</th>
           </tr>
         </thead>
-        <tbody>
+        {/* <tbody>
           {DATA_PRICELIST.map((e) => (
             <tr key={e.id}>
               <td data-column="First Name">{e.title}</td>
@@ -32,25 +30,26 @@ function ListPriceWrapper() {
               </td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </table>
 
       <h2 className="title"> GÍA MỘT SỐ COMBO </h2>
-      <Row>
+      {/* <Row>
         {DATA_COMBO.map((e) => (
           <Col className="wrapperColum" key={e.id}>
             <img src={e.image} alt="" />
             <div className="comboTitle">{e.title} </div>
             <div
               className="comboPrice
-      ">
+      "
+            >
               {formatCash(String(e.price))}vnd{' '}
             </div>
           </Col>
         ))}
-      </Row>
+      </Row> */}
     </div>
   );
-}
+};
 
 export default ListPriceWrapper;
