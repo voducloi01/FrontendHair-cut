@@ -1,4 +1,5 @@
 import './TitleIntroduce.scss';
+
 const TitleIntroduce = () => {
   return (
     <div className="wrapper_title">

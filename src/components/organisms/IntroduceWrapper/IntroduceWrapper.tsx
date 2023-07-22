@@ -1,18 +1,21 @@
+import { DataIntroduceType } from '@/constants/constant';
+import IntroduceItem from '@/components/molecules/IntroduceItem';
 import './IntroduceWrapper.scss';
 
-const IntroduceWrapper = () => {
+interface IntroduceWrapper {
+  introduce: DataIntroduceType[];
+}
+
+const IntroduceWrapper = ({ introduce }: IntroduceWrapper) => {
   return (
-    // <Row className="row grid-demo">
-    //   {define_introduce.map((e) => (
-    //     <Col width="100" medium="50" key={e.id}>
-    //       <IntroduceItem img={e.img} title={e.title} content={e.description} />
-    //     </Col>
-    //   ))}
-    // </Row>
-    <h1>update dater</h1>
+    <div className="row grid-demo">
+      {introduce.map((e) => (
+        <div key={e.id}>
+          <IntroduceItem img={e.img} title={e.title} content={e.description} />
+        </div>
+      ))}
+    </div>
   );
 };
-
-
 
 export default IntroduceWrapper;
