@@ -1,4 +1,3 @@
-import React from 'react';
 import './Header.scss';
 import { Link, f7 } from 'framework7-react';
 import SearchDialog from '../SearchDialog/SearchDialog';
@@ -19,27 +18,35 @@ const Header = () => {
       {DATA_HEADER.map((e) => (
         <div
           onClick={() => {
-            f7.view.main.router.navigate(e.routerName);
+            f7.view.main.router.navigate(e.routerName!);
           }}
           className="color-theme-black title_text"
-          key={e.id}>
+          key={e.id}
+        >
           {e.name}
         </div>
       ))}
-      <span className="seperate">|</span>
+      <span className="separate">|</span>
 
       <div className="wrapper_fb">
         <Link href="https://www.youtube.com/" external target="_blank">
           <img src="fb.png" alt="" className="fb_Image " />
         </Link>
         <Link>
-          <img src="tiktok.png" alt="" className="fb_Image" />
+          <img src="tik_tok.png" alt="" className="fb_Image" />
         </Link>
         <Link>
-          <img src="search.png" alt="" className="fb_Image" onClick={handleCloseSearchDialog} />
+          <img
+            src="search.png"
+            alt=""
+            className="fb_Image"
+            onClick={handleCloseSearchDialog}
+          />
         </Link>
       </div>
-      {isShowSearchDialog && <SearchDialog handleCloseSearchDialog={handleCloseSearchDialog} />}
+      {isShowSearchDialog && (
+        <SearchDialog handleCloseSearchDialog={handleCloseSearchDialog} />
+      )}
     </div>
   );
 };
