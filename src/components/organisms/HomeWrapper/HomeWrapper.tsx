@@ -1,6 +1,4 @@
-import React from 'react';
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { DATA_SLIDE } from '@/constants/constant';
@@ -10,9 +8,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
-import './TrangChu.scss';
+import './HomeWrapper.scss';
 
-const TrangChu = () => {
+const HomeWrapper = () => {
   return (
     <Swiper
       // install Swiper modules
@@ -31,4 +29,4 @@ const TrangChu = () => {
     </Swiper>
   );
 };
-export default TrangChu;
+export default HomeWrapper;

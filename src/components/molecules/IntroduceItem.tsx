@@ -1,8 +1,13 @@
-import React from 'react';
 import './IntroduceItem.scss';
 import { Link } from 'framework7-react';
-import PropTypes from 'prop-types';
-const IntroduceItem = ({ img, title, content }) => {
+
+interface IntroduceItemProps {
+  img: string;
+  title: string;
+  content: string;
+}
+
+const IntroduceItem = ({ img, title, content }: IntroduceItemProps) => {
   return (
     <Link href="https://www.youtube.com/" external target="_blank">
       <div className="wrapper-introduce">
@@ -12,12 +17,6 @@ const IntroduceItem = ({ img, title, content }) => {
       </div>
     </Link>
   );
-};
-
-IntroduceItem.propTypes = {
-  img: PropTypes.string,
-  title: PropTypes.string,
-  content: PropTypes.string
 };
 
 export default IntroduceItem;
