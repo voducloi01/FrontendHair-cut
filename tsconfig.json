@@ -25,6 +25,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "auth-pages"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
