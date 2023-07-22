@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { f7 } from 'framework7-react';
 import './LoginWrapper.scss';
 import API from '@/services/axiosClient';
 import { ROUTE_PATH } from '@/constants/constant';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '@/store/UserSlice';
+import { updateUser } from '@/store/slices/UserSlice';
 
 const LoginWrapper = () => {
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
   const dispatch = useDispatch();
 
-  const handleChange = (e, type) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: String,
+  ) => {
     if (type === 'email') {
       setEmail(e.target.value);
     } else if (type === 'pass') setPassWord(e.target.value);
@@ -20,16 +23,22 @@ const LoginWrapper = () => {
     }
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const userData = {
-      email: email,
-      password: password
+      userName: email,
+      password: password,
     };
 
     try {
       const response = await API.apiLogin(userData);
-      dispatch(updateUser({ email: email, password: password, token: response.data.data?.token }));
+      dispatch(
+        updateUser({
+          userName: email,
+          password: password,
+          token: response.data.data?.token,
+        }),
+      );
       f7.views.main.router.navigate(ROUTE_PATH.product);
     } catch (error) {
       console.log(error);
@@ -46,7 +55,7 @@ const LoginWrapper = () => {
             type="text"
             name="current-user"
             autoComplete="current-user"
-            required=""
+            // required={true}
             onChange={(e) => handleChange(e, 'email')}
             placeholder="UserName"
           />

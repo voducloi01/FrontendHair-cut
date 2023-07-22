@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import './Register.scss';
+import './RegisterWrapper.scss';
 import { ENV } from '../../../constants/constant';
 
 const RegisterWrapper = () => {
@@ -8,7 +8,10 @@ const RegisterWrapper = () => {
   const [password, setPassWord] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleChange = (e, type) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string,
+  ) => {
     if (type === 'Name') {
       setUserName(e.target.value);
     } else if (type === 'Email') {
@@ -18,12 +21,12 @@ const RegisterWrapper = () => {
     }
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const userData = {
       name: userName,
       email: email,
-      password: password
+      password: password,
     };
 
     try {
@@ -46,20 +49,20 @@ const RegisterWrapper = () => {
       id: 1,
       type: 'text',
       title: 'Name',
-      placeholder: 'Nhập Name của bạn'
+      placeholder: 'Nhập Name của bạn',
     },
     {
       id: 2,
       type: 'text',
       title: 'Email',
-      placeholder: 'Nhập email của bạn'
+      placeholder: 'Nhập email của bạn',
     },
     {
       id: 3,
       type: 'password',
       title: 'Password',
-      placeholder: 'Nhập password của bạn'
-    }
+      placeholder: 'Nhập password của bạn',
+    },
   ];
 
   return (
