@@ -1,4 +1,3 @@
-import React from 'react';
 import { Page } from 'framework7-react';
 import Header from '@/components/atoms/Header/Header';
 import IntroduceWrapper from '@/components/organisms/IntroduceWrapper/IntroduceWrapper';
@@ -10,7 +9,7 @@ const Introduce = () => {
     <Page id="introduce" name="introduce">
       <Header />
       <TitleIntroduce />
-      <IntroduceWrapper define_introduce={DATA_INTRODUCE} />
+      <IntroduceWrapper introduce={DATA_INTRODUCE} />
     </Page>
   );
 };

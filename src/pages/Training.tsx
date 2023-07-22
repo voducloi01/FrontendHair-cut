@@ -1,14 +1,13 @@
-import React from 'react';
-import TrainingWrapper from '@/components/organisms/Training/TrainingWrapper';
+import TrainingWrapper from '@/components/organisms/TrainingWrapper/TrainingWrapper';
 import Header from '@/components/atoms/Header/Header';
-import { DATA_HEADER } from '@/constants/constant';
 import { Page } from 'framework7-react';
+import { DATA_INFORMATION } from '@/constants/constant';
 
 const Training = () => {
   return (
-    <Page id="home" name="home">
-      <Header title={DATA_HEADER} />
-      <TrainingWrapper />
+    <Page id="training" name="training">
+      <Header />
+      <TrainingWrapper dataTraining={DATA_INFORMATION} />
     </Page>
   );
 };

@@ -1,6 +1,6 @@
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { DATA_SLIDE } from '@/constants/constant';
+import { DataSlideType } from '@/constants/constant';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -8,7 +8,11 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import './HomeWrapper.scss';
 
-const HomeWrapper = () => {
+interface HomeWrapperProps {
+  slideData: DataSlideType[];
+}
+
+const HomeWrapper = ({ slideData }: HomeWrapperProps) => {
   return (
     <Swiper
       // install Swiper modules
@@ -20,7 +24,7 @@ const HomeWrapper = () => {
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
     >
-      {DATA_SLIDE.map((e) => (
+      {slideData.map((e) => (
         <SwiperSlide key={e.id}>
           <img className="slide_img" src={e.img} />
         </SwiperSlide>

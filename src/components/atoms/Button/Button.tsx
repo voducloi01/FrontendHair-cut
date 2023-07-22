@@ -1,16 +1,17 @@
-import { Button as F7Button } from 'framework7-react';
 import './Button.scss';
 
 interface ButtonProps {
   classes: string;
+  children: React.ReactNode;
+  onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {
   return (
-    <F7Button
+    <button
       className={['config-button', props.classes].join(' ')}
       {...props}
-    ></F7Button>
+    ></button>
   );
 };
 

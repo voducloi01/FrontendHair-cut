@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import '@/css/index.scss';
 
 // Import Framework7
-import Framework7 from 'framework7/types';
+import Framework7 from 'framework7/lite';
 
 // Import Framework7-React Plugin
 import Framework7React from 'framework7-react';
