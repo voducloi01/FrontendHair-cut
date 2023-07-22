@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './RegisterWrapper.scss';
-import { ENV } from '../../../constants/constant';
+import { ENV } from '@/constants/constant';
 
 const RegisterWrapper = () => {
   const [userName, setUserName] = useState('');

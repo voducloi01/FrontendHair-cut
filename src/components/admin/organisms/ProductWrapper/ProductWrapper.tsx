@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navbar, Page, BlockTitle } from 'framework7-react';
 
 const ProductWrapper = () => (

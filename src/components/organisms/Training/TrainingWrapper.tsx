@@ -1,5 +1,5 @@
 import { Icon } from 'framework7-react';
-import './Training.scss';
+import './TrainingWrapper.scss';
 import { DATA_INFORMATION } from '@/constants/constant';
 const TrainingWrapper = () => {
   return (
