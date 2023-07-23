@@ -11,11 +11,13 @@ interface LoginWrapperProps {
     type: 'email' | 'password',
   ) => void;
   onClick: (e: { preventDefault: () => void }) => void;
+  onClickRegister: () => void;
 }
 
 const LoginWrapper = ({
   onChange,
   onClick,
+  onClickRegister,
   password,
   email,
 }: LoginWrapperProps) => {
@@ -66,6 +68,12 @@ const LoginWrapper = ({
             </div>
           </div>
           <Button classes="login-box__form__container__button">Login</Button>
+          <div
+            className="login-box__form__container__register"
+            onClick={onClickRegister}
+          >
+            Register click hear ?
+          </div>
         </form>
       </div>
     </div>

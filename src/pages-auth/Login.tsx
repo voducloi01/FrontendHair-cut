@@ -5,9 +5,11 @@ import API from '@/services/axiosClient';
 import { ROUTE_PATH } from '@/constants/constant';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '@/store/slices/UserSlice';
+import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isShowRegister, setShowRegister] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   // handleChange value
@@ -47,6 +49,12 @@ const Login = () => {
     }
   };
 
+  const handleOpenRegister = () => {
+    console.log('abc');
+
+    setShowRegister(true);
+  };
+
   return (
     <Page id="login" name="login-auth">
       <LoginWrapper
@@ -54,7 +62,11 @@ const Login = () => {
         password={formData.password}
         onChange={handleChangeValue}
         onClick={handleLoginForm}
+        onClickRegister={handleOpenRegister}
       />
+      {isShowRegister && (
+        <DialogRegister onClose={() => setShowRegister(false)} />
+      )}
     </Page>
   );
 };
