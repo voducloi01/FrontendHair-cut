@@ -8,7 +8,6 @@ import { updateUser } from '@/store/slices/UserSlice';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  //const [password, setPassWord] = useState('');
   const dispatch = useDispatch();
 
   // handleChange value
@@ -26,7 +25,7 @@ const Login = () => {
     e.preventDefault();
 
     const userData = {
-      userName: formData.email,
+      email: formData.email,
       password: formData.password,
     };
 
@@ -35,7 +34,7 @@ const Login = () => {
       const response = await API.apiLogin(userData);
       dispatch(
         updateUser({
-          userName: formData.email,
+          email: formData.email,
           password: formData.password,
           token: response.data.data?.token,
         }),

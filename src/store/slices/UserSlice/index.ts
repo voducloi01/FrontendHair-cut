@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import reducers from '@/store/slices/UserSlice/reducer';
 
 export interface UserType {
-  userName: string;
+  email: string;
   password: string;
   token: string;
 }
 
 const initState = {
-  userName: '',
+  email: '',
   password: '',
   token: '',
 };

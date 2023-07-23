@@ -6,7 +6,7 @@ const updateUser: CaseReducer<UserType, PayloadAction<UserType>> = (
   action,
 ) => ({
   ...state,
-  userName: action.payload.userName,
+  email: action.payload.email,
   password: action.payload.password,
   token: action.payload.password,
 });
