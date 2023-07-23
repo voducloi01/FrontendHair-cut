@@ -8,6 +8,7 @@ export const ROUTE_PATH = {
   register: '/register',
   training: '/training',
   product: '/admin/product',
+  admin: '/admin',
 };
 
 // Data header

@@ -7,7 +7,7 @@ import '@/css/index.scss';
 
 // Import Framework7
 import Framework7 from 'framework7/lite';
-
+import Preloader from 'framework7/components/preloader';
 // Import Framework7-React Plugin
 import Framework7React from 'framework7-react';
 
@@ -25,7 +25,7 @@ import MyApp from '@/components/app';
 // import "../i18n/i18n";
 
 // Init F7 React Plugin
-Framework7.use(Framework7React);
+Framework7.use([Framework7React, Preloader]);
 
 // Mount React App
 const root = createRoot(document.getElementById('root')!);

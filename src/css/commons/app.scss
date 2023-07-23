@@ -1,8 +1,23 @@
-:root{
+:root {
   --f7-font-family: 'notoSans' !important;
 }
 
-html,body{
- font-family: var(--f7-font-family) !important;
+html,
+body {
+  font-family: var(--f7-font-family) !important;
 }
 
+.preloader-modal {
+  opacity: 0.8;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .preloader {
+    width: 100px;
+    height: 100px;
+    color: red !important;
+  }
+}
