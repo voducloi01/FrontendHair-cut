@@ -1,27 +1,70 @@
-.login-box{
+.login-box {
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
   display: flex;
+  height: 100%;
   align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;  
-  .user-box{
-    display: flex;
-    flex-direction: column;
-  }
-}
-input[type=text] , input[type=password] {
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+  background-image: url('@/background_barber.png');
+  background-size: cover;
+  background-position: center;
 
-.custom_button{
-    width: 100px;
-    height: 30px;
-    &:hover{
-      background-color: aquamarine;
+  &__form {
+    width: 450px;
+    opacity: 0.6;
+    background: #faefa0;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgb(64, 63, 63);
+    transition: 1s;
+
+    &__title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 30px;
+      margin: 20px 0 20px 0;
     }
+
+    &__container {
+      padding: 0 50px 50px 50px;
+
+      &__input {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &__user {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+
+          &__icon {
+            top: 38px;
+            right: 10px;
+            position: absolute;
+          }
+        }
+      }
+
+      &__button {
+        background: rgb(249, 206, 74);
+        opacity: 0.4;
+        cursor: pointer;
+        border-radius: 6px;
+        border: none;
+        padding: 10px 0 10px 0;
+        margin-top: 20px;
+        transition: 1s;
+
+        &:hover {
+          transition: 1s;
+          opacity: 1;
+        }
+      }
+    }
+
+    &:hover {
+      transition: 1s;
+      opacity: 1;
+    }
+  }
 }

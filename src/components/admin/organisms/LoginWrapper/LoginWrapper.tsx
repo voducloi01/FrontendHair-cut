@@ -1,79 +1,73 @@
 import { useState } from 'react';
-import { f7 } from 'framework7-react';
+import Button from '@/components/atoms/Button/Button';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import './LoginWrapper.scss';
-import API from '@/services/axiosClient';
-import { ROUTE_PATH } from '@/constants/constant';
-import { useDispatch } from 'react-redux';
-import { updateUser } from '@/store/slices/UserSlice';
 
-const LoginWrapper = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassWord] = useState('');
-  const dispatch = useDispatch();
-
-  const handleChange = (
+interface LoginWrapperProps {
+  password: string;
+  email: string;
+  onChange: (
     e: React.ChangeEvent<HTMLInputElement>,
-    type: String,
-  ) => {
-    if (type === 'email') {
-      setEmail(e.target.value);
-    } else if (type === 'pass') setPassWord(e.target.value);
-    else {
-      return null;
-    }
-  };
+    type: 'email' | 'password',
+  ) => void;
+  onClick: (e: { preventDefault: () => void }) => void;
+}
 
-  const handleLogin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const userData = {
-      userName: email,
-      password: password,
-    };
+const LoginWrapper = ({
+  onChange,
+  onClick,
+  password,
+  email,
+}: LoginWrapperProps) => {
+  const [isShowIcon, setIsShowIcon] = useState<boolean>(false);
 
-    try {
-      const response = await API.apiLogin(userData);
-      dispatch(
-        updateUser({
-          userName: email,
-          password: password,
-          token: response.data.data?.token,
-        }),
-      );
-      f7.views.main.router.navigate(ROUTE_PATH.product);
-    } catch (error) {
-      console.log(error);
-    }
+  // handle Show passWord
+  const toggleShowPassWord = () => {
+    setIsShowIcon(!isShowIcon);
   };
 
   return (
     <div className="login-box">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div className="user-box">
-          <label>Username</label>
-          <input
-            type="text"
-            name="current-user"
-            autoComplete="current-user"
-            // required={true}
-            onChange={(e) => handleChange(e, 'email')}
-            placeholder="UserName"
-          />
-        </div>
-        <div className="user-box">
-          <label>Password</label>
-          <input
-            type="password"
-            name="current-password"
-            autoComplete="current-password"
-            onChange={(e) => handleChange(e, 'pass')}
-            placeholder="PassWord"
-          />
-        </div>
-        <button className="custom_button" type="submit">
-          Đăng Nhập
-        </button>
-      </form>
+      <div className="login-box__form">
+        <div className="login-box__form__title">Login Admin</div>
+        <form onSubmit={onClick} className="login-box__form__container">
+          <div className="login-box__form__container__input">
+            <div className="login-box__form__container__input__user">
+              <label>Username</label>
+              <input
+                type="text"
+                name="current-user"
+                autoComplete="current-user"
+                value={email}
+                onChange={(e) => onChange(e, 'email')}
+                placeholder="UserName"
+              />
+            </div>
+            <div className="login-box__form__container__input__user">
+              <label>Password</label>
+              <input
+                type={isShowIcon ? 'text' : 'password'}
+                value={password}
+                name="current-password"
+                autoComplete="current-password"
+                onChange={(e) => onChange(e, 'password')}
+                placeholder="PassWord"
+              />
+              <div
+                className="login-box__form__container__input__user__icon"
+                onClick={toggleShowPassWord}
+              >
+                {!isShowIcon ? (
+                  <AiOutlineEye size={25} />
+                ) : (
+                  <AiOutlineEyeInvisible size={25} />
+                )}
+              </div>
+            </div>
+          </div>
+          <Button classes="login-box__form__container__button">Login</Button>
+        </form>
+      </div>
     </div>
   );
 };

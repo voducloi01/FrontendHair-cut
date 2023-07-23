@@ -14,8 +14,11 @@ class AxiosClient {
   private axios: AxiosInstance;
   private config = {
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers':
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+      'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
     },
   };
 
@@ -23,12 +26,15 @@ class AxiosClient {
     this.axios = axios.create({
       baseURL: BASE_URL,
       timeout: AXIOS_TIMEOUT,
-      headers: this.config.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
     });
   }
 
   apiLogin(params: object) {
-    return this.axios.post('/users/login', params);
+    return this.axios.post('/users/login', params, this.config);
   }
 
   apiRegister(params: object) {
