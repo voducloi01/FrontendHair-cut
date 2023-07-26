@@ -8,36 +8,51 @@ import { updateUser } from '@/store/slices/UserSlice';
 import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formLogin, setFormLogin] = useState<{
+    email: string;
+    password: string;
+  }>({ email: '', password: '' });
+  const [formRegister, setFormRegister] = useState<{
+    name: string;
+    email: string;
+    password: string;
+  }>({ name: '', email: '', password: '' });
   const [isShowRegister, setShowRegister] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  // handleChange value
+  // handleChange value login
   const handleChangeValue = (
     e: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
   ) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    setFormLogin((prevFormLogin) => ({
+      ...prevFormLogin,
       [fieldName]: e.target.value,
     }));
   };
 
+  // handleChange value register
+  const onChangeRegister = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldName: string,
+  ) => {
+    setFormRegister((prevFormRegister) => ({
+      ...prevFormRegister,
+      [fieldName]: e.target.value,
+    }));
+  };
+
+  //handle login form
   const handleLoginForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const userData = {
-      email: formData.email,
-      password: formData.password,
-    };
-
     try {
       f7.preloader.show();
-      const response = await API.apiLogin(userData);
+      const response = await API.apiLogin(formLogin);
       dispatch(
         updateUser({
-          email: formData.email,
-          password: formData.password,
+          email: formLogin.email,
+          password: formLogin.password,
           token: response.data.data?.token,
         }),
       );
@@ -49,23 +64,41 @@ const Login = () => {
     }
   };
 
-  const handleOpenRegister = () => {
-    console.log('abc');
+  // handle register form
+  const handleRegisterForm = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
+    try {
+      f7.preloader.show();
+      await API.apiRegister(formRegister);
+      setShowRegister(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      f7.preloader.hide();
+    }
+  };
+
+  // Open form register
+  const handleOpenRegister = () => {
     setShowRegister(true);
   };
 
   return (
     <Page id="login" name="login-auth">
       <LoginWrapper
-        email={formData.email}
-        password={formData.password}
+        email={formLogin.email}
+        password={formLogin.password}
         onChange={handleChangeValue}
         onClick={handleLoginForm}
         onClickRegister={handleOpenRegister}
       />
       {isShowRegister && (
-        <DialogRegister onClose={() => setShowRegister(false)} />
+        <DialogRegister
+          onRegister={handleRegisterForm}
+          onClose={() => setShowRegister(false)}
+          onChangeRegister={onChangeRegister}
+        />
       )}
     </Page>
   );

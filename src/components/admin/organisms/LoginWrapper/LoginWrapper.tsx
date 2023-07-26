@@ -37,7 +37,8 @@ const LoginWrapper = ({
             <div className="login-box__form__container__input__user">
               <label>Username</label>
               <input
-                type="text"
+                required={true}
+                type="email"
                 name="current-user"
                 autoComplete="current-user"
                 value={email}
@@ -48,6 +49,7 @@ const LoginWrapper = ({
             <div className="login-box__form__container__input__user">
               <label>Password</label>
               <input
+                required={true}
                 type={isShowIcon ? 'text' : 'password'}
                 value={password}
                 name="current-password"

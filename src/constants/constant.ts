@@ -227,6 +227,33 @@ export const DATA_INFORMATION: DataTrainingType[] = [
   { id: 8, icon: 'icon-next', title: 'Kỹ năng giao tiếp khách hàng' },
 ];
 
-export const ENV = {
-  host: 'http://localhost:3000',
+// Data input register
+type DataInputRegisterType = {
+  id: number;
+  name: String;
+  type: 'text' | 'email' | 'password';
+  value: 'name' | 'email' | 'password';
+  required: boolean;
+  onChangeRegister?: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    value: 'name' | 'email' | 'password',
+  ) => void;
 };
+
+export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
+  {
+    id: 1,
+    name: 'Name',
+    type: 'text',
+    required: true,
+    value: 'name',
+  },
+  { id: 2, name: 'Email', type: 'email', required: true, value: 'email' },
+  {
+    id: 3,
+    name: 'Password',
+    type: 'password',
+    required: true,
+    value: 'password',
+  },
+];
