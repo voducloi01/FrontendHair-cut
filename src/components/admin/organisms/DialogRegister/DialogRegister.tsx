@@ -1,12 +1,22 @@
 import Button from '@/components/atoms/Button/Button';
 import { AiOutlineClose } from 'react-icons/ai';
 import './DialogRegister.scss';
+import { DATA_INPUT_REGISTER } from '@/constants/constant';
 
 interface DialogRegisterProps {
   onClose: () => void;
+  onRegister: (e: { preventDefault: () => void }) => void;
+  onChangeRegister: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    value: 'name' | 'email' | 'password',
+  ) => void;
 }
 
-const DialogRegister = ({ onClose }: DialogRegisterProps) => {
+const DialogRegister = ({
+  onClose,
+  onRegister,
+  onChangeRegister,
+}: DialogRegisterProps) => {
   return (
     <div className="dialog-register">
       <div className="dialog-register__container">
@@ -21,19 +31,20 @@ const DialogRegister = ({ onClose }: DialogRegisterProps) => {
             <AiOutlineClose size={25} />
           </div>
         </div>
-        <form className="dialog-register__container__form">
-          <div className="dialog-register__container__form__user">
-            <label>Name</label>
-            <input type="text" />
-          </div>
-          <div className="dialog-register__container__form__user">
-            <label>Email</label>
-            <input type="text" />
-          </div>
-          <div className="dialog-register__container__form__user">
-            <label>Password</label>
-            <input type="password" />
-          </div>
+        <form
+          onSubmit={onRegister}
+          className="dialog-register__container__form"
+        >
+          {DATA_INPUT_REGISTER.map((e) => (
+            <div className="dialog-register__container__form__user" key={e.id}>
+              <label>{e.name}</label>
+              <input
+                type={e.type}
+                required={e.required}
+                onChange={(event) => onChangeRegister(event, e.value)}
+              />
+            </div>
+          ))}
           <div className="dialog-register__container__form__button">
             <Button classes="dialog-register__container__form__button__item">
               Register
