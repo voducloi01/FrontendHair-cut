@@ -1,11 +1,12 @@
 import { Page, f7 } from 'framework7-react';
 import LoginWrapper from '@/components/admin/organisms/LoginWrapper/LoginWrapper';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import API from '@/services/axiosClient';
 import { ROUTE_PATH } from '@/constants/constant';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '@/store/slices/UserSlice';
 import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
+import { AlertDialogContext } from '@/context/AlertDialogContext';
 
 const Login = () => {
   const [formLogin, setFormLogin] = useState<{
@@ -19,6 +20,7 @@ const Login = () => {
   }>({ name: '', email: '', password: '' });
   const [isShowRegister, setShowRegister] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const alertDialog = useContext(AlertDialogContext);
 
   // handleChange value login
   const handleChangeValue = (
@@ -45,7 +47,6 @@ const Login = () => {
   //handle login form
   const handleLoginForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     try {
       f7.preloader.show();
       const response = await API.apiLogin(formLogin);
@@ -57,8 +58,8 @@ const Login = () => {
         }),
       );
       f7.views.main.router.navigate(ROUTE_PATH.product);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      alertDialog.show(error.response.data.message);
     } finally {
       f7.preloader.hide();
     }
@@ -67,13 +68,12 @@ const Login = () => {
   // handle register form
   const handleRegisterForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     try {
       f7.preloader.show();
       await API.apiRegister(formRegister);
       setShowRegister(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      alertDialog.show(error.response.data.message);
     } finally {
       f7.preloader.hide();
     }
