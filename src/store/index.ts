@@ -9,21 +9,30 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+//import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage';
 import counterReducer, { CounterType } from './slices/CounterSlice';
+import userReducer, { UserType } from './slices/UserSlice';
 
 /* Defining the shape of the state. */
 export interface RootStatesType {
   counter: CounterType;
+  user: UserType;
 }
 
 /* Combining all the reducers into one reducer. */
 const reducers = combineReducers({
-  counter: counterReducer, //example
+  counter: counterReducer,
+  user: userReducer,
 });
 
 /* The key for the redux-persist. */
 const ROOT_KEY = 'root';
+
+/** encryptor data app */
+// const encryptor = encryptTransform({
+//   secretKey: ROOT_KEY,
+// });
 
 /** The configuration for redux-persist.
  * Add slice name wanna be storage in whitelist
@@ -32,7 +41,8 @@ const persistConfig = {
   key: ROOT_KEY,
   version: 1,
   storage,
-  whitelist: ['patientInfo', 'medicine', 'medicationInfoState'],
+  whitelist: ['user'],
+  // transforms: [encryptor],
 };
 
 /* A function that takes two arguments:

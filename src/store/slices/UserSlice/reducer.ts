@@ -8,7 +8,7 @@ const updateUser: CaseReducer<UserType, PayloadAction<UserType>> = (
   ...state,
   email: action.payload.email,
   password: action.payload.password,
-  token: action.payload.password,
+  token: action.payload.token,
 });
 
 export default {
