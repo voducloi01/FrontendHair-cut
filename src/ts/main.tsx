@@ -13,17 +13,13 @@ import Framework7React from 'framework7-react';
 // Import Framework7 Styles
 import 'framework7/css/bundle';
 
-// // Import Icons and App Custom Styles
-// import "../css/commons/icons.css";
-// import "../css/index.scss";
-
 // Import App Component
 import MyApp from '@/components/app';
 import { AlertDialogProvider } from '@/context/AlertDialogContext';
 import AlertDialog from '@/components/atoms/AlertDialog/AlertDialog';
 
 // // Import I18n
-// import "../i18n/i18n";
+import '@/i18n/i18n';
 
 // Init F7 React Plugin
 Framework7.use([Framework7React, Preloader]);
