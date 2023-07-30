@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
+import { useTranslation } from 'react-i18next';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import './LoginWrapper.scss';
 
@@ -21,6 +22,7 @@ const LoginWrapper = ({
   password,
   email,
 }: LoginWrapperProps) => {
+  const { t } = useTranslation();
   const [isShowIcon, setIsShowIcon] = useState<boolean>(false);
 
   // handle Show passWord
@@ -31,7 +33,7 @@ const LoginWrapper = ({
   return (
     <div className="login-box">
       <div className="login-box__form">
-        <div className="login-box__form__title">Login Admin</div>
+        <div className="login-box__form__title">{t('login.title')}</div>
         <form onSubmit={onClick} className="login-box__form__container">
           <div className="login-box__form__container__input">
             <div className="login-box__form__container__input__user">
