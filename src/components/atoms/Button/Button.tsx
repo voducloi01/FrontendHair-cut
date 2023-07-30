@@ -9,7 +9,7 @@ interface ButtonProps {
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className={['config-button', props.classes].join(' ')}
+      className={['config-button no-ripple', props.classes].join(' ')}
       {...props}
     ></button>
   );

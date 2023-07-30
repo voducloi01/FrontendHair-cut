@@ -11,20 +11,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 1s forwards;
-
-  &__hidden {
-    animation: fadeOut 1s forwards;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 0.9;
-    }
-  }
 
   &__container {
     width: auto;

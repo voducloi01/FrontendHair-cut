@@ -1,5 +1,4 @@
 // Import React and ReactDOM
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 //import scss
@@ -20,6 +19,8 @@ import 'framework7/css/bundle';
 
 // Import App Component
 import MyApp from '@/components/app';
+import { AlertDialogProvider } from '@/context/AlertDialogContext';
+import AlertDialog from '@/components/atoms/AlertDialog/AlertDialog';
 
 // // Import I18n
 // import "../i18n/i18n";
@@ -29,4 +30,9 @@ Framework7.use([Framework7React, Preloader]);
 
 // Mount React App
 const root = createRoot(document.getElementById('root')!);
-root.render(React.createElement(MyApp));
+root.render(
+  <AlertDialogProvider>
+    <MyApp />
+    <AlertDialog />
+  </AlertDialogProvider>,
+);
