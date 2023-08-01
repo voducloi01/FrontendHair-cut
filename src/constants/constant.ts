@@ -255,5 +255,22 @@ export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
     type: 'password',
     required: true,
     value: 'password',
+  }
+]
+export const DATA_DASHBOARD = [
+  {
+    id: 1,
+    text: ' Quản Lý Sản Phẩm',
+    router: '/admin/product',
+  },
+  {
+    id: 2,
+    text: 'Tất Cả Lịch Đặt',
+    router: '/admin',
+  },
+  {
+    id: 3,
+    text: 'Quản Lý User',
+    router: '/admin/product',
   },
 ];

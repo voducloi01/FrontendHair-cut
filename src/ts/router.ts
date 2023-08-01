@@ -7,6 +7,7 @@ import ListPrice from '@/pages/ListPrice';
 import Training from '@/pages/Training';
 import { Router } from 'framework7/types';
 import Admin from '@/pages-auth/Admin';
+import Product from '@/pages-auth/Product';
 
 const routes: Router.RouteParameters[] = [
   { path: ROUTE_PATH.index, component: HomePage },
@@ -15,6 +16,8 @@ const routes: Router.RouteParameters[] = [
   { path: ROUTE_PATH.login, component: Login },
   { path: ROUTE_PATH.admin, component: Admin },
   { path: ROUTE_PATH.training, component: Training },
+  { path: ROUTE_PATH.admin, component: Admin },
+  { path: ROUTE_PATH.product, component: Product },
   {
     path: '(.*)',
     component: NotFoundPage,
