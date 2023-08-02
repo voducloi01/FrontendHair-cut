@@ -1,15 +1,15 @@
 import { Page } from 'framework7-react';
-import ProductWrapper from '@/components/admin/organisms/ProductWrapper/ProductWrapper';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
+import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
 
-const Product = () => {
+const Users = () => {
   return (
-    <Page id="product" name="product-auth">
+    <Page id="users" name="users-auth">
       <DashboardWrapper>
-        <ProductWrapper />
+        <UsersWrapper />
       </DashboardWrapper>
     </Page>
   );
 };
 
-export default Product;
+export default Users;

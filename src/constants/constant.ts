@@ -1,3 +1,11 @@
+import {
+  AiFillSound,
+  AiTwotoneCalendar,
+  AiOutlineUsergroupAdd,
+  AiOutlineDashboard,
+} from 'react-icons/ai';
+import { IconType } from 'react-icons/lib';
+
 // Router
 export const ROUTE_PATH = {
   index: '/',
@@ -7,8 +15,10 @@ export const ROUTE_PATH = {
   login: '/admin/login',
   register: '/register',
   training: '/training',
+  dashboard: '/admin/dashboard',
   product: '/admin/product',
-  admin: '/admin',
+  schedule: '/admin/schedule',
+  user: '/admin/user',
 };
 
 // Data header
@@ -255,5 +265,39 @@ export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
     type: 'password',
     required: true,
     value: 'password',
+  },
+];
+
+interface DataDasBoardType {
+  id: number;
+  text: string;
+  router: string;
+  icon: IconType;
+}
+
+export const DATA_DASHBOARD: DataDasBoardType[] = [
+  {
+    id: 1,
+    text: 'DASH BOARD',
+    router: '/admin/dashboard',
+    icon: AiOutlineDashboard,
+  },
+  {
+    id: 2,
+    text: 'Manager Product',
+    router: '/admin/product',
+    icon: AiFillSound,
+  },
+  {
+    id: 3,
+    text: 'All Schedule',
+    router: '/admin/schedule',
+    icon: AiTwotoneCalendar,
+  },
+  {
+    id: 4,
+    text: 'Manager User',
+    router: '/admin/user',
+    icon: AiOutlineUsergroupAdd,
   },
 ];

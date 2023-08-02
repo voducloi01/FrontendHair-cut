@@ -1,15 +1,15 @@
 import { Page } from 'framework7-react';
-import ProductWrapper from '@/components/admin/organisms/ProductWrapper/ProductWrapper';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
+import SchduleWrapper from '@/components/admin/organisms/ScheduleWrapper/SchduleWrapper';
 
-const Product = () => {
+const Schedule = () => {
   return (
-    <Page id="product" name="product-auth">
+    <Page id="schedule" name="schedule-auth">
       <DashboardWrapper>
-        <ProductWrapper />
+        <SchduleWrapper/>
       </DashboardWrapper>
     </Page>
   );
 };
 
-export default Product;
+export default Schedule;
