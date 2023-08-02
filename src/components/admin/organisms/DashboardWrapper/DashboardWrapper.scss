@@ -1,24 +1,36 @@
 .admin-wrapper {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    height: 100%;
-    width: 270px;
-    background-color: #FF3396;
-    color: white;
-    &__title {
-      padding: 10px;
-      font-size: 30px;
-      text-align: center;
-    }
-    &__content {
-      &__item {
-          font-size: 15px;
-          padding: 15px;
-        &:hover {
-          cursor: pointer;
-          background-color: #8a918c;
-        }
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 100%;
+  width: 270px;
+  background-color: #ff3396;
+  color: white;
+
+  &__title {
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  &__content {
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 15px;
+      padding: 15px;
+      &__focus {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 15px;
+        padding: 15px;
+        background-color: #42ab60;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: #8a918c;
       }
     }
   }
-  
+}

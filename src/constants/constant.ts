@@ -1,3 +1,10 @@
+import {
+  AiFillSound,
+  AiTwotoneCalendar,
+  AiOutlineUsergroupAdd,
+} from 'react-icons/ai';
+import { IconType } from 'react-icons/lib';
+
 // Router
 export const ROUTE_PATH = {
   index: '/',
@@ -255,22 +262,33 @@ export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
     type: 'password',
     required: true,
     value: 'password',
-  }
-]
-export const DATA_DASHBOARD = [
+  },
+];
+
+interface DataDasBoardType {
+  id: number;
+  text: string;
+  router: string;
+  icon: IconType;
+}
+
+export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
     text: ' Quản Lý Sản Phẩm',
     router: '/admin/product',
+    icon: AiFillSound,
   },
   {
     id: 2,
     text: 'Tất Cả Lịch Đặt',
     router: '/admin',
+    icon: AiTwotoneCalendar,
   },
   {
     id: 3,
     text: 'Quản Lý User',
     router: '/admin/product',
+    icon: AiOutlineUsergroupAdd,
   },
 ];
