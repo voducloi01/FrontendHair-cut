@@ -2,6 +2,7 @@ import {
   AiFillSound,
   AiTwotoneCalendar,
   AiOutlineUsergroupAdd,
+  AiOutlineDashboard,
 } from 'react-icons/ai';
 import { IconType } from 'react-icons/lib';
 
@@ -14,8 +15,10 @@ export const ROUTE_PATH = {
   login: '/admin/login',
   register: '/register',
   training: '/training',
+  dashboard: '/admin/dashboard',
   product: '/admin/product',
-  admin: '/admin',
+  schedule: '/admin/schedule',
+  user: '/admin/user',
 };
 
 // Data header
@@ -275,20 +278,26 @@ interface DataDasBoardType {
 export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
-    text: ' Quản Lý Sản Phẩm',
+    text: 'DASH BOARD',
+    router: '/admin/dashboard',
+    icon: AiOutlineDashboard,
+  },
+  {
+    id: 2,
+    text: 'Manager Product',
     router: '/admin/product',
     icon: AiFillSound,
   },
   {
-    id: 2,
-    text: 'Tất Cả Lịch Đặt',
-    router: '/admin',
+    id: 3,
+    text: 'All Schedule',
+    router: '/admin/schedule',
     icon: AiTwotoneCalendar,
   },
   {
-    id: 3,
-    text: 'Quản Lý User',
-    router: '/admin/product',
+    id: 4,
+    text: 'Manager User',
+    router: '/admin/user',
     icon: AiOutlineUsergroupAdd,
   },
 ];

@@ -1,15 +1,14 @@
-import AdminWrapper from '@/components/admin/organisms/AdminWrapper/AdminWrapper';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import { Page } from 'framework7-react';
 
-const Admin = () => {
+const DashBoard = () => {
   return (
     <Page id="adminDasboad" name="adminDasboad">
       <DashboardWrapper>
-        <AdminWrapper />
+        <h1>Dash Board</h1>
       </DashboardWrapper>
     </Page>
   );
 };
 
-export default Admin;
+export default DashBoard;

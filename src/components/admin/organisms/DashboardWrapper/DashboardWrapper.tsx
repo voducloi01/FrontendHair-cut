@@ -1,23 +1,24 @@
-import { DATA_DASHBOARD } from '@/constants/constant';
+import { DATA_DASHBOARD, ROUTE_PATH } from '@/constants/constant';
 import { f7 } from 'framework7-react';
 import './DashboardWrapper.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface DashboardWrapperProps {
   children: React.ReactNode;
 }
 
 const DashboardWrapper = (props: DashboardWrapperProps) => {
-  const [indexItem, setIndexItem] = useState<number>(0);
+  const [router, setRouter] = useState<string>(ROUTE_PATH.dashboard);
 
-  const handleNavigate = (e: string, index: number) => {
-    console.log('index click : ', indexItem);
-    console.log('index active : ', index);
-    setIndexItem(index);
+  const handleNavigate = (e: string) => {
     f7.view.main.router.navigate(e, {
       animate: false,
     });
   };
+
+  useEffect(() => {
+    setRouter(f7.view.current.router.currentRoute.path);
+  });
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
@@ -25,22 +26,18 @@ const DashboardWrapper = (props: DashboardWrapperProps) => {
         <div className="admin-wrapper__title">Admin</div>
         <div className="admin-wrapper__content">
           <div className="admin-wrapper__content__item__text">
-            {DATA_DASHBOARD.map((e, index) => {
+            {DATA_DASHBOARD.map((e) => {
               return (
                 <div
                   key={e.id}
                   className={
-                    indexItem === index
+                    router === e.router
                       ? 'admin-wrapper__content__item__focus'
                       : 'admin-wrapper__content__item'
                   }
-                  onClick={() => handleNavigate(e.router, index)}
+                  onClick={() => handleNavigate(e.router)}
                 >
-                  <pre>
-                    {indexItem} va {index}
-                  </pre>
-
-                  <e.icon size={20} />
+                  <e.icon color="blue" size={20} />
                   {e.text}
                 </div>
               );
