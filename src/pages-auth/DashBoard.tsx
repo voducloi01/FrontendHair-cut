@@ -3,7 +3,7 @@ import { Page } from 'framework7-react';
 
 const DashBoard = () => {
   return (
-    <Page id="adminDasboad" name="adminDasboad">
+    <Page id="admin-dashboard" name="admin-dashboard">
       <DashboardWrapper>
         <h1>Dash Board</h1>
       </DashboardWrapper>

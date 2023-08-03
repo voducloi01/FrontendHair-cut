@@ -15,7 +15,7 @@ const MyApp = () => {
     <Provider store={store}>
       <App {...params}>
         <View
-          browserHistory={true}
+          browserHistoryAnimate={false}
           main
           browserHistorySeparator={''}
           className="hair-shop"
