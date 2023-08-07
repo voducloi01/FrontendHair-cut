@@ -4,5 +4,8 @@ export default {
       title: 'Login',
     },
     register: {},
+    product: {
+      title: 'Product',
+    },
   },
 };

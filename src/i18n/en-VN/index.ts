@@ -3,5 +3,8 @@ export default {
     login: {
       title: 'Đăng Nhập',
     },
+    product: {
+      title: 'Sản Phẩm',     
+    }
   },
 };

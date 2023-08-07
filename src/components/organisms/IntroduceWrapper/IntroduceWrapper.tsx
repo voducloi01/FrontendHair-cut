@@ -1,5 +1,5 @@
 import { DataIntroduceType } from '@/constants/constant';
-import IntroduceItem from '@/components/molecules/IntroduceItem';
+import IntroduceItem from '@/components/molecules/IntroduceItem/IntroduceItem';
 import './IntroduceWrapper.scss';
 
 interface IntroduceWrapper {

@@ -1,14 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
+import { store } from '../store/index';
 
 /** Setting timeout of axios */
 const AXIOS_TIMEOUT: number = 10000;
 
 /** API url */
 const BASE_URL: string = import.meta.env.VITE_API_URL;
-
-console.log('====================================');
-console.log(BASE_URL);
-console.log('====================================');
 
 class AxiosClient {
   private axios: AxiosInstance;
@@ -30,14 +27,31 @@ class AxiosClient {
         Accept: 'application/json',
       },
     });
+
+    this.axios.interceptors.request.use(
+      async (config) => {
+        const token = store.getState().user.token;
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
   }
 
   apiLogin(params: object) {
-    return this.axios.post('/users/login', params, this.config);
+    return this.axios.post('/users/login', params);
   }
 
   apiRegister(params: object) {
     return this.axios.post('/users/register', params);
+  }
+
+  apiGetProduct() {
+    return this.axios.get('/products', this.config);
   }
 }
 

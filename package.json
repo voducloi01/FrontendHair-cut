@@ -33,6 +33,7 @@
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "redux-persist-cookie-storage": "^1.0.0",
     "redux-persist-transform-encrypt": "^5.0.0",
     "sass": "^1.64.1",
     "swiper": "^10.0.4",
