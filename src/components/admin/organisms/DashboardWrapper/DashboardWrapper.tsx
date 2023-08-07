@@ -45,7 +45,7 @@ const DashboardWrapper = (props: DashboardWrapperProps) => {
           </div>
         </div>
       </div>
-      <div {...props}></div>
+      <div {...props} style={{ width: '100%' }}></div>
     </div>
   );
 };
