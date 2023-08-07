@@ -5,6 +5,9 @@ export default {
     },
     product: {
       title: 'Sản Phẩm',     
+    },
+    dashboard: {
+      logout: 'Đăng xuất'
     }
   },
 };

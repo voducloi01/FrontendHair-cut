@@ -6,6 +6,39 @@
   background-color: #ff3396;
   color: white;
 
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ff3396;
+      height: 60px;
+      border-left: 2px solid white;
+      color: white;
+      &__user {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        padding-left: 15px;
+        &__custom {
+          margin-right: 10px;
+        }
+      }
+      &__logout {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        padding-right: 15px;
+        &__custom {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
   &__title {
     padding: 10px;
     font-size: 30px;

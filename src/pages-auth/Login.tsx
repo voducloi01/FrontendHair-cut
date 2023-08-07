@@ -50,11 +50,12 @@ const Login = () => {
     try {
       f7.preloader.show();
       const response = await API.apiLogin(formLogin);
+      const { token, user } = response.data.data;
       dispatch(
         updateUser({
           email: formLogin.email,
-          password: formLogin.password,
-          token: response.data.data?.token,
+          name: user?.name,
+          token: token,
         }),
       );
       f7.views.main.router.navigate(ROUTE_PATH.product);
