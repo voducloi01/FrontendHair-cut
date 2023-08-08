@@ -7,5 +7,8 @@ export default {
     product: {
       title: 'Product',
     },
+    dashboard: {
+      logout: 'Đăng Xuất'
+    }
   },
 };

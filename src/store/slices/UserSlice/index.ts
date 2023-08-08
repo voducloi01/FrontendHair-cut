@@ -3,13 +3,13 @@ import reducers from '@/store/slices/UserSlice/reducer';
 
 export interface UserType {
   email: string;
-  password: string;
+  name: string;
   token: string;
 }
 
 const initState = {
   email: '',
-  password: '',
+  name: '',
   token: '',
 };
 
