@@ -58,7 +58,7 @@ const Login = () => {
           token: token,
         }),
       );
-      f7.views.main.router.navigate(ROUTE_PATH.product);
+      f7.views.main.router.navigate(ROUTE_PATH.dashboard);
     } catch (error: any) {
       alertDialog.show(error.response.data.message);
     } finally {

@@ -5,7 +5,7 @@ const DashBoard = () => {
   return (
     <Page id="adminDasboad" name="adminDasboad">
       <DashboardWrapper>
-        <h1>Dash Board</h1>
+        <img src="../Logo.png" style={{ height: '100%', width: '50%'}} />
       </DashboardWrapper>
     </Page>
   );
