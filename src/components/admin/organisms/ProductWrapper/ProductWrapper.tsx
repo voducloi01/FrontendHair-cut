@@ -1,7 +1,7 @@
 import TableComponent from '@/components/molecules/TableComponent/TableComponent';
-import { ColumnProduct, Product } from '@/Interface';
+import { ColumnProduct, DataProductType } from '@/type';
 
-// coloum of product
+//TODO
 const columns: ColumnProduct[] = [
   { id: 'productName', label: 'Product Name' },
 
@@ -21,11 +21,12 @@ const columns: ColumnProduct[] = [
   },
 ];
 
-interface DataProp {
-  product: Product[];
+interface ProductWrapperProps {
+  product: DataProductType[];
 }
 
-const ProductWrapper = ({ product }: DataProp) => {
+//TODO
+const ProductWrapper = ({ product }: ProductWrapperProps) => {
   return (
     <div>
       <h1 className="text_title">Manager Product</h1>

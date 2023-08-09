@@ -2,10 +2,10 @@ import ProductWrapper from '@/components/admin/organisms/ProductWrapper/ProductW
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import { useEffect, useState } from 'react';
 import API from '@/services/axiosClient';
-import { Product } from '@/Interface';
+import { DataProductType } from '@/type';
 
 const Product = () => {
-  const [product, setProduct] = useState<Product[]>([]);
+  const [product, setProduct] = useState<DataProductType[]>([]);
 
   useEffect(() => {
     getProduct();
