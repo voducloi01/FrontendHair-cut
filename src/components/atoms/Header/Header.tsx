@@ -1,8 +1,8 @@
-import './Header.scss';
-import { Link, f7 } from 'framework7-react';
 import SearchDialog from '../SearchDialog/SearchDialog';
 import { useState } from 'react';
 import { DATA_HEADER } from '@/constants/constant';
+import './Header.scss';
+
 const Header = () => {
   const [isShowSearchDialog, setIsShowSearchDialog] = useState(false);
 
@@ -12,13 +12,13 @@ const Header = () => {
 
   return (
     <div className="wrapper_header">
-      <Link>
+      <a>
         <img src="Logo.png" alt="" className="item_logo" />
-      </Link>
+      </a>
       {DATA_HEADER.map((e) => (
         <div
           onClick={() => {
-            f7.view.main.router.navigate(e.routerName!);
+            // f7.view.main.router.navigate(e.routerName!);
           }}
           className="color-theme-black title_text"
           key={e.id}
@@ -29,20 +29,20 @@ const Header = () => {
       <span className="separate">|</span>
 
       <div className="wrapper_fb">
-        <Link href="https://www.youtube.com/" external target="_blank">
+        <a href="https://www.youtube.com/" target="_blank">
           <img src="fb.png" alt="" className="fb_Image " />
-        </Link>
-        <Link>
+        </a>
+        <a>
           <img src="tik_tok.png" alt="" className="fb_Image" />
-        </Link>
-        <Link>
+        </a>
+        <a>
           <img
             src="search.png"
             alt=""
             className="fb_Image"
             onClick={handleCloseSearchDialog}
           />
-        </Link>
+        </a>
       </div>
       {isShowSearchDialog && (
         <SearchDialog handleCloseSearchDialog={handleCloseSearchDialog} />

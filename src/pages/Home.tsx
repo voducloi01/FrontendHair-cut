@@ -1,14 +1,13 @@
-import { Page } from 'framework7-react';
 import Header from '@/components/atoms/Header/Header';
 import HomeWrapper from '@/components/organisms/HomeWrapper/HomeWrapper';
 import { DATA_SLIDE } from '@/constants/constant';
 
 const HomePage = () => {
   return (
-    <Page id="home" name="home">
+    <div id="home">
       <Header />
       <HomeWrapper slideData={DATA_SLIDE} />
-    </Page>
+    </div>
   );
 };
 

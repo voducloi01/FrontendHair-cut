@@ -1,4 +1,3 @@
-import { Page } from 'framework7-react';
 import ProductWrapper from '@/components/admin/organisms/ProductWrapper/ProductWrapper';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import { useEffect, useState } from 'react';
@@ -23,11 +22,11 @@ const Product = () => {
       });
   };
   return (
-    <Page id="product" name="product-auth">
+    <div id="product">
       <DashboardWrapper>
         <ProductWrapper product={product} />
       </DashboardWrapper>
-    </Page>
+    </div>
   );
 };
 

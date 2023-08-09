@@ -1,5 +1,4 @@
 import { DATA_DASHBOARD, ROUTE_PATH } from '@/constants/constant';
-import { f7 } from 'framework7-react';
 import './DashboardWrapper.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,16 +17,17 @@ const DashboardWrapper = (props: DashboardWrapperProps) => {
 
   const dispatch = useDispatch();
 
+  //TODO
   const [router, setRouter] = useState<string>(ROUTE_PATH.dashboard);
 
   const handleNavigate = (e: string) => {
-    f7.view.main.router.navigate(e, {
-      animate: false,
-    });
+    // f7.view.main.router.navigate(e, {
+    //   animate: false,
+    // });
   };
 
   useEffect(() => {
-    setRouter(f7.view.current.router.currentRoute.path);
+    //setRouter(f7.view.current.router.currentRoute.path);
   }, []);
 
   const { t } = useTranslation();
@@ -40,7 +40,7 @@ const DashboardWrapper = (props: DashboardWrapperProps) => {
         token: '',
       }),
     );
-    f7.views.main.router.navigate(ROUTE_PATH.login);
+    // f7.views.main.router.navigate(ROUTE_PATH.login);
   };
 
   return (

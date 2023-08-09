@@ -1,6 +1,5 @@
-import { Icon } from 'framework7-react';
-import './TrainingWrapper.scss';
 import { DataTrainingType } from '@/constants/constant';
+import './TrainingWrapper.scss';
 
 interface TrainingWrapperProps {
   dataTraining: DataTrainingType[];
@@ -14,7 +13,7 @@ const TrainingWrapper = ({ dataTraining }: TrainingWrapperProps) => {
         <div className="wrapper">
           {dataTraining.map((e) => (
             <div className="item" key={e.id}>
-              <Icon icon={e.icon}></Icon>
+              <img alt={e.icon}></img>
               <p className="itemTitle">{e.title}</p>
             </div>
           ))}
