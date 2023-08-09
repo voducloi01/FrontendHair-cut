@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import LoginWrapper from '@/components/admin/organisms/LoginWrapper/LoginWrapper';
 import { useState, useContext } from 'react';
 import API from '@/services/axiosClient';
@@ -80,7 +81,7 @@ const Login = () => {
   };
 
   return (
-    <div id="login">
+    <Container id="login">
       <LoginWrapper
         email={formLogin.email}
         password={formLogin.password}
@@ -95,7 +96,7 @@ const Login = () => {
           onChangeRegister={onChangeRegister}
         />
       )}
-    </div>
+    </Container>
   );
 };
 
