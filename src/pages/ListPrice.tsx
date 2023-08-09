@@ -1,12 +1,13 @@
+import { Container } from '@mui/material';
 import Header from '@/components/atoms/Header/Header';
 import ListPriceWrapper from '@/components/organisms/ListPriceWrapper/ListPriceWrapper';
 
 const ListPrice = () => {
   return (
-    <div id="price">
+    <Container id="price">
       <Header />
       <ListPriceWrapper />
-    </div>
+    </Container>
   );
 };
 

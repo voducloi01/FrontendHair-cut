@@ -3,6 +3,7 @@ import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/Dash
 import { useEffect, useState } from 'react';
 import API from '@/services/axiosClient';
 import { DataProductType } from '@/type';
+import { Container } from '@mui/material';
 
 const Product = () => {
   const [product, setProduct] = useState<DataProductType[]>([]);
@@ -22,11 +23,11 @@ const Product = () => {
       });
   };
   return (
-    <div id="product">
+    <Container id="product">
       <DashboardWrapper>
         <ProductWrapper product={product} />
       </DashboardWrapper>
-    </div>
+    </Container>
   );
 };
 

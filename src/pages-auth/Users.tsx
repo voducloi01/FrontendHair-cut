@@ -1,13 +1,14 @@
+import { Container } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
 
 const Users = () => {
   return (
-    <div id="users">
+    <Container id="users">
       <DashboardWrapper>
         <UsersWrapper />
       </DashboardWrapper>
-    </div>
+    </Container>
   );
 };
 
