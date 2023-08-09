@@ -5,26 +5,30 @@ import HomePage from '@/pages/Home';
 import Introduce from '@/pages/Introduce';
 import ListPrice from '@/pages/ListPrice';
 import Training from '@/pages/Training';
-import { Router } from 'framework7/types';
 import Product from '@/pages-auth/Product';
 import Schedule from '@/pages-auth/Schedule';
 import Users from '@/pages-auth/Users';
 import DashBoard from '@/pages-auth/DashBoard';
 
-const routes: Router.RouteParameters[] = [
-  { path: ROUTE_PATH.index, component: HomePage },
-  { path: ROUTE_PATH.introduce, component: Introduce },
-  { path: ROUTE_PATH.listprice, component: ListPrice },
-  { path: ROUTE_PATH.login, component: Login },
-  { path: ROUTE_PATH.training, component: Training },
-  { path: ROUTE_PATH.dashboard, component: DashBoard },
-  { path: ROUTE_PATH.product, component: Product },
-  { path: ROUTE_PATH.schedule, component: Schedule },
-  { path: ROUTE_PATH.user, component: Users },
+export interface RouteComponent {
+  path?: string;
+  element?: React.ComponentType<any>;
+  children?: RouteComponent[];
+}
 
+const routes: RouteComponent[] = [
+  { path: ROUTE_PATH.index, element: HomePage },
+  { path: ROUTE_PATH.introduce, element: Introduce },
+  { path: ROUTE_PATH.listprice, element: ListPrice },
+  { path: ROUTE_PATH.login, element: Login },
+  { path: ROUTE_PATH.training, element: Training },
+  { path: ROUTE_PATH.dashboard, element: DashBoard },
+  { path: ROUTE_PATH.product, element: Product },
+  { path: ROUTE_PATH.schedule, element: Schedule },
+  { path: ROUTE_PATH.user, element: Users },
   {
-    path: '(.*)',
-    component: NotFoundPage,
+    path: '*',
+    element: NotFoundPage,
   },
 ];
 

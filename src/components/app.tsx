@@ -1,26 +1,18 @@
-import routes from '@/ts/router';
-import { App, View } from 'framework7-react';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Framework7Parameters } from 'framework7/types';
 import { store } from '@/store';
+import routes from '@/ts/router';
 
 const MyApp = () => {
-  const params: Framework7Parameters = {
-    name: 'Shop-Hair',
-    theme: 'auto',
-    routes: routes,
-  };
-
   return (
     <Provider store={store}>
-      <App {...params}>
-        <View
-          browserHistory={true}
-          main
-          browserHistorySeparator={''}
-          className="hair-shop"
-        />
-      </App>
+      <BrowserRouter>
+        <Routes>
+          {routes.map((e) => (
+            <Route key={e.path} path={e.path} Component={e.element}></Route>
+          ))}
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 };

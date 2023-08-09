@@ -1,8 +1,6 @@
-import { Page, f7 } from 'framework7-react';
 import LoginWrapper from '@/components/admin/organisms/LoginWrapper/LoginWrapper';
 import { useState, useContext } from 'react';
 import API from '@/services/axiosClient';
-import { ROUTE_PATH } from '@/constants/constant';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '@/store/slices/UserSlice';
 import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
@@ -48,7 +46,6 @@ const Login = () => {
   const handleLoginForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      f7.preloader.show();
       const response = await API.apiLogin(formLogin);
       const { token, user } = response.data.data;
       dispatch(
@@ -58,11 +55,10 @@ const Login = () => {
           token: token,
         }),
       );
-      f7.views.main.router.navigate(ROUTE_PATH.dashboard);
+      // f7.views.main.router.navigate(ROUTE_PATH.dashboard);
     } catch (error: any) {
       alertDialog.show(error.response.data.message);
     } finally {
-      f7.preloader.hide();
     }
   };
 
@@ -70,13 +66,11 @@ const Login = () => {
   const handleRegisterForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      f7.preloader.show();
       await API.apiRegister(formRegister);
       setShowRegister(false);
     } catch (error: any) {
       alertDialog.show(error.response.data.message);
     } finally {
-      f7.preloader.hide();
     }
   };
 
@@ -86,7 +80,7 @@ const Login = () => {
   };
 
   return (
-    <Page id="login" name="login-auth">
+    <div id="login">
       <LoginWrapper
         email={formLogin.email}
         password={formLogin.password}
@@ -101,7 +95,7 @@ const Login = () => {
           onChangeRegister={onChangeRegister}
         />
       )}
-    </Page>
+    </div>
   );
 };
 
