@@ -8,7 +8,7 @@ export default {
       title: 'Product',
     },
     dashboard: {
-      logout: 'Đăng Xuất'
+      logout: 'Logout'
     }
   },
 };

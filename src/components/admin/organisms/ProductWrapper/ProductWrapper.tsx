@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import API from '@/services/axiosClient';
 import TableComponent from '@/components/molecules/TableComponent/TableComponent';
 import { ColumnProduct, Product } from '@/Interface';
 
+// coloum of product
 const columns: ColumnProduct[] = [
   { id: 'productName', label: 'Product Name' },
 
@@ -22,28 +21,17 @@ const columns: ColumnProduct[] = [
   },
 ];
 
-export default function ProductWrapper() {
-  const [product, setProduct] = useState<Product[]>([]);
+interface DataProp {
+  product: Product[];
+}
 
-  useEffect(() => {
-    getProduct();
-  }, []);
-
-  const getProduct = () => {
-    API.apiGetProduct()
-      .then((res) => {
-        const { data } = res.data;
-        setProduct(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+const ProductWrapper = ({ product }: DataProp) => {
   return (
     <div>
       <h1 className="text_title">Manager Product</h1>
       <TableComponent />
     </div>
   );
-}
+};
+
+export default ProductWrapper;
