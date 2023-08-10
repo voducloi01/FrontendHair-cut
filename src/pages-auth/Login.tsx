@@ -6,19 +6,27 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from '@/store/slices/UserSlice';
 import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/constant';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formLogin, setFormLogin] = useState<{
     email: string;
     password: string;
   }>({ email: '', password: '' });
+
   const [formRegister, setFormRegister] = useState<{
     name: string;
     email: string;
     password: string;
   }>({ name: '', email: '', password: '' });
+
   const [isShowRegister, setShowRegister] = useState<boolean>(false);
+
   const dispatch = useDispatch();
+
   const alertDialog = useContext(AlertDialogContext);
 
   // handleChange value login
@@ -56,7 +64,7 @@ const Login = () => {
           token: token,
         }),
       );
-      // f7.views.main.router.navigate(ROUTE_PATH.dashboard);
+      navigate(ROUTE_PATH.dashboard);
     } catch (error: any) {
       alertDialog.show(error.response.data.message);
     } finally {
