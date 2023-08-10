@@ -53,6 +53,10 @@
       }
 
       &__button {
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        align-items: center;
         background: rgb(249, 206, 74);
         opacity: 0.4;
         cursor: pointer;
