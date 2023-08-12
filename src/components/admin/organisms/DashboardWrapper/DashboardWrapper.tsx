@@ -2,24 +2,30 @@ import * as React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { Container, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MuiAppBar from '@mui/material/AppBar';
+import {
+  Toolbar,
+  List,
+  Divider,
+  IconButton,
+  ListItem,
+  Container,
+  Typography,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  AppBarProps as MuiAppBarProps,
+} from '@mui/material';
+import {
+  Menu,
+  ChevronLeft,
+  ChevronRight,
+  AccountCircle,
+  AdminPanelSettings,
+} from '@mui/icons-material';
 import './DashboardWrapper.scss';
-import { DATA_DASHBOARD } from '@/constants/constant';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { DataDasBoardType } from '../../../../constants/constant';
+import { DataDasBoardType, DATA_DASHBOARD } from '@/constants/constant';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -98,6 +104,7 @@ interface DashboardProp {
 const DashboardWrapper = ({ children }: DashboardProp) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -108,7 +115,7 @@ const DashboardWrapper = ({ children }: DashboardProp) => {
   };
 
   const handlePageChange = (e: DataDasBoardType) => {
-    console.log(e);
+    navigate(e.router);
   };
 
   return (
@@ -125,9 +132,9 @@ const DashboardWrapper = ({ children }: DashboardProp) => {
               ...(open && { display: 'none' }),
             }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
-          <AccountCircleIcon sx={{ fontSize: 40 }} />
+          <AccountCircle sx={{ fontSize: 40 }} />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -135,13 +142,9 @@ const DashboardWrapper = ({ children }: DashboardProp) => {
           <Typography className="title__admin" variant="h4" gutterBottom>
             Admin
           </Typography>
-          <AdminPanelSettingsIcon sx={{ fontSize: 35 }} />
+          <AdminPanelSettings sx={{ fontSize: 35 }} />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
           </IconButton>
         </DrawerHeader>
         <Divider />

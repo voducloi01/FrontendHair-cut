@@ -1,4 +1,4 @@
-import { ManageAccounts, CalendarMonth, ProductionQuantityLimits, Dashboard } from '@mui/icons-material';
+import { ManageAccounts, CalendarMonth, ProductionQuantityLimits, Dashboard, SvgIconComponent } from '@mui/icons-material';
 
 // Router
 export const ROUTE_PATH = {
@@ -266,7 +266,7 @@ export interface DataDasBoardType {
   id: number;
   text: string;
   router: string;
-  icon: any;
+  icon: SvgIconComponent;
 }
 
 export const DATA_DASHBOARD: DataDasBoardType[] = [
