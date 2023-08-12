@@ -1,90 +1,179 @@
-import { DATA_DASHBOARD, ROUTE_PATH } from '@/constants/constant';
+import * as React from 'react';
+import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { Container, Typography } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './DashboardWrapper.scss';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootStatesType } from '@/store';
-import { FaUserCircle } from 'react-icons/fa';
-import { FiLogOut } from 'react-icons/fi';
-import { useTranslation } from 'react-i18next';
-import { updateUser } from '@/store/slices/UserSlice';
+import { DATA_DASHBOARD } from '@/constants/constant';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { DataDasBoardType } from '../../../../constants/constant';
 
-interface DashboardWrapperProps {
+const drawerWidth = 240;
+
+const openedMixin = (theme: Theme): CSSObject => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+}));
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}));
+
+interface DashboardProp {
   children: React.ReactNode;
 }
 
-const DashboardWrapper = (props: DashboardWrapperProps) => {
-  const selectedData = useSelector((state: RootStatesType) => state.user);
+const DashboardWrapper = ({ children }: DashboardProp) => {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(true);
 
-  const dispatch = useDispatch();
-
-  //TODO
-  const [router, setRouter] = useState<string>(ROUTE_PATH.dashboard);
-
-  const handleNavigate = (e: string) => {
-    // f7.view.main.router.navigate(e, {
-    //   animate: false,
-    // });
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  useEffect(() => {
-    //setRouter(f7.view.current.router.currentRoute.path);
-  }, []);
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-  const { t } = useTranslation();
-
-  const handleLogout = () => {
-    dispatch(
-      updateUser({
-        email: '',
-        name: '',
-        token: '',
-      }),
-    );
-    // f7.views.main.router.navigate(ROUTE_PATH.login);
+  const handlePageChange = (e: DataDasBoardType) => {
+    console.log(e);
   };
 
   return (
-    <div style={{ display: 'flex', height: '100%' }}>
-      <div className="admin-wrapper">
-        <div className="admin-wrapper__title">Admin</div>
-        <div className="admin-wrapper__content">
-          <div className="admin-wrapper__content__item__text">
-            {DATA_DASHBOARD.map((e) => {
-              return (
-                <div
-                  key={e.id}
-                  className={
-                    router === e.router
-                      ? 'admin-wrapper__content__item__focus'
-                      : 'admin-wrapper__content__item'
-                  }
-                  onClick={() => handleNavigate(e.router)}
-                >
-                  <e.icon color="blue" size={20} />
-                  {e.text}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div className="admin-wrapper__nav">
-        <div className="admin-wrapper__nav__item">
-          <div className="admin-wrapper__nav__item__user">
-            <FaUserCircle className="admin-wrapper__nav__item__user__custom" />
-            {selectedData.name}
-          </div>
-          <div
-            className="admin-wrapper__nav__item__logout"
-            onClick={handleLogout}
+    <Container sx={{ display: 'flex' }}>
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
           >
-            <FiLogOut className="admin-wrapper__nav__item__user__custom" />
-            {t('dashboard.logout')}
-          </div>
-        </div>
-        <div {...props} style={{ width: '100%' }}></div>
-      </div>
-    </div>
+            <MenuIcon />
+          </IconButton>
+          <AccountCircleIcon sx={{ fontSize: 40 }} />
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <Typography className="title__admin" variant="h4" gutterBottom>
+            Admin
+          </Typography>
+          <AdminPanelSettingsIcon sx={{ fontSize: 35 }} />
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {DATA_DASHBOARD.map((e, index) => (
+            <ListItem
+              key={index}
+              disablePadding
+              sx={{ display: 'block' }}
+              onClick={() => handlePageChange(e)}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: 'space-around',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon>
+                  <e.icon />
+                </ListItemIcon>
+                <ListItemText primary={e.text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {children}
+      </Box>
+    </Container>
   );
 };
 
