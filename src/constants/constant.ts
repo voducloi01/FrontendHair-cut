@@ -1,10 +1,10 @@
 import {
-  AiFillSound,
-  AiTwotoneCalendar,
-  AiOutlineUsergroupAdd,
-  AiOutlineDashboard,
-} from 'react-icons/ai';
-import { IconType } from 'react-icons/lib';
+  ManageAccounts,
+  CalendarMonth,
+  ProductionQuantityLimits,
+  Dashboard,
+  SvgIconComponent,
+} from '@mui/icons-material';
 
 // Router
 export const ROUTE_PATH = {
@@ -270,36 +270,36 @@ export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
   },
 ];
 
-interface DataDasBoardType {
+export interface DataDasBoardType {
   id: number;
   text: string;
   router: string;
-  icon: IconType;
+  icon: SvgIconComponent;
 }
 
 export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
-    text: 'Dash Board',
+    text: 'DASH BOARD',
     router: '/admin-dashboard',
-    icon: AiOutlineDashboard,
+    icon: Dashboard,
   },
   {
     id: 2,
-    text: 'Manager Product',
+    text: 'MANAGER PRODUCT',
     router: '/admin-product',
-    icon: AiFillSound,
+    icon: ProductionQuantityLimits,
   },
   {
     id: 3,
-    text: 'All Schedule',
+    text: 'SCHEDULE',
     router: '/admin-schedule',
-    icon: AiTwotoneCalendar,
+    icon: CalendarMonth,
   },
   {
     id: 4,
-    text: 'Manager User',
+    text: 'MANAGER USER',
     router: '/admin-user',
-    icon: AiOutlineUsergroupAdd,
+    icon: ManageAccounts,
   },
 ];

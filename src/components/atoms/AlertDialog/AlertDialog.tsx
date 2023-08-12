@@ -1,4 +1,3 @@
-import { AiOutlineWarning } from 'react-icons/ai';
 import { useContext } from 'react';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
 import ReactDOM from 'react-dom';
@@ -10,7 +9,6 @@ const AlertDialog = () => {
     alertDialog.isOpen && (
       <div className="alert-dialog">
         <div className="alert-dialog__content">
-          <AiOutlineWarning size={24} />
           <div>{alertDialog.message}</div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import Button from '@/components/atoms/Button/Button';
-import { AiOutlineClose } from 'react-icons/ai';
 import './DialogRegister.scss';
 import { DATA_INPUT_REGISTER } from '@/constants/constant';
 
@@ -28,7 +27,7 @@ const DialogRegister = ({
             className="dialog-register__container__info__close"
             onClick={onClose}
           >
-            <AiOutlineClose size={25} />
+            {/* <AiOutlineClose size={25} /> */}
           </div>
         </div>
         <form

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import './LoginWrapper.scss';
 
 interface LoginWrapperProps {
@@ -63,11 +62,11 @@ const LoginWrapper = ({
                 className="login-box__form__container__input__user__icon"
                 onClick={toggleShowPassWord}
               >
-                {!isShowIcon ? (
+                {/* {!isShowIcon ? (
                   <AiOutlineEye size={25} />
                 ) : (
                   <AiOutlineEyeInvisible size={25} />
-                )}
+                )} */}
               </div>
             </div>
           </div>
