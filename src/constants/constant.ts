@@ -1,4 +1,10 @@
-import { ManageAccounts, CalendarMonth, ProductionQuantityLimits, Dashboard, SvgIconComponent } from '@mui/icons-material';
+import {
+  ManageAccounts,
+  CalendarMonth,
+  ProductionQuantityLimits,
+  Dashboard,
+  SvgIconComponent,
+} from '@mui/icons-material';
 
 // Router
 export const ROUTE_PATH = {
@@ -6,13 +12,15 @@ export const ROUTE_PATH = {
   home: '/home',
   introduce: '/introduce',
   listprice: '/listprice',
-  login: '/admin/login',
   register: '/register',
   training: '/training',
-  dashboard: '/admin/dashboard',
-  product: '/admin/product',
-  schedule: '/admin/schedule',
-  user: '/admin/user',
+
+  // Admin
+  login: '/admin-login',
+  dashboard: '/admin-dashboard',
+  product: '/admin-product',
+  schedule: '/admin-schedule',
+  user: '/admin-user',
 };
 
 // Data header
@@ -273,25 +281,25 @@ export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
     text: 'DASH BOARD',
-    router: '/admin/dashboard',
+    router: '/admin-dashboard',
     icon: Dashboard,
   },
   {
     id: 2,
     text: 'MANAGER PRODUCT',
-    router: '/admin/product',
+    router: '/admin-product',
     icon: ProductionQuantityLimits,
   },
   {
     id: 3,
     text: 'SCHEDULE',
-    router: '/admin/schedule',
+    router: '/admin-schedule',
     icon: CalendarMonth,
   },
   {
     id: 4,
     text: 'MANAGER USER',
-    router: '/admin/user',
+    router: '/admin-user',
     icon: ManageAccounts,
   },
 ];

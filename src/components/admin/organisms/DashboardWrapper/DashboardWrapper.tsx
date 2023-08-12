@@ -1,182 +1,155 @@
-import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import {
-  Toolbar,
-  List,
-  Divider,
-  IconButton,
-  ListItem,
-  Container,
-  Typography,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  AppBarProps as MuiAppBarProps,
-} from '@mui/material';
-import {
-  Menu,
-  ChevronLeft,
-  ChevronRight,
-  AccountCircle,
-  AdminPanelSettings,
-} from '@mui/icons-material';
+import { DATA_DASHBOARD, ROUTE_PATH } from '@/constants/constant';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStatesType } from '@/store';
+import { useTranslation } from 'react-i18next';
+import { updateUser } from '@/store/slices/UserSlice';
+import { goTo } from '@/ts/router';
+import { useLocation } from 'react-router-dom';
+import HederAdmin from '@/components/admin/molecules/HeaderAdmin/HederAdmin';
 import './DashboardWrapper.scss';
-import { DataDasBoardType, DATA_DASHBOARD } from '@/constants/constant';
-import { useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
+// const openedMixin = (theme: Theme): CSSObject => ({
+//   width: drawerWidth,
+//   transition: theme.transitions.create('width', {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.enteringScreen,
+//   }),
+//   overflowX: 'hidden',
+// });
 
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+// const closedMixin = (theme: Theme): CSSObject => ({
+//   transition: theme.transitions.create('width', {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   overflowX: 'hidden',
+//   width: `calc(${theme.spacing(7)} + 1px)`,
+//   [theme.breakpoints.up('sm')]: {
+//     width: `calc(${theme.spacing(8)} + 1px)`,
+//   },
+// });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-around',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
+// const DrawerHeader = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'space-around',
+//   padding: theme.spacing(0, 1),
+//   ...theme.mixins.toolbar,
+// }));
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
+// interface AppBarProps extends MuiAppBarProps {
+//   open?: boolean;
+// }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+// const AppBar = styled(MuiAppBar, {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })<AppBarProps>(({ theme, open }) => ({
+//   zIndex: theme.zIndex.drawer + 1,
+//   transition: theme.transitions.create(['width', 'margin'], {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   ...(open && {
+//     marginLeft: drawerWidth,
+//     width: `calc(100% - ${drawerWidth}px)`,
+//     transition: theme.transitions.create(['width', 'margin'], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//   }),
+// }));
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
-}));
+// const Drawer = styled(MuiDrawer, {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+//   width: drawerWidth,
+//   flexShrink: 0,
+//   whiteSpace: 'nowrap',
+//   boxSizing: 'border-box',
+//   ...(open && {
+//     ...openedMixin(theme),
+//     '& .MuiDrawer-paper': openedMixin(theme),
+//   }),
+//   ...(!open && {
+//     ...closedMixin(theme),
+//     '& .MuiDrawer-paper': closedMixin(theme),
+//   }),
+// }));
 
-interface DashboardProp {
+interface DashboardWrapperProps {
   children: React.ReactNode;
 }
 
-const DashboardWrapper = ({ children }: DashboardProp) => {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+const DashboardWrapper = (props: DashboardWrapperProps) => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootStatesType) => state.user);
+  // hook location
+  const location = useLocation();
+  // state router
+  const [_, setRouter] = useState(ROUTE_PATH.dashboard);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  // handle click
+  const handleNavigate = (router: string) => {
+    setRouter(router);
+    goTo(router);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handlePageChange = (e: DataDasBoardType) => {
-    navigate(e.router);
+  const handleLogout = () => {
+    dispatch(
+      updateUser({
+        name: '',
+        email: '',
+        token: '',
+      }),
+    );
+    goTo(ROUTE_PATH.login);
   };
 
   return (
-    <Container sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <Menu />
-          </IconButton>
-          <AccountCircle sx={{ fontSize: 40 }} />
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <Typography className="title__admin" variant="h4" gutterBottom>
-            Admin
-          </Typography>
-          <AdminPanelSettings sx={{ fontSize: 35 }} />
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {DATA_DASHBOARD.map((e, index) => (
-            <ListItem
-              key={index}
-              disablePadding
-              sx={{ display: 'block' }}
-              onClick={() => handlePageChange(e)}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: 'space-around',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon>
-                  <e.icon />
-                </ListItemIcon>
-                <ListItemText primary={e.text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              <Divider />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {children}
-      </Box>
-    </Container>
+    <div className="dash-board" style={{ display: 'flex', height: '100%' }}>
+      <HederAdmin />
+      <div className="dash-board__container">
+        <div className="admin-wrapper">
+          <div className="admin-wrapper__title">Admin</div>
+          <div className="admin-wrapper__content">
+            <div className="admin-wrapper__content__item__text">
+              {DATA_DASHBOARD.map((e) => {
+                return (
+                  <div
+                    key={e.id}
+                    className={
+                      location.pathname === e.router
+                        ? 'admin-wrapper__content__item__text__focus'
+                        : 'admin-wrapper__content__item__text__unfocus'
+                    }
+                    onClick={() => handleNavigate(e.router)}
+                  >
+                    <e.icon
+                      color={location.pathname === e.router ? 'violet' : 'gray'}
+                      size={20}
+                    />
+                    <div
+                      className={
+                        location.pathname === e.router
+                          ? 'admin-wrapper__content__item__text__title'
+                          : 'admin-wrapper__content__item__text__disable'
+                      }
+                    >
+                      {e.text}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div {...props} className="dash-board__container__content"></div>
+      </div>
+    </div>
   );
 };
 
