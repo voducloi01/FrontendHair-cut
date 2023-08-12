@@ -129,8 +129,11 @@ const DashboardWrapper = (props: DashboardWrapperProps) => {
                     onClick={() => handleNavigate(e.router)}
                   >
                     <e.icon
-                      color={location.pathname === e.router ? 'violet' : 'gray'}
-                      size={20}
+                      style={{
+                        color:
+                          location.pathname === e.router ? 'violet' : 'gray',
+                      }}
+                      fontSize="medium"
                     />
                     <div
                       className={
