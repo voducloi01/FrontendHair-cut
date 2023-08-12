@@ -12,13 +12,15 @@ export const ROUTE_PATH = {
   home: '/home',
   introduce: '/introduce',
   listprice: '/listprice',
-  login: '/admin/login',
   register: '/register',
   training: '/training',
-  dashboard: '/admin/dashboard',
-  product: '/admin/product',
-  schedule: '/admin/schedule',
-  user: '/admin/user',
+
+  // Admin
+  login: '/admin-login',
+  dashboard: '/admin-dashboard',
+  product: '/admin-product',
+  schedule: '/admin-schedule',
+  user: '/admin-user',
 };
 
 // Data header
@@ -278,26 +280,26 @@ interface DataDasBoardType {
 export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
-    text: 'DASH BOARD',
-    router: '/admin/dashboard',
+    text: 'Dash Board',
+    router: '/admin-dashboard',
     icon: AiOutlineDashboard,
   },
   {
     id: 2,
     text: 'Manager Product',
-    router: '/admin/product',
+    router: '/admin-product',
     icon: AiFillSound,
   },
   {
     id: 3,
     text: 'All Schedule',
-    router: '/admin/schedule',
+    router: '/admin-schedule',
     icon: AiTwotoneCalendar,
   },
   {
     id: 4,
     text: 'Manager User',
-    router: '/admin/user',
+    router: '/admin-user',
     icon: AiOutlineUsergroupAdd,
   },
 ];

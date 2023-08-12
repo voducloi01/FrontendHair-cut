@@ -1,0 +1,26 @@
+.header-admin {
+  position: relative;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+
+  &__toggle {
+    padding: 8px;
+    right: 20px;
+    border-radius: 10px;
+    background-color: rgb(33, 150, 243);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__avatar,
+    &__setting {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

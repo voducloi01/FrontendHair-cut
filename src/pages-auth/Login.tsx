@@ -3,15 +3,15 @@ import LoginWrapper from '@/components/admin/organisms/LoginWrapper/LoginWrapper
 import { useState, useContext } from 'react';
 import API from '@/services/axiosClient';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '@/store/slices/UserSlice';
 import DialogRegister from '@/components/admin/organisms/DialogRegister/DialogRegister';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
-import { useNavigate } from 'react-router-dom';
+import { updateUser } from '@/store/slices/UserSlice';
+import { goTo } from '@/ts/router';
 import { ROUTE_PATH } from '@/constants/constant';
+import { LoadingContext } from '@/context/LoadingContext';
 
 const Login = () => {
-  const navigate = useNavigate();
-
+  const preloader = useContext(LoadingContext);
   const [formLogin, setFormLogin] = useState<{
     email: string;
     password: string;
@@ -55,6 +55,7 @@ const Login = () => {
   const handleLoginForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
+      preloader.show();
       const response = await API.apiLogin(formLogin);
       const { token, user } = response.data.data;
       dispatch(
@@ -64,10 +65,11 @@ const Login = () => {
           token: token,
         }),
       );
-      navigate(ROUTE_PATH.dashboard);
+      goTo(ROUTE_PATH.dashboard);
     } catch (error: any) {
-      alertDialog.show(error.response.data.message);
+      alertDialog.show(error.message);
     } finally {
+      preloader.hidden();
     }
   };
 
@@ -75,11 +77,13 @@ const Login = () => {
   const handleRegisterForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
+      preloader.show();
       await API.apiRegister(formRegister);
       setShowRegister(false);
     } catch (error: any) {
       alertDialog.show(error.response.data.message);
     } finally {
+      preloader.hidden();
     }
   };
 
