@@ -1,14 +1,14 @@
 import { Container } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 
-const DashBoard = () => {
+const Admin = () => {
   return (
-    <Container id="admin-dashboard">
+    <Container id="admin">
       <DashboardWrapper>
-        <img src="../Logo.png" style={{ height: '100%', width: '50%'}} />
+        <img src="../Logo.png" style={{ height: '100%', width: '50%' }} />
       </DashboardWrapper>
     </Container>
   );
 };
 
-export default DashBoard;
+export default Admin;
