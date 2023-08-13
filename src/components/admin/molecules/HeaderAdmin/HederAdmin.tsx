@@ -1,10 +1,43 @@
+import {
+  SettingsOutlined,
+  TranslateOutlined,
+  NotificationsNoneOutlined,
+} from '@mui/icons-material';
 import './HeaderAdmin.scss';
-import { SettingsOutlined } from '@mui/icons-material';
 
-const HederAdmin = () => {
+interface HederAdminProps {
+  onClickProfile: (event: React.MouseEvent<HTMLElement>) => void;
+  open: boolean;
+}
+
+const HederAdmin = ({ onClickProfile, open }: HederAdminProps) => {
   return (
     <div className="header-admin">
-      <div className="header-admin__toggle">
+      <div className="header-admin__logo">
+        <img src="logo.png" style={{ height: 50, width: 50 }} />
+        <div className="header-admin__logo__title">BARBER SHOP ADMIN</div>
+      </div>
+      <div className="header-admin__language">
+        <TranslateOutlined
+          sx={{
+            fontSize: 25,
+          }}
+        />
+      </div>
+      <div className="header-admin__notification">
+        <NotificationsNoneOutlined
+          sx={{
+            fontSize: 25,
+          }}
+        />
+      </div>
+      <div
+        className="header-admin__toggle"
+        onClick={onClickProfile}
+        aria-controls={open ? 'account-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+      >
         <div className="header-admin__toggle__avatar">
           <img
             alt="user-account"
@@ -12,7 +45,7 @@ const HederAdmin = () => {
           />
         </div>
         <div className="header-admin__toggle__setting">
-          <SettingsOutlined />
+          <SettingsOutlined fontSize="medium" />
         </div>
       </div>
     </div>

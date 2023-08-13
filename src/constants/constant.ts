@@ -280,7 +280,7 @@ export interface DataDasBoardType {
 export const DATA_DASHBOARD: DataDasBoardType[] = [
   {
     id: 1,
-    text: 'DASH BOARD',
+    text: 'DEFAULT',
     router: '/admin-dashboard',
     icon: Dashboard,
   },

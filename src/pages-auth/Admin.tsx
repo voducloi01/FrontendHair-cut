@@ -4,9 +4,7 @@ import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/Dash
 const Admin = () => {
   return (
     <Container id="admin">
-      <DashboardWrapper>
-        <img src="../Logo.png" style={{ height: '100%', width: '50%' }} />
-      </DashboardWrapper>
+      <DashboardWrapper>Default page</DashboardWrapper>
     </Container>
   );
 };
