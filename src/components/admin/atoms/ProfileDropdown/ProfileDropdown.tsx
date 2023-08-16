@@ -20,6 +20,7 @@ const ProfileDropdown = ({
 }: ProfileDropdownProps) => {
   return (
     <Menu
+      autoFocus={false}
       className="profile-menu"
       anchorEl={anchorEl}
       id="account-menu"
@@ -55,7 +56,14 @@ const ProfileDropdown = ({
         disableRipple
         sx={{ p: 0, pb: 1, ':hover': { background: '#FFFFFF' } }}
       >
-        <div>{name}</div>
+        <Typography
+          variant="inherit"
+          textOverflow={'ellipsis'}
+          color={'black'}
+          fontWeight={600}
+        >
+          {name}
+        </Typography>
       </MenuItem>
       <MenuItem
         disableRipple

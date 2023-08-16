@@ -14,7 +14,7 @@ const initState = {
 };
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: 'user',
   initialState: initState,
   reducers: reducers,
 });

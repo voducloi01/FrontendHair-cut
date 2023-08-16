@@ -24,6 +24,27 @@ $duration: 3s;
       animation: colorChange $duration infinite;
     }
 
+    &__menu {
+      padding: 6px;
+      border-radius: 8px;
+      background-color: #ede7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        color: #5e35b1;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: #5e35b1;
+        svg {
+          color: #ffffff;
+        }
+      }
+    }
+
     @keyframes colorChange {
       0% {
         color: #39f;
