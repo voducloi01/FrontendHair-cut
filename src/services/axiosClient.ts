@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from '../store/index';
-import { LoginResponse, ParamsLogin } from '@/api_type/Login/login';
+import { LoginResponse, ParamsLogin, Users } from '@/api_type/Login/login';
 import { PramsRegister } from '@/api_type/Register/register';
 import _ from 'lodash';
 
@@ -35,6 +35,7 @@ class AxiosClient {
     this.axios.interceptors.request.use(
       async (config) => {
         const token = store.getState().user.token;
+
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -56,12 +57,16 @@ class AxiosClient {
     );
   }
 
-  async apiLogin(params: ParamsLogin) {
-    return this.axios.post<LoginResponse>('/users/login', params);
+  apiLogin(params: ParamsLogin) {
+    return this.axios.post<LoginResponse>('api/login', params);
+  }
+
+  apiGetUsers() {
+    return this.axios.get<Users[]>('api/users', this.config);
   }
 
   apiRegister(params: PramsRegister) {
-    return this.axios.post('/users/register', params);
+    return this.axios.post('api/register', params);
   }
 
   apiGetProduct() {
