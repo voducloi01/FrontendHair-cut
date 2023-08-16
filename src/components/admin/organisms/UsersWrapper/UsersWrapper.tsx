@@ -34,6 +34,7 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   return (
     <div className="user-wrapper">
       <div className="user-wrapper__container">
@@ -59,7 +60,7 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
             <TableBody>
               {dataUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((dataUsers) => {
+                .map((dataUsers, index) => {
                   return (
                     <TableRow
                       hover
@@ -85,6 +86,8 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
                                   <DeleteForeverOutlined />
                                 </div>
                               </div>
+                            ) : column.id === 'id' ? (
+                              index + 1
                             ) : (
                               value
                             )}
