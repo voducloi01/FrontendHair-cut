@@ -13,7 +13,7 @@ export type UserType = {
   action?: undefined;
 };
 
-export type UserALl = {
+export type UserAll = {
   result: UserType[];
 };
 
