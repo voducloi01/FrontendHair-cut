@@ -26,10 +26,10 @@ const DialogCreateProduct = ({
   handleSubmit,
 }: PropsCreateProduct) => {
   const { t } = useTranslation();
-  const [age, setAge] = useState<string>('');
+  const [age, setAge] = useState<string | number>('Age');
 
   const handleChange = (event: SelectChangeEvent<number | string>) => {
-    console.log(event.target.value);
+    setAge(event.target.value);
   };
   return (
     <Dialog open={isDialog}>
@@ -61,14 +61,8 @@ const DialogCreateProduct = ({
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={age}
-            fullWidth
             onChange={handleChange}
-            label="Age"
-            inputProps={{
-              name: 'age',
-              id: 'age-native-simple',
-            }}
-            input={<InputLabel htmlFor="age-native-simple">Age</InputLabel>}
+            fullWidth
           >
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
