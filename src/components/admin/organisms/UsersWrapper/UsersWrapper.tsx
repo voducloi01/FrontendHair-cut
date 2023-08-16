@@ -11,38 +11,16 @@ import './UsersWrapper.scss';
 import React from 'react';
 import HeaderTable from '../../atoms/HeaderTable/HeaderTable';
 import { COL_USERS } from '@/type/TableType/table_type';
+import { UserType } from '@/api_type/Login/login';
+import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
+import Button from '@/components/atoms/Button/Button';
 
-interface Data {
-  id: number;
-  name: string;
-  email: string;
-  age: number;
-  phone: number;
-  role: number;
+interface UsersWrapperProps {
+  dataUsers: UserType[];
+  onClickCreateUser: () => void;
 }
 
-function createData(
-  id: number,
-  name: string,
-  email: string,
-  age: number,
-  phone: number,
-  role: number,
-): Data {
-  return { id, name, email, age, phone, role };
-}
-
-const rows = [
-  createData(1, 'India', 'IN', 1, 1, 1),
-  createData(2, 'TienLD', 'IN', 1, 1, 1),
-  createData(3, 'Tien01', 'IN', 1, 1, 1),
-  createData(5, 'Tien02', 'IN', 1, 1, 1),
-  createData(6, 'Tien03', 'IN', 1, 1, 1),
-  createData(7, 'Tien04', 'IN', 1, 1, 1),
-  createData(8, 'Tien05', 'IN', 1, 1, 1),
-];
-
-const UsersWrapper = () => {
+const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -58,6 +36,15 @@ const UsersWrapper = () => {
   };
   return (
     <div className="user-wrapper">
+      <div className="user-wrapper__container">
+        <div className="user-wrapper__container__title">User Table</div>
+        <Button
+          classes="user-wrapper__container__button"
+          onClick={onClickCreateUser}
+        >
+          Create User
+        </Button>
+      </div>
       <Paper
         sx={{
           width: '100%',
@@ -70,21 +57,37 @@ const UsersWrapper = () => {
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_USERS} />
             <TableBody>
-              {rows
+              {dataUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                .map((dataUsers) => {
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.id.toString()}
+                      key={dataUsers.id.toString()}
                     >
                       {COL_USERS.map((column) => {
-                        const value = row[column.id];
+                        const value = dataUsers[column.id!];
+
                         return (
-                          <TableCell key={column.id} align={column.align}>
-                            {value}
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            className="table"
+                          >
+                            {column.id === 'action' ? (
+                              <div className="user-wrapper__action">
+                                <div className="user-wrapper__action__edit">
+                                  <EditOutlined />
+                                </div>
+                                <div className="user-wrapper__action__delete">
+                                  <DeleteForeverOutlined />
+                                </div>
+                              </div>
+                            ) : (
+                              value
+                            )}
                           </TableCell>
                         );
                       })}
@@ -97,7 +100,7 @@ const UsersWrapper = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={dataUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

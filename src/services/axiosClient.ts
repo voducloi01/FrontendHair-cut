@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from '../store/index';
-import { LoginResponse, ParamsLogin, Users } from '@/api_type/Login/login';
+import { LoginResponse, ParamsLogin, UserALl } from '@/api_type/Login/login';
 import { PramsRegister } from '@/api_type/Register/register';
 import _ from 'lodash';
 
@@ -62,7 +62,7 @@ class AxiosClient {
   }
 
   apiGetUsers() {
-    return this.axios.get<Users[]>('api/users', this.config);
+    return this.axios.get<UserALl>('api/users', this.config);
   }
 
   apiRegister(params: PramsRegister) {

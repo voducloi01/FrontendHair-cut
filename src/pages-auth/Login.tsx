@@ -61,7 +61,6 @@ const Login = () => {
       preloader.show();
       const response = await API.apiLogin(formLogin);
       const { token, userInfo } = response.data;
-      console.log(response.data);
 
       dispatch(
         updateUser({

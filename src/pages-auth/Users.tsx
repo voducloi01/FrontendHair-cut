@@ -1,15 +1,19 @@
 import { Container } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import API from '@/services/axiosClient';
 import { LoadingContext } from '@/context/LoadingContext';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
 import _ from 'lodash';
+import { UserType } from '@/api_type/Login/login';
+import DialogUser from '@/components/admin/atoms/DialogUser/DialogUser';
 
-const Users = () => {
+const UserPage = () => {
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
+  const [dataUsers, setDataUsers] = useState<UserType[]>([]);
+  const [isOpenCreateUser, setIsOpenCreateUser] = useState<boolean>(false);
 
   useEffect(() => {
     getUSers();
@@ -19,7 +23,8 @@ const Users = () => {
     try {
       preloader.show();
       const response = await API.apiGetUsers();
-      console.log(response.data);
+      const { result } = response.data;
+      setDataUsers(result);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
       alertDialog.show(message);
@@ -28,13 +33,25 @@ const Users = () => {
     }
   };
 
+  const onClickCreateUser = () => {
+    setIsOpenCreateUser(true);
+  };
+
   return (
     <Container id="users">
       <DashboardWrapper>
-        <UsersWrapper />
+        <UsersWrapper
+          dataUsers={dataUsers}
+          onClickCreateUser={onClickCreateUser}
+        />
       </DashboardWrapper>
+      <DialogUser
+        title="Create User"
+        open={isOpenCreateUser}
+        onClose={() => setIsOpenCreateUser(false)}
+      />
     </Container>
   );
 };
 
-export default Users;
+export default UserPage;

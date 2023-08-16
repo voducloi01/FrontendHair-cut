@@ -3,15 +3,22 @@ export type ParamsLogin = {
   password: string;
 };
 
-export type Users = {
+export type UserType = {
   id: string;
   name: string;
   email: string;
+  age: number;
+  phone: number;
   role: number;
+  action?: undefined;
+};
+
+export type UserALl = {
+  result: UserType[];
 };
 
 export type LoginResponse = {
-  userInfo: Users;
+  userInfo: UserType;
   token: string;
   email: string;
   statusCode: number;
