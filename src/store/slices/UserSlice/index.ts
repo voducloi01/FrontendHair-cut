@@ -13,13 +13,13 @@ const initState = {
   token: '',
 };
 
-export const counterSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState: initState,
   reducers: reducers,
 });
 
 // Action creators are generated for each case reducer function
-export const { updateUser } = counterSlice.actions;
+export const { updateUser } = userSlice.actions;
 
-export default counterSlice.reducer;
+export default userSlice.reducer;
