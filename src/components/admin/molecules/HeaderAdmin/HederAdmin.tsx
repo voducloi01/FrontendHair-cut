@@ -2,20 +2,29 @@ import {
   SettingsOutlined,
   TranslateOutlined,
   NotificationsNoneOutlined,
+  Menu,
 } from '@mui/icons-material';
 import './HeaderAdmin.scss';
 
 interface HederAdminProps {
   onClickProfile: (event: React.MouseEvent<HTMLElement>) => void;
   open: boolean;
+  onClickScale: () => void;
 }
 
-const HederAdmin = ({ onClickProfile, open }: HederAdminProps) => {
+const HederAdmin = ({
+  onClickProfile,
+  open,
+  onClickScale,
+}: HederAdminProps) => {
   return (
     <div className="header-admin">
       <div className="header-admin__logo">
         <img src="logo.png" style={{ height: 50, width: 50 }} />
-        <div className="header-admin__logo__title">BARBER SHOP ADMIN</div>
+        <div className="header-admin__logo__title">BARBER</div>
+        <div className="header-admin__logo__menu" onClick={onClickScale}>
+          <Menu sx={{ fontSize: 25 }} />
+        </div>
       </div>
       <div className="header-admin__language">
         <TranslateOutlined

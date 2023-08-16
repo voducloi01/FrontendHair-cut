@@ -1,5 +1,8 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from '../store/index';
+import { LoginResponse, ParamsLogin } from '@/api_type/Login/login';
+import { PramsRegister } from '@/api_type/Register/register';
+import _ from 'lodash';
 
 /** Setting timeout of axios */
 const AXIOS_TIMEOUT: number = 10000;
@@ -9,6 +12,7 @@ const BASE_URL: string = import.meta.env.VITE_API_URL;
 
 class AxiosClient {
   private axios: AxiosInstance;
+  public exception: AxiosError | undefined;
   private config = {
     headers: {
       Accept: 'application/json',
@@ -40,13 +44,23 @@ class AxiosClient {
         return Promise.reject(error);
       },
     );
+
+    this.axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        const serverError = _.get(error, 'response.data', {});
+        return Promise.reject(serverError);
+      },
+    );
   }
 
-  apiLogin(params: object) {
-    return this.axios.post('/users/login', params);
+  async apiLogin(params: ParamsLogin) {
+    return this.axios.post<LoginResponse>('/users/login', params);
   }
 
-  apiRegister(params: object) {
+  apiRegister(params: PramsRegister) {
     return this.axios.post('/users/register', params);
   }
 

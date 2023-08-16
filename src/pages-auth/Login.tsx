@@ -9,19 +9,22 @@ import { updateUser } from '@/store/slices/UserSlice';
 import { goTo } from '@/ts/router';
 import { ROUTE_PATH } from '@/constants/constant';
 import { LoadingContext } from '@/context/LoadingContext';
+import { ParamsLogin } from '@/api_type/Login/login';
+import { PramsRegister } from '@/api_type/Register/register';
+import _ from 'lodash';
 
 const Login = () => {
   const preloader = useContext(LoadingContext);
-  const [formLogin, setFormLogin] = useState<{
-    email: string;
-    password: string;
-  }>({ email: '', password: '' });
+  const [formLogin, setFormLogin] = useState<ParamsLogin>({
+    email: '',
+    password: '',
+  });
 
-  const [formRegister, setFormRegister] = useState<{
-    name: string;
-    email: string;
-    password: string;
-  }>({ name: '', email: '', password: '' });
+  const [formRegister, setFormRegister] = useState<PramsRegister>({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const [isShowRegister, setShowRegister] = useState<boolean>(false);
 
@@ -57,17 +60,18 @@ const Login = () => {
     try {
       preloader.show();
       const response = await API.apiLogin(formLogin);
-      const { token, user } = response.data.data;
+      const { token, name } = response.data;
       dispatch(
         updateUser({
           email: formLogin.email,
-          name: user?.name,
+          name: name,
           token: token,
         }),
       );
       goTo(ROUTE_PATH.dashboard);
-    } catch (error: any) {
-      alertDialog.show(error.message);
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message);
     } finally {
       preloader.hidden();
     }
@@ -80,8 +84,9 @@ const Login = () => {
       preloader.show();
       await API.apiRegister(formRegister);
       setShowRegister(false);
-    } catch (error: any) {
-      alertDialog.show(error.response.data.message);
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message);
     } finally {
       preloader.hidden();
     }

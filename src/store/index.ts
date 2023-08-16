@@ -13,17 +13,20 @@ import {
 import storage from 'redux-persist/lib/storage';
 import counterReducer, { CounterType } from './slices/CounterSlice';
 import userReducer, { UserType } from './slices/UserSlice';
+import scaleMenuReducer, { ScaleMenuType } from './slices/ScaleMenuSlice';
 
 /* Defining the shape of the state. */
 export interface RootStatesType {
   counter: CounterType;
   user: UserType;
+  scale: ScaleMenuType;
 }
 
 /* Combining all the reducers into one reducer. */
 const reducers = combineReducers({
   counter: counterReducer,
   user: userReducer,
+  scale: scaleMenuReducer,
 });
 
 /* The key for the redux-persist. */
@@ -41,7 +44,7 @@ const persistConfig = {
   key: ROOT_KEY,
   version: 1,
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'scale'],
   // transforms: [encryptor],
 };
 

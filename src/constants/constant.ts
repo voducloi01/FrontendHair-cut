@@ -272,7 +272,7 @@ export const DATA_INPUT_REGISTER: DataInputRegisterType[] = [
 
 export interface DataDasBoardType {
   id: number;
-  text: string;
+  text?: string;
   router: string;
   icon: SvgIconComponent;
 }

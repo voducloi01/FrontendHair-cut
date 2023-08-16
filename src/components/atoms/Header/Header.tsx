@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <div className="wrapper_header">
       <a>
-        <img src="Logo.png" alt="" className="item_logo" />
+        <img src="logo.png" alt="" className="item_logo" />
       </a>
       {DATA_HEADER.map((e) => (
         <div
