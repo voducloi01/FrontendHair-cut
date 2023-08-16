@@ -60,11 +60,12 @@ const Login = () => {
     try {
       preloader.show();
       const response = await API.apiLogin(formLogin);
-      const { token, name } = response.data;
+      const { token, userInfo } = response.data;
+
       dispatch(
         updateUser({
-          email: formLogin.email,
-          name: name,
+          name: userInfo.name,
+          email: userInfo.email,
           token: token,
         }),
       );
