@@ -63,6 +63,19 @@
       }
     }
 
+    &__label {
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      min-width: 50px;
+      width: auto;
+      background: yellow;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
     &__delete {
       background: rgb(236, 235, 235);
       border-radius: 8px;

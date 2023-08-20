@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, SelectChangeEvent } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
 import { useContext, useEffect, useState } from 'react';
@@ -8,17 +8,48 @@ import { AlertDialogContext } from '@/context/AlertDialogContext';
 import _ from 'lodash';
 import { UserType } from '@/api_type/Login/login';
 import DialogUser from '@/components/admin/atoms/DialogUser/DialogUser';
+import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
 
 const UserPage = () => {
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
   const [dataUsers, setDataUsers] = useState<UserType[]>([]);
-  const [isOpenCreateUser, setIsOpenCreateUser] = useState<boolean>(false);
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
+  const [dataDelete, setDataDelete] = useState<{ id: string; name: string }>({
+    id: '',
+    name: '',
+  });
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [valueForm, setValueForm] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    role: number;
+  }>({
+    id: '',
+    name: '',
+    email: '',
+    role: 0,
+  });
+
+  // handle change value and select value
+  const handleChangeValue = (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<number>,
+    fieldName: string,
+  ) => {
+    setValueForm((prevFormLogin) => ({
+      ...prevFormLogin,
+      [fieldName]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     getUSers();
   }, []);
 
+  // get all user
   const getUSers = async () => {
     try {
       preloader.show();
@@ -27,28 +58,92 @@ const UserPage = () => {
       setDataUsers(result);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
-      alertDialog.show(message);
+      alertDialog.show(message, false);
     } finally {
       preloader.hidden();
     }
   };
 
-  const onClickCreateUser = () => {
-    setIsOpenCreateUser(true);
+  // click edit show dialog get get value
+  const onClickEdit = (user: UserType) => {
+    setValueForm({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+    setIsOpenEdit(true);
+  };
+
+  // Click save edit
+  const handleClickEditSave = async () => {
+    try {
+      preloader.show();
+      const updateUser = await API.apiUpdateUser(
+        Number(valueForm.id),
+        valueForm,
+      );
+      const { message } = updateUser.data;
+      await getUSers();
+      setIsOpenEdit(false);
+      alertDialog.show(message, true);
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message, false);
+    } finally {
+      preloader.hidden();
+    }
+  };
+
+  // handle show dialog delete
+  const onClickDelete = (user: UserType) => {
+    setDataDelete({ id: user.id, name: user.name });
+    setIsOpenDelete(true);
+  };
+
+  // handle agree delete
+  const handleAgreeDelete = async () => {
+    try {
+      preloader.show();
+      const response = await API.apiDeleteUser(Number(dataDelete.id));
+      await getUSers();
+      const { message } = response.data;
+      setIsOpenDelete(false);
+      alertDialog.show(message, true);
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message, false);
+    } finally {
+      preloader.hidden();
+    }
   };
 
   return (
     <Container id="users">
       <DashboardWrapper>
         <UsersWrapper
-          dataUsers={dataUsers}
-          onClickCreateUser={onClickCreateUser}
+          onClickDelete={(user) => onClickDelete(user)}
+          onClickEdit={(user) => onClickEdit(user)}
+          dataUsers={dataUsers ?? []}
         />
       </DashboardWrapper>
       <DialogUser
-        title="Create User"
-        open={isOpenCreateUser}
-        onClose={() => setIsOpenCreateUser(false)}
+        oncClickSave={handleClickEditSave}
+        title={'Edit'}
+        onChangeSelect={handleChangeValue}
+        onChange={handleChangeValue}
+        name={valueForm.name}
+        role={valueForm.role}
+        email={valueForm.email}
+        open={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+      />
+      <DialogQuestions
+        open={isOpenDelete}
+        title={'Delete'}
+        content={`Do you want delete user: ${dataDelete.name} ?`}
+        handleClose={() => setIsOpenDelete(false)}
+        handleAgree={handleAgreeDelete}
       />
     </Container>
   );

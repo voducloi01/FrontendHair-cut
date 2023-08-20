@@ -2,8 +2,9 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface AlertDialogContextProps {
   isOpen: boolean;
-  show: (msg: string) => void;
+  show: (msg: string, isSuccess: boolean) => void;
   message: string;
+  isSuccess: boolean;
 }
 
 interface AlertDialogProviderProps {
@@ -14,11 +15,13 @@ const AlertDialogContext = createContext<AlertDialogContextProps>({
   isOpen: false,
   show: () => null,
   message: '',
+  isSuccess: false,
 });
 
 const AlertDialogProvider = ({ children }: AlertDialogProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,8 +33,9 @@ const AlertDialogProvider = ({ children }: AlertDialogProviderProps) => {
     }
   }, [isOpen]);
 
-  const show = (message: string) => {
+  const show = (message: string, isSuccess: boolean) => {
     setIsOpen(true);
+    setIsSuccess(isSuccess);
     setMessage(message);
   };
 
@@ -39,6 +43,7 @@ const AlertDialogProvider = ({ children }: AlertDialogProviderProps) => {
     message,
     isOpen,
     show,
+    isSuccess,
   };
 
   return (

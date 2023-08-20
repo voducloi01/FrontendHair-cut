@@ -65,6 +65,14 @@ class AxiosClient {
     return this.axios.get<UserAll>('api/users', this.config);
   }
 
+  apiUpdateUser(id: number, params: Object) {
+    return this.axios.put(`api/update-user/${id}`, params, this.config);
+  }
+
+  apiDeleteUser(id: number) {
+    return this.axios.delete(`api/delete-user/${id}`, this.config);
+  }
+
   apiRegister(params: PramsRegister) {
     return this.axios.post('api/register', params);
   }

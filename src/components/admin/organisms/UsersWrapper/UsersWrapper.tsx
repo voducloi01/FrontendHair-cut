@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import './UsersWrapper.scss';
 import React from 'react';
-import HeaderTable from '../../atoms/HeaderTable/HeaderTable';
+import HeaderTable from '@/components/admin/atoms/HeaderTable/HeaderTable';
 import { COL_USERS } from '@/type/TableType/table_type';
 import { UserType } from '@/api_type/Login/login';
 import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
@@ -17,10 +17,15 @@ import Button from '@/components/atoms/Button/Button';
 
 interface UsersWrapperProps {
   dataUsers: UserType[];
-  onClickCreateUser: () => void;
+  onClickEdit: (user: UserType) => void;
+  onClickDelete: (user: UserType) => void;
 }
 
-const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
+const UsersWrapper = ({
+  dataUsers,
+  onClickDelete,
+  onClickEdit,
+}: UsersWrapperProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -39,12 +44,7 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
     <div className="user-wrapper">
       <div className="user-wrapper__container">
         <div className="user-wrapper__container__title">User Table</div>
-        <Button
-          classes="user-wrapper__container__button"
-          onClick={onClickCreateUser}
-        >
-          Create User
-        </Button>
+        <Button classes="user-wrapper__container__button">Create User</Button>
       </div>
       <Paper
         sx={{
@@ -60,16 +60,16 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
             <TableBody>
               {dataUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((dataUsers, index) => {
+                .map((user, index) => {
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={dataUsers.id.toString()}
+                      key={user.id.toString()}
                     >
                       {COL_USERS.map((column) => {
-                        const value = dataUsers[column.id!];
+                        const value = user[column.id!];
 
                         return (
                           <TableCell
@@ -79,15 +79,25 @@ const UsersWrapper = ({ dataUsers, onClickCreateUser }: UsersWrapperProps) => {
                           >
                             {column.id === 'action' ? (
                               <div className="user-wrapper__action">
-                                <div className="user-wrapper__action__edit">
+                                <div
+                                  className="user-wrapper__action__edit"
+                                  onClick={() => onClickEdit(user)}
+                                >
                                   <EditOutlined />
                                 </div>
-                                <div className="user-wrapper__action__delete">
+                                <div
+                                  className="user-wrapper__action__delete"
+                                  onClick={() => onClickDelete(user)}
+                                >
                                   <DeleteForeverOutlined />
                                 </div>
                               </div>
                             ) : column.id === 'id' ? (
                               index + 1
+                            ) : column.id === 'role' ? (
+                              <div className="user-wrapper__action__label">
+                                {user.role === 0 ? 'Admin' : 'Staff'}{' '}
+                              </div>
                             ) : (
                               value
                             )}

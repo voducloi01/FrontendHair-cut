@@ -22,6 +22,6 @@ export const COL_USERS: readonly ColumnUser[] = [
   { id: 'email', label: 'Email', minWidth: 10, width: 200, align: 'center' },
   { id: 'age', label: 'Age', minWidth: 10, align: 'center' },
   { id: 'phone', label: 'Phone', minWidth: 10, align: 'center' },
-  { id: 'role', label: 'Role', minWidth: 10, align: 'center' },
-  { id: 'action', label: 'Actions', minWidth: 10, width: 10, align: 'center' },
+  { id: 'role', label: 'Role', minWidth: 10, width: 100, align: 'center' },
+  { id: 'action', label: 'Actions', minWidth: 10, width: 100, align: 'center' },
 ];
