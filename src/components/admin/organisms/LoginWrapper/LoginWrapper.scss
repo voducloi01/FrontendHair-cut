@@ -25,7 +25,7 @@
     }
 
     &__container {
-      padding: 0 50px 25px 50px;
+      padding: 0 50px 40px 50px;
 
       &__input {
         display: flex;
@@ -45,7 +45,10 @@
           }
 
           &__icon {
-            top: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 42px;
             right: 10px;
             position: absolute;
           }
@@ -70,13 +73,6 @@
           transition: 1s;
           opacity: 1;
         }
-      }
-
-      &__register {
-        color: blue;
-        text-align: center;
-        cursor: pointer;
-        margin-top: 20px;
       }
     }
 

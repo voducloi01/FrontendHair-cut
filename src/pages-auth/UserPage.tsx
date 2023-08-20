@@ -18,7 +18,7 @@ import _ from 'lodash';
 import { UserType } from '@/api_type/Login/login';
 import DialogUser from '@/components/admin/atoms/DialogUser/DialogUser';
 import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
-import { Data_Dialog_User } from '@/constants/constant';
+import { DATA_DIALOG_USER } from '@/constants/constant';
 
 const UserPage = () => {
   const preloader = useContext(LoadingContext);
@@ -146,18 +146,18 @@ const UserPage = () => {
         open={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
       >
-        {Data_Dialog_User.map((data) => {
+        {DATA_DIALOG_USER.map((user) => {
           return (
             <TextField
-              key={data.id}
+              key={user.id}
               sx={{ pb: 2 }}
               margin="dense"
-              id={data.value}
-              label={data.label}
-              type={data.type}
+              id={user.value}
+              label={user.label}
+              type={user.type}
               fullWidth
-              value={valueForm[data.value]}
-              onChange={(e) => handleChangeValue(e, data.value)}
+              value={valueForm[user.value]}
+              onChange={(e) => handleChangeValue(e, user.value)}
             />
           );
         })}

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import { useTranslation } from 'react-i18next';
+import {
+  RemoveRedEyeOutlined,
+  VisibilityOffOutlined,
+} from '@mui/icons-material';
 import './LoginWrapper.scss';
 
 interface LoginWrapperProps {
@@ -11,20 +15,18 @@ interface LoginWrapperProps {
     type: 'email' | 'password',
   ) => void;
   onClick: (e: { preventDefault: () => void }) => void;
-  onClickRegister: () => void;
 }
 
 const LoginWrapper = ({
   onChange,
   onClick,
-  onClickRegister,
   password,
   email,
 }: LoginWrapperProps) => {
   const { t } = useTranslation();
   const [isShowIcon, setIsShowIcon] = useState<boolean>(false);
 
-  // handle Show passWord
+  // handle show and hidden password
   const toggleShowPassWord = () => {
     setIsShowIcon(!isShowIcon);
   };
@@ -44,7 +46,7 @@ const LoginWrapper = ({
                 autoComplete="current-user"
                 value={email}
                 onChange={(e) => onChange(e, 'email')}
-                placeholder="UserName"
+                placeholder="Username"
               />
             </div>
             <div className="login-box__form__container__input__user">
@@ -56,27 +58,23 @@ const LoginWrapper = ({
                 name="current-password"
                 autoComplete="current-password"
                 onChange={(e) => onChange(e, 'password')}
-                placeholder="PassWord"
+                placeholder="Password"
               />
               <div
                 className="login-box__form__container__input__user__icon"
                 onClick={toggleShowPassWord}
               >
-                {/* {!isShowIcon ? (
-                  <AiOutlineEye size={25} />
+                {!isShowIcon ? (
+                  <RemoveRedEyeOutlined sx={{ fontSize: 25 }} />
                 ) : (
-                  <AiOutlineEyeInvisible size={25} />
-                )} */}
+                  <VisibilityOffOutlined sx={{ fontSize: 25 }} />
+                )}
               </div>
             </div>
           </div>
-          <Button classes="login-box__form__container__button">Login</Button>
-          <div
-            className="login-box__form__container__register"
-            onClick={onClickRegister}
-          >
-            Register click hear ?
-          </div>
+          <Button classes="login-box__form__container__button">
+            {t('login.title')}
+          </Button>
         </form>
       </div>
     </div>

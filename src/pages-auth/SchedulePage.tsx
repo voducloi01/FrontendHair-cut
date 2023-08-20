@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import ScheduleWrapper from '@/components/admin/organisms/ScheduleWrapper/ScheduleWrapper';
 
-const Schedule = () => {
+const SchedulePage = () => {
   return (
     <Container id="schedule">
       <DashboardWrapper>
@@ -12,4 +12,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default SchedulePage;

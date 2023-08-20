@@ -1,14 +1,14 @@
 import { ROUTE_PATH } from '@/constants/constant';
-import Login from '@/pages-auth/Login';
+import LoginPage from '@/pages-auth/LoginPage';
 import NotFoundPage from '@/pages/404';
 import HomePage from '@/pages/Home';
 import Introduce from '@/pages/Introduce';
 import ListPrice from '@/pages/ListPrice';
 import Training from '@/pages/Training';
-import Product from '@/pages-auth/Product';
-import Schedule from '@/pages-auth/Schedule';
-import Users from '@/pages-auth/Users';
-import DashBoard from '@/pages-auth/Admin';
+import ProductPage from '@/pages-auth/ProductPage';
+import SchedulePage from '@/pages-auth/SchedulePage';
+import UserPage from '@/pages-auth/UserPage';
+import DefaultPage from '@/pages-auth/DefaultPage';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { PrivateAdmin, PrivateRouteLogin } from '@/private/private_router';
 
@@ -21,7 +21,7 @@ const router: RouteObject[] = [
     path: ROUTE_PATH.login,
     element: (
       <PrivateRouteLogin>
-        <Login />
+        <LoginPage />
       </PrivateRouteLogin>
     ),
   },
@@ -29,7 +29,7 @@ const router: RouteObject[] = [
     path: ROUTE_PATH.dashboard,
     element: (
       <PrivateAdmin>
-        <DashBoard />
+        <DefaultPage />
       </PrivateAdmin>
     ),
   },
@@ -38,7 +38,7 @@ const router: RouteObject[] = [
     path: ROUTE_PATH.product,
     element: (
       <PrivateAdmin>
-        <Product />
+        <ProductPage />
       </PrivateAdmin>
     ),
   },
@@ -46,7 +46,7 @@ const router: RouteObject[] = [
     path: ROUTE_PATH.schedule,
     element: (
       <PrivateAdmin>
-        <Schedule />
+        <SchedulePage />
       </PrivateAdmin>
     ),
   },
@@ -54,7 +54,7 @@ const router: RouteObject[] = [
     path: ROUTE_PATH.user,
     element: (
       <PrivateAdmin>
-        <Users />
+        <UserPage />
       </PrivateAdmin>
     ),
   },

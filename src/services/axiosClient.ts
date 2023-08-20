@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { store } from '../store/index';
+import { store } from '@/store/index';
 import { LoginResponse, ParamsLogin, UserAll } from '@/api_type/Login/login';
-import { PramsRegister } from '@/api_type/Register/register';
 import _ from 'lodash';
 
 /** Setting timeout of axios */
@@ -57,26 +56,32 @@ class AxiosClient {
     );
   }
 
+  // api login
   apiLogin(params: ParamsLogin) {
     return this.axios.post<LoginResponse>('api/login', params);
   }
 
+  // api get all user
   apiGetUsers() {
     return this.axios.get<UserAll>('api/users', this.config);
   }
 
+  // api create new user
+  apiCreateUser(params: Object) {
+    return this.axios.post('api/create-user', params);
+  }
+
+  // api update user
   apiUpdateUser(id: number, params: Object) {
     return this.axios.put(`api/update-user/${id}`, params, this.config);
   }
 
+  // api delete user
   apiDeleteUser(id: number) {
     return this.axios.delete(`api/delete-user/${id}`, this.config);
   }
 
-  apiRegister(params: PramsRegister) {
-    return this.axios.post('api/register', params);
-  }
-
+  // api get all product
   apiGetProduct() {
     return this.axios.get('/products', this.config);
   }
