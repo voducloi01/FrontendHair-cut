@@ -303,3 +303,20 @@ export const DATA_DASHBOARD: DataDasBoardType[] = [
     icon: ManageAccounts,
   },
 ];
+
+export type DataDialogUserType = {
+  id: string;
+  type: 'text' | 'email' | 'number';
+  label: 'Name' | 'Email' | 'Phone';
+  value: 'name' | 'email' | 'phone';
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    value: 'name' | 'email' | 'role',
+  ) => void;
+};
+
+export const Data_Dialog_User: DataDialogUserType[] = [
+  { id: '1', type: 'text', label: 'Name', value: 'name' },
+  { id: '2', type: 'email', label: 'Email', value: 'email' },
+  { id: '3', type: 'number', label: 'Phone', value: 'phone' },
+];

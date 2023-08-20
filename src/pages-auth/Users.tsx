@@ -1,4 +1,13 @@
-import { Container, SelectChangeEvent } from '@mui/material';
+import {
+  Box,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
 import { useContext, useEffect, useState } from 'react';
@@ -9,6 +18,7 @@ import _ from 'lodash';
 import { UserType } from '@/api_type/Login/login';
 import DialogUser from '@/components/admin/atoms/DialogUser/DialogUser';
 import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
+import { Data_Dialog_User } from '@/constants/constant';
 
 const UserPage = () => {
   const preloader = useContext(LoadingContext);
@@ -24,11 +34,13 @@ const UserPage = () => {
     id: string;
     name: string;
     email: string;
+    phone: number;
     role: number;
   }>({
     id: '',
     name: '',
     email: '',
+    phone: 0,
     role: 0,
   });
 
@@ -71,6 +83,7 @@ const UserPage = () => {
       name: user.name,
       email: user.email,
       role: user.role,
+      phone: 0,
     });
     setIsOpenEdit(true);
   };
@@ -129,15 +142,41 @@ const UserPage = () => {
       </DashboardWrapper>
       <DialogUser
         oncClickSave={handleClickEditSave}
-        title={'Edit'}
-        onChangeSelect={handleChangeValue}
-        onChange={handleChangeValue}
-        name={valueForm.name}
-        role={valueForm.role}
-        email={valueForm.email}
+        title={'Edit User'}
         open={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
-      />
+      >
+        {Data_Dialog_User.map((data) => {
+          return (
+            <TextField
+              key={data.id}
+              sx={{ pb: 2 }}
+              margin="dense"
+              id={data.value}
+              label={data.label}
+              type={data.type}
+              fullWidth
+              value={valueForm[data.value]}
+              onChange={(e) => handleChangeValue(e, data.value)}
+            />
+          );
+        })}
+        <Box sx={{ minWidth: 400 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={valueForm.role}
+              onChange={(e) => handleChangeValue(e, 'role')}
+              label="Role"
+            >
+              <MenuItem value={1}>Staff</MenuItem>
+              <MenuItem value={0}>Admin</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </DialogUser>
       <DialogQuestions
         open={isOpenDelete}
         title={'Delete'}
