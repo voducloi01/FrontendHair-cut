@@ -12,6 +12,7 @@ import {
   SelectChangeEvent,
   Box,
 } from '@mui/material';
+import React from 'react';
 
 interface DialogUserProps {
   title: string;
@@ -40,7 +41,7 @@ const DialogUser = ({
   oncClickSave,
 }: DialogUserProps) => {
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle textAlign={'center'}>{title}</DialogTitle>
       <DialogContent>
         <TextField

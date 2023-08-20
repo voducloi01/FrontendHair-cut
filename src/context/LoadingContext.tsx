@@ -24,7 +24,11 @@ const LoadingProvider = ({ children }: ALoadingProviderProps) => {
   };
 
   const hidden = () => {
-    setIsLoading(false);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
   };
   const value = {
     isLoading,

@@ -72,7 +72,7 @@ const Login = () => {
       goTo(ROUTE_PATH.dashboard);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
-      alertDialog.show(message);
+      alertDialog.show(message, false);
     } finally {
       preloader.hidden();
     }
@@ -87,7 +87,7 @@ const Login = () => {
       setShowRegister(false);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
-      alertDialog.show(message);
+      alertDialog.show(message, false);
     } finally {
       preloader.hidden();
     }
