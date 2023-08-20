@@ -315,7 +315,7 @@ export type DataDialogUserType = {
   ) => void;
 };
 
-export const Data_Dialog_User: DataDialogUserType[] = [
+export const DATA_DIALOG_USER: DataDialogUserType[] = [
   { id: '1', type: 'text', label: 'Name', value: 'name' },
   { id: '2', type: 'email', label: 'Email', value: 'email' },
   { id: '3', type: 'number', label: 'Phone', value: 'phone' },

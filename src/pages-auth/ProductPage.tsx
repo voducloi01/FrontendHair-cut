@@ -5,7 +5,7 @@ import API from '@/services/axiosClient';
 import { DataProductType } from '@/type';
 import { Container } from '@mui/material';
 
-const Product = () => {
+const ProductPage = () => {
   const [product, setProduct] = useState<DataProductType[]>([]);
 
   useEffect(() => {
@@ -31,4 +31,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductPage;
