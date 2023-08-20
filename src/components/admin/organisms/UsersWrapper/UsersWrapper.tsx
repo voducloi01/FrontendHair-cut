@@ -54,7 +54,7 @@ const UsersWrapper = ({
           border: 'none',
         }}
       >
-        <TableContainer sx={{ maxHeight: 600 }}>
+        <TableContainer sx={{ maxHeight: 480 }}>
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_USERS} />
             <TableBody>
