@@ -19,12 +19,14 @@ interface UsersWrapperProps {
   dataUsers: UserType[];
   onClickEdit: (user: UserType) => void;
   onClickDelete: (user: UserType) => void;
+  onClickCreate: () => void;
 }
 
 const UsersWrapper = ({
   dataUsers,
   onClickDelete,
   onClickEdit,
+  onClickCreate,
 }: UsersWrapperProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -44,7 +46,12 @@ const UsersWrapper = ({
     <div className="user-wrapper">
       <div className="user-wrapper__container">
         <div className="user-wrapper__container__title">User Table</div>
-        <Button classes="user-wrapper__container__button">Create User</Button>
+        <Button
+          classes="user-wrapper__container__button"
+          onClick={onClickCreate}
+        >
+          Create User
+        </Button>
       </div>
       <Paper
         sx={{

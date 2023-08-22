@@ -1,81 +1,73 @@
 import { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import { useTranslation } from 'react-i18next';
-import {
-  RemoveRedEyeOutlined,
-  VisibilityOffOutlined,
-} from '@mui/icons-material';
+import { IconButton, TextField } from '@mui/material';
+import { TEXT_FIELD_LOGIN } from '@/constants/constant';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { FormikProps } from 'formik';
+import { ParamsLogin } from '@/api_type/Login/login';
 import './LoginWrapper.scss';
 
 interface LoginWrapperProps {
-  password: string;
-  email: string;
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: 'email' | 'password',
-  ) => void;
-  onClick: (e: { preventDefault: () => void }) => void;
+  onClick?: () => void;
+  validationLogin: FormikProps<ParamsLogin>;
 }
 
-const LoginWrapper = ({
-  onChange,
-  onClick,
-  password,
-  email,
-}: LoginWrapperProps) => {
+const LoginWrapper = ({ onClick, validationLogin }: LoginWrapperProps) => {
   const { t } = useTranslation();
-  const [isShowIcon, setIsShowIcon] = useState<boolean>(false);
-
-  // handle show and hidden password
-  const toggleShowPassWord = () => {
-    setIsShowIcon(!isShowIcon);
-  };
+  const [isShowPass, setIsShowPass] = useState<boolean>(false);
 
   return (
     <div className="login-box">
       <div className="login-box__form">
         <div className="login-box__form__title">{t('login.title')}</div>
-        <form onSubmit={onClick} className="login-box__form__container">
-          <div className="login-box__form__container__input">
-            <div className="login-box__form__container__input__user">
-              <label>Username</label>
-              <input
-                required={true}
-                type="email"
-                name="current-user"
-                autoComplete="current-user"
-                value={email}
-                onChange={(e) => onChange(e, 'email')}
-                placeholder="Username"
+        <form className="login-box__form__container">
+          {TEXT_FIELD_LOGIN.map((form) => {
+            return (
+              <TextField
+                key={form.id}
+                error={
+                  validationLogin.touched[form.value] &&
+                  !!validationLogin.errors[form.value]
+                }
+                helperText={
+                  validationLogin.touched[form.value] &&
+                  validationLogin.errors[form.value]
+                }
+                sx={{ pb: 2 }}
+                label={form.label}
+                type={
+                  form.type === 'password'
+                    ? isShowPass
+                      ? 'text'
+                      : 'password'
+                    : form.type
+                }
+                InputProps={{
+                  endAdornment: form.type === 'password' && (
+                    <IconButton
+                      onClick={() => setIsShowPass(!isShowPass)}
+                      edge="end"
+                    >
+                      {isShowPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+                margin={form.margin}
+                autoComplete={form.autoComplete}
+                fullWidth
+                {...validationLogin.getFieldProps(form.value)}
               />
-            </div>
-            <div className="login-box__form__container__input__user">
-              <label>Password</label>
-              <input
-                required={true}
-                type={isShowIcon ? 'text' : 'password'}
-                value={password}
-                name="current-password"
-                autoComplete="current-password"
-                onChange={(e) => onChange(e, 'password')}
-                placeholder="Password"
-              />
-              <div
-                className="login-box__form__container__input__user__icon"
-                onClick={toggleShowPassWord}
-              >
-                {!isShowIcon ? (
-                  <RemoveRedEyeOutlined sx={{ fontSize: 25 }} />
-                ) : (
-                  <VisibilityOffOutlined sx={{ fontSize: 25 }} />
-                )}
-              </div>
-            </div>
-          </div>
-          <Button classes="login-box__form__container__button">
-            {t('login.title')}
-          </Button>
+            );
+          })}
         </form>
+        <Button
+          type="button"
+          classes="login-box__form__button"
+          onClick={onClick}
+        >
+          {t('login.title')}
+        </Button>
       </div>
     </div>
   );

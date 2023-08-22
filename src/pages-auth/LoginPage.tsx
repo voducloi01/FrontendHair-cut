@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import LoginWrapper from '@/components/admin/organisms/LoginWrapper/LoginWrapper';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import API from '@/services/axiosClient';
 import { useDispatch } from 'react-redux';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
@@ -10,35 +10,30 @@ import { ROUTE_PATH } from '@/constants/constant';
 import { LoadingContext } from '@/context/LoadingContext';
 import { ParamsLogin } from '@/api_type/Login/login';
 import _ from 'lodash';
+import { useFormik } from 'formik';
+import { validationLoginSchema } from '@/validations/auth_validation';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
-  const [formLogin, setFormLogin] = useState<ParamsLogin>({
-    email: '',
-    password: '',
+
+  // validation hook
+  const validationLogin = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationLoginSchema,
+    onSubmit: (value: ParamsLogin) => handleLoginForm(value),
   });
 
-  // handleChange value login
-  const handleChangeValue = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    fieldName: string,
-  ) => {
-    setFormLogin((prevFormLogin) => ({
-      ...prevFormLogin,
-      [fieldName]: e.target.value,
-    }));
-  };
-
   //handle login form
-  const handleLoginForm = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleLoginForm = async (prams: ParamsLogin) => {
     try {
       preloader.show();
-      const response = await API.apiLogin(formLogin);
+      const response = await API.apiLogin(prams);
       const { token, userInfo } = response.data;
-
       dispatch(
         updateUser({
           name: userInfo.name,
@@ -58,10 +53,8 @@ const LoginPage = () => {
   return (
     <Container id="login">
       <LoginWrapper
-        email={formLogin.email}
-        password={formLogin.password}
-        onChange={handleChangeValue}
-        onClick={handleLoginForm}
+        validationLogin={validationLogin}
+        onClick={() => validationLogin.handleSubmit()}
       />
     </Container>
   );

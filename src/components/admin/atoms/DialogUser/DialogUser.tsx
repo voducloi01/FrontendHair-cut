@@ -11,11 +11,6 @@ interface DialogUserProps {
   title: string;
   open: boolean;
   onClose: () => void;
-  // onChange: (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  //   value: 'name' | 'email' | 'role',
-  // ) => void;
-  // onChangeSelect: (e: SelectChangeEvent<number>, value: 'role') => void;
   oncClickSave: () => void;
   children: React.ReactNode;
 }
@@ -29,7 +24,9 @@ const DialogUser = ({
 }: DialogUserProps) => {
   return (
     <Dialog open={open}>
-      <DialogTitle textAlign={'center'}>{title}</DialogTitle>
+      <DialogTitle textAlign={'center'} fontSize={30} fontWeight={600}>
+        {title}
+      </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
