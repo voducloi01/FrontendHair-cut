@@ -309,6 +309,7 @@ export type DataDialogUserType = {
   type: 'text' | 'email' | 'number';
   label: 'Name' | 'Email' | 'Phone';
   value: 'name' | 'email' | 'phone';
+  margin?: 'none' | 'dense' | 'normal';
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     value: 'name' | 'email' | 'role',
@@ -316,7 +317,81 @@ export type DataDialogUserType = {
 };
 
 export const DATA_DIALOG_USER: DataDialogUserType[] = [
-  { id: '1', type: 'text', label: 'Name', value: 'name' },
-  { id: '2', type: 'email', label: 'Email', value: 'email' },
-  { id: '3', type: 'number', label: 'Phone', value: 'phone' },
+  { id: '1', type: 'text', label: 'Name', value: 'name', margin: 'dense' },
+  { id: '2', type: 'email', label: 'Email', value: 'email', margin: 'dense' },
+  { id: '3', type: 'number', label: 'Phone', value: 'phone', margin: 'normal' },
+];
+
+export type DataDialogCreateUserType = {
+  id: string;
+  type: 'text' | 'email' | 'password' | 'number';
+  label: string;
+  value: 'name' | 'email' | 'password' | 'phone';
+  margin?: 'none' | 'dense' | 'normal';
+  autoComplete?: string;
+};
+
+export const DATA_DIALOG_CREATE_USER: DataDialogCreateUserType[] = [
+  {
+    id: '1',
+    type: 'text',
+    label: 'Name',
+    value: 'name',
+    margin: 'dense',
+    autoComplete: undefined,
+  },
+  {
+    id: '2',
+    type: 'email',
+    label: 'Email',
+    value: 'email',
+    margin: 'dense',
+    autoComplete: undefined,
+  },
+  {
+    id: '3',
+    type: 'password',
+    label: 'Password',
+    value: 'password',
+    margin: 'dense',
+    autoComplete: 'off',
+  },
+  {
+    id: '4',
+    type: 'number',
+    label: 'Phone',
+    value: 'phone',
+    margin: 'dense',
+    autoComplete: undefined,
+  },
+];
+
+// type form login text field
+export type TextFieldLoginType = {
+  id: string;
+  type: 'email' | 'password';
+  label: string;
+  value: 'email' | 'password';
+  margin?: 'none' | 'dense' | 'normal' | undefined;
+  autoComplete?: string | undefined;
+};
+
+// data text field login
+export const TEXT_FIELD_LOGIN: TextFieldLoginType[] = [
+  {
+    id: '1',
+    type: 'email',
+    label: 'Email',
+    value: 'email',
+    margin: 'dense',
+    autoComplete: undefined,
+  },
+  {
+    id: '2',
+    type: 'password',
+    label: 'Password',
+    value: 'password',
+    margin: 'dense',
+    autoComplete: 'off',
+  },
 ];
