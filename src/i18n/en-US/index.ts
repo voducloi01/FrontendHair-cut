@@ -6,6 +6,8 @@ export default {
     register: {},
     product: {
       title: 'Product',
+      create: 'Create',
+      cancel: 'Cancel'
     },
     dashboard: {
       logout: 'Logout'

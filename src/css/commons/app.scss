@@ -18,4 +18,216 @@
   input[type='number']::-webkit-outer-spin-button {
     display: none;
   }
+  --spacing-2: 4px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-20: 20px;
+  --font-size-26: 26px;
+  --font-size-30: 30px;
+  --font-size-36: 36px;
+}
+
+@mixin spacing($property, $value) {
+  #{$property}: calc(var(--spacing-2) * #{$value});
+}
+//padding global
+.pa-0 {
+  @include spacing(padding, 0);
+}
+.pl-0 {
+  @include spacing(padding-left, 0);
+}
+.pr-0 {
+  @include spacing(padding-right, 0);
+}
+.px-0 {
+  @include spacing(padding-left, 0);
+  @include spacing(padding-right, 0);
+}
+////
+.pa-1 {
+  @include spacing(padding, 1);
+}
+.pl-1 {
+  @include spacing(padding-left, 1);
+}
+.pr-1 {
+  @include spacing(padding-right, 1);
+}
+.px-1 {
+  @include spacing(padding-left, 1);
+  @include spacing(padding-right, 1);
+}
+///
+.pa-2 {
+  @include spacing(padding, 2);
+}
+.pl-2 {
+  @include spacing(padding-left, 2);
+}
+.pr-2 {
+  @include spacing(padding-right, 2);
+}
+.px-2 {
+  @include spacing(padding-left, 2);
+  @include spacing(padding-right, 2);
+}
+.py-2 {
+  @include spacing(padding-top, 2);
+  @include spacing(padding-bottom, 2);
+}
+///
+.pa-3 {
+  @include spacing(padding, 3);
+}
+.pl-3 {
+  @include spacing(padding-left, 3);
+}
+.pr-3 {
+  @include spacing(padding-right, 3);
+}
+.px-3 {
+  @include spacing(padding-left, 3);
+  @include spacing(padding-right, 3);
+}
+.py-3 {
+  @include spacing(padding-top, 3);
+  @include spacing(padding-bottom, 3);
+}
+////
+.pa-4 {
+  @include spacing(padding, 4);
+}
+.pl-4 {
+  @include spacing(padding-left, 4);
+}
+.pr-4 {
+  @include spacing(padding-right, 4);
+}
+.px-4 {
+  @include spacing(padding-left, 4);
+  @include spacing(padding-right, 4);
+}
+.py-4 {
+  @include spacing(padding-top, 4);
+  @include spacing(padding-bottom, 4);
+}
+
+//margin global
+.ma-0 {
+  @include spacing(margin, 0);
+}
+.ml-0 {
+  @include spacing(margin-left, 0);
+}
+.mr-0 {
+  @include spacing(margin-right, 0);
+}
+.mx-0 {
+  @include spacing(margin-left, 0);
+  @include spacing(margin-right, 0);
+}
+.my-0 {
+  @include spacing(margin-top, 0);
+  @include spacing(margin-bottom, 0);
+}
+
+.ma-1 {
+  @include spacing(margin, 1);
+}
+.ml-1 {
+  @include spacing(margin-left, 1);
+}
+.mr-1 {
+  @include spacing(margin-right, 1);
+}
+.mx-1 {
+  @include spacing(margin-left, 1);
+  @include spacing(margin-right, 1);
+}
+.my-1 {
+  @include spacing(margin-top, 1);
+  @include spacing(margin-bottom, 1);
+}
+
+.ma-2 {
+  @include spacing(margin, 2);
+}
+.ml-2 {
+  @include spacing(margin-left, 2);
+}
+.mr-2 {
+  @include spacing(margin-right, 2);
+}
+.mx-2 {
+  @include spacing(margin-left, 2);
+  @include spacing(margin-right, 2);
+}
+.my-2 {
+  @include spacing(margin-top, 2);
+  @include spacing(margin-bottom, 2);
+}
+
+.ma-3 {
+  @include spacing(margin, 3);
+}
+.ml-3 {
+  @include spacing(margin-left, 3);
+}
+.mr-3 {
+  @include spacing(margin-right, 3);
+}
+.mx-3 {
+  @include spacing(margin-left, 3);
+  @include spacing(margin-right, 3);
+}
+.my-3 {
+  @include spacing(margin-top, 3);
+  @include spacing(margin-bottom, 3);
+}
+
+.ma-4 {
+  @include spacing(margin, 4);
+}
+.ml-4 {
+  @include spacing(margin-left, 4);
+}
+.mr-4 {
+  @include spacing(margin-right, 4);
+}
+.mx-4 {
+  @include spacing(margin-left, 4);
+  @include spacing(margin-right, 4);
+}
+.my-4 {
+  @include spacing(margin-top, 4);
+  @include spacing(margin-bottom, 4);
+}
+
+//font size
+@mixin font-size($size) {
+  font-size: var(--font-size-#{$size});
+}
+
+.fs-12 {
+  @include font-size(12);
+}
+.fs-14 {
+  @include font-size(14);
+}
+.fs-16 {
+  @include font-size(16);
+}
+.fs-20 {
+  @include font-size(20);
+}
+.fs-26 {
+  @include font-size(26);
+}
+.fs-30 {
+  @include font-size(30);
+}
+.fs-36 {
+  @include font-size(36);
 }
