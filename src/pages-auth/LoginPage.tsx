@@ -8,10 +8,10 @@ import { updateUser } from '@/store/slices/UserSlice';
 import { goTo } from '@/ts/router';
 import { ROUTE_PATH } from '@/constants/constant';
 import { LoadingContext } from '@/context/LoadingContext';
-import { ParamsLogin } from '@/api_type/Login/login';
 import _ from 'lodash';
 import { useFormik } from 'formik';
 import { validationLoginSchema } from '@/validations/auth_validation';
+import { ParamsLogin } from '@/api_type/Login';
 
 const LoginPage = () => {
   const dispatch = useDispatch();

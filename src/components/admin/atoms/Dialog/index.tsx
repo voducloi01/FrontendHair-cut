@@ -11,16 +11,16 @@ interface DialogUserProps {
   title: string;
   open: boolean;
   onClose: () => void;
-  oncClickSave: () => void;
+  onClickSave: () => void | any;
   children: React.ReactNode;
 }
 
-const DialogUser = ({
+const DialogWrapper = ({
   open,
   title,
   children,
   onClose,
-  oncClickSave,
+  onClickSave,
 }: DialogUserProps) => {
   return (
     <Dialog open={open}>
@@ -30,10 +30,10 @@ const DialogUser = ({
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={oncClickSave}>Save</Button>
+        <Button type='submit'>Save</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default DialogUser;
+export default DialogWrapper;

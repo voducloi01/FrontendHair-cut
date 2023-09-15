@@ -395,3 +395,36 @@ export const TEXT_FIELD_LOGIN: TextFieldLoginType[] = [
     autoComplete: 'off',
   },
 ];
+
+// type form login text field
+export type TextFieldProductType = {
+  id: string;
+  type: 'text';
+  label: string;
+  value: 'name_product' | 'price';
+  margin?: 'none' | 'dense' | 'normal' | undefined;
+  autoComplete?: string | undefined;
+  classes: string;
+};
+
+// data field product
+export const TEXT_FIELD_PRODUCT: TextFieldProductType[] = [
+  {
+    id: '1',
+    type: 'text',
+    label: 'Name Product',
+    value: 'name_product',
+    margin: 'dense',
+    autoComplete: 'off',
+    classes: 'mt-2',
+  },
+  {
+    id: '2',
+    type: 'text',
+    label: 'Price',
+    value: 'price',
+    margin: 'dense',
+    autoComplete: 'off',
+    classes: 'mt-4',
+  },
+];
