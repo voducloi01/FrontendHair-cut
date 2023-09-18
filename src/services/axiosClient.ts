@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from '@/store/index';
-import { LoginResponse, ParamsLogin, UserAll } from '@/api_type/Login/login';
+import { LoginResponse, ParamsLogin, UserAll } from '@/api_type/Login';
 import _ from 'lodash';
 
 /** Setting timeout of axios */
@@ -83,7 +83,7 @@ class AxiosClient {
 
   // api get all product
   apiGetProduct() {
-    return this.axios.get('/products', this.config);
+    return this.axios.get('/api/product', this.config);
   }
 }
 

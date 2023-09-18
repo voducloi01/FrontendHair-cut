@@ -1,0 +1,18 @@
+.upload-image-wrapper {
+  &__item {
+    position: relative;
+    width: 200px;
+    cursor: pointer;
+    :hover {
+      background-color: gray;
+    }
+    &__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}

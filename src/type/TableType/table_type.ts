@@ -1,11 +1,66 @@
 export interface ColumnProduct {
-  id: 'id' | 'name';
+  id:
+    | 'id'
+    | 'productName'
+    | 'price'
+    | 'categoryID'
+    | 'urlImg'
+    | 'nameImg'
+    | 'action';
   align?: 'left' | 'right' | 'center';
   minWidth?: number;
   label: string;
   width?: number;
   format?: (value: number) => string;
 }
+
+export const COL_PRODUCT: ColumnProduct[] = [
+  {
+    id: 'id',
+    label: 'STT',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'productName',
+    label: 'Product Name',
+    minWidth: 170,
+    width: 100,
+    align: 'center',
+  },
+
+  { id: 'price', label: 'Price', minWidth: 10, width: 100, align: 'center' },
+
+  {
+    id: 'categoryID',
+    label: 'Category',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'urlImg',
+    label: 'Image',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'nameImg',
+    label: 'Image Name',
+    minWidth: 150,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'action',
+    label: 'Action',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+];
 
 export interface ColumnUser {
   id?: 'id' | 'name' | 'email' | 'age' | 'phone' | 'role' | 'action';

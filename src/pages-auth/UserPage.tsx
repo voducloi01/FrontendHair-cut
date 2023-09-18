@@ -16,8 +16,8 @@ import API from '@/services/axiosClient';
 import { LoadingContext } from '@/context/LoadingContext';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
 import _ from 'lodash';
-import { UserType } from '@/api_type/Login/login';
-import DialogUser from '@/components/admin/atoms/DialogUser/DialogUser';
+import { UserType } from '@/api_type/Login';
+import DialogWrapper from '@/components/admin/atoms/Dialog';
 import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
 import {
   DATA_DIALOG_CREATE_USER,
@@ -186,8 +186,8 @@ const UserPage = () => {
           dataUsers={dataUsers ?? []}
         />
       </DashboardWrapper>
-      <DialogUser
-        oncClickSave={handleClickEditSave}
+      <DialogWrapper
+        onClickSave={handleClickEditSave}
         title={'Edit User'}
         open={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
@@ -222,7 +222,7 @@ const UserPage = () => {
             </Select>
           </FormControl>
         </Box>
-      </DialogUser>
+      </DialogWrapper>
       <DialogQuestions
         open={isOpenDelete}
         title={'Delete'}
@@ -231,8 +231,8 @@ const UserPage = () => {
         handleAgree={handleAgreeDelete}
       />
 
-      <DialogUser
-        oncClickSave={() => validationCreateUser.handleSubmit()}
+      <DialogWrapper
+        onClickSave={() => validationCreateUser.handleSubmit()}
         title={'Create User'}
         open={isOpenCreate}
         onClose={() => setIsOpenCreate(false)}
@@ -278,7 +278,7 @@ const UserPage = () => {
             );
           })}
         </form>
-      </DialogUser>
+      </DialogWrapper>
     </Container>
   );
 };

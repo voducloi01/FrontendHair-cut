@@ -1,0 +1,80 @@
+.table {
+  background-color: #ffffff;
+  border: none !important;
+  border-bottom: 0.5px solid black !important;
+}
+.product-wrapper {
+    padding: 20px;
+  &__select-file{
+    margin-top: 16px !important;
+  }  
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    &__edit {
+      background: rgb(236, 235, 235);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 35px;
+      svg {
+        color: rgb(65, 65, 65);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: green;
+        color: green;
+        svg {
+          color: #ffffff;
+        }
+      }
+    }
+
+    &__label {
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      min-width: 50px;
+      width: auto;
+      background: yellow;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    &__delete {
+      background: rgb(236, 235, 235);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 35px;
+
+      svg {
+        color: rgb(65, 65, 65);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: red;
+
+        svg {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
