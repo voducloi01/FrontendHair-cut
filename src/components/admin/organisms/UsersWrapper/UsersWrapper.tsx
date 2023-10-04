@@ -64,6 +64,7 @@ const UsersWrapper = ({
         <TableContainer sx={{ maxHeight: 480 }}>
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_USERS} />
+            <pre>{dataUsers}</pre>
             <TableBody>
               {dataUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

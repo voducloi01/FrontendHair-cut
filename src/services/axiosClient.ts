@@ -85,6 +85,11 @@ class AxiosClient {
   apiGetProduct() {
     return this.axios.get('/api/product', this.config);
   }
+
+  //api get category
+  apiGetCategory() {
+    return this.axios.get('/api/categories', this.config);
+  }
 }
 
 export default new AxiosClient();

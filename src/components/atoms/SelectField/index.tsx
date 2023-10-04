@@ -1,35 +1,46 @@
+import React from 'react';
 import {
   FormControl,
   InputLabel,
-  MenuItem,
   Select,
-  SelectChangeEvent,
+  MenuItem,
+  FormHelperText,
 } from '@mui/material';
-import { useState } from 'react';
+import { useFormikContext } from 'formik';
+import { CategoryType } from '@/api_type/Category';
 
-type CategoryProps = {
-  classes: string;
+type SelectFormProps = {
+  label: string;
+  name: string;
+  options: CategoryType[];
 };
 
-const SelectField = ({ classes }: CategoryProps) => {
-  const [title, setTitle] = useState('');
+const SelectField: React.FC<SelectFormProps> = ({
+  label,
+  name,
+  options,
+}: SelectFormProps) => {
+  const { values, handleChange, errors, touched } = useFormikContext<any>();
+  const hasError = Boolean(touched[name] && errors[name]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setTitle(event.target.value as string);
-  };
   return (
-    <FormControl fullWidth className={classes}>
-      <InputLabel id="demo-simple-select-label">Category</InputLabel>
+    <FormControl fullWidth variant="outlined" error={hasError}>
+      <InputLabel htmlFor={name}>{label}</InputLabel>
       <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={title}
-        label="Category"
+        label={label}
+        name={name}
+        value={values[name] || ''}
         onChange={handleChange}
+        labelId={name}
+        id={name}
       >
-        <MenuItem value={10}>1</MenuItem>
-        <MenuItem value={20}>2</MenuItem>
+        {options.map((option) => (
+          <MenuItem key={option.id} value={option.id}>
+            {option.categoryName}
+          </MenuItem>
+        ))}
       </Select>
+      {hasError && <FormHelperText>{errors[name] as string}</FormHelperText>}
     </FormControl>
   );
 };

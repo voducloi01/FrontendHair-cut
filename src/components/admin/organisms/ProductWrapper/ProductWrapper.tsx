@@ -17,21 +17,24 @@ import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
 import './ProductWrapper.scss';
 import DialogWrapper from '../../atoms/Dialog';
 import SelectField from '@/components/atoms/SelectField';
-import InputUpload from '@/components/atoms/InputUpload';
-import { FormikProps, useFormik } from 'formik';
-import { ParamProduct, ProductPResponseType } from '@/api_type/Product';
+import InputUpload from '@/components/atoms/InputUpload/InputUpload';
+import { FormikProps, FormikProvider } from 'formik';
+import { ParamProduct, ProductType } from '@/api_type/Product';
+import { TEXT_FIELD_PRODUCT } from '@/constants/constant';
+import { CategoryType } from '@/api_type/Category';
 
 interface ProductWrapperProps {
   validationProduct: FormikProps<ParamProduct>;
-  product: ProductPResponseType;
+  product: ProductType[];
   onClickSubmit: () => void;
+  category: CategoryType[];
 }
 
 //TODO
 const ProductWrapper = ({
-  onClickSubmit,
   product,
   validationProduct,
+  category,
 }: ProductWrapperProps) => {
   const [dialog, setDialog] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
@@ -85,45 +88,42 @@ const ProductWrapper = ({
         </Button>
       </div>
       <DialogWrapper
+        maxWidth="sm"
         open={dialog}
         title="Create Product"
         onClose={handleCancelDialog}
-        onClickSave={onClickSubmit}
+        onClickSave={validationProduct.handleSubmit}
       >
-       <form onSubmit={validationProduct.handleSubmit}>
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Name"
-            variant="outlined"
-            value={validationProduct.values.name_product}
-            onChange={validationProduct.handleChange}
-            error={
-              validationProduct.touched.name_product && Boolean(validationProduct.errors.name_product)
-            }
-            helperText={validationProduct.touched.name_product && validationProduct.errors.name_product}
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            variant="outlined"
-            value={validationProduct.values.price}
-            onChange={validationProduct.handleChange}
-            error={validationProduct.touched.price && Boolean(validationProduct.errors.price)}
-            helperText={validationProduct.touched.price && validationProduct.errors.price}
-          />
-          <SelectField classes="product-wrapper__select-file" />
-          <InputUpload
-            urlImage={selectedImage}
-            handleFileChange={handleFileChange}
-            classes="mt-4"
-            handleClose={handleClose}
-          />
-          <button type='submit'>click test</button>
-       </form>
+        {TEXT_FIELD_PRODUCT.map((e) => {
+          return (
+            <TextField
+              className="product-wrapper__input"
+              key={e.id}
+              fullWidth
+              id={e.value}
+              label={e.label}
+              variant="outlined"
+              onChange={validationProduct.handleChange}
+              error={
+                validationProduct.touched[e.value] &&
+                Boolean(validationProduct.errors[e.value])
+              }
+              helperText={
+                validationProduct.touched[e.value] &&
+                validationProduct.errors[e.value]
+              }
+            />
+          );
+        })}
+        <FormikProvider value={validationProduct}>
+         <SelectField label="Category" name="category" options={category} />
+        </FormikProvider>
+        <InputUpload
+          urlImage={selectedImage}
+          handleFileChange={handleFileChange}
+          classes="mt-4"
+          handleClose={handleClose}
+        />
       </DialogWrapper>
       <Paper
         sx={{
@@ -137,7 +137,7 @@ const ProductWrapper = ({
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_PRODUCT} />
             <TableBody>
-              {product.result
+              {product
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((product, index) => {
                   return (
@@ -168,6 +168,7 @@ const ProductWrapper = ({
                               index + 1
                             ) : column.id === 'urlImg' ? (
                               <img
+                                className="product-wrapper__action__image"
                                 alt="anh dep"
                                 src={product.urlImg}
                                 height={100}
@@ -188,7 +189,7 @@ const ProductWrapper = ({
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={product.result.length}
+          count={product.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

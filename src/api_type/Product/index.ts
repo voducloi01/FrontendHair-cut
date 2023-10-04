@@ -11,6 +11,7 @@ export type ProductType = {
 export type ParamProduct = {
   name_product: string;
   price: number;
+  category: number;
 };
 
 export type ProductPResponseType = {
