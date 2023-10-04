@@ -31,7 +31,7 @@ const DialogWrapper = ({
       </DialogTitle>
       <form onSubmit={onClickSave}>
         <DialogContent>{children}</DialogContent>
-        <DialogActions>
+        <DialogActions className='pa-4'>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="contained" color='success' type="submit">Save</Button>
         </DialogActions>

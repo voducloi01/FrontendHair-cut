@@ -16,6 +16,8 @@ const InputUpload = ({
   classes,
   handleClose,
 }: InputProps) => {
+  
+
   return (
     <div className={`${classes ? classes : ''} upload-image-wrapper`}>
       <input

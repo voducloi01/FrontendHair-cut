@@ -18,6 +18,7 @@ class AxiosClient {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers':
         'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+      'Content-Type': 'multipart/form-data',
     },
   };
 
@@ -86,6 +87,10 @@ class AxiosClient {
     return this.axios.get('/api/product', this.config);
   }
 
+  //api create product
+  apiCreateProduct(params: FormData) {
+    return this.axios.post('/api/product/create', params, this.config);
+  }
   //api get category
   apiGetCategory() {
     return this.axios.get('/api/categories', this.config);

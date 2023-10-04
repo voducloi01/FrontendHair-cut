@@ -29,7 +29,7 @@
 }
 
 @mixin spacing($property, $value) {
-  #{$property}: calc(var(--spacing-2) * #{$value});
+  #{$property}: calc(var(--spacing-2) * #{$value}) !important;
 }
 //padding global
 .pa-0 {

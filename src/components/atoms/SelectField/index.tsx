@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   FormControl,
   InputLabel,
@@ -15,12 +14,13 @@ type SelectFormProps = {
   options: CategoryType[];
 };
 
-const SelectField: React.FC<SelectFormProps> = ({
+const SelectField = ({
   label,
   name,
   options,
 }: SelectFormProps) => {
   const { values, handleChange, errors, touched } = useFormikContext<any>();
+  
   const hasError = Boolean(touched[name] && errors[name]);
 
   return (

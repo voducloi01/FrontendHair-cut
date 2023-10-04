@@ -16,12 +16,12 @@ import { COL_PRODUCT } from '@/type/TableType/table_type';
 import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
 import './ProductWrapper.scss';
 import DialogWrapper from '../../atoms/Dialog';
-import SelectField from '@/components/atoms/SelectField';
 import InputUpload from '@/components/atoms/InputUpload/InputUpload';
 import { FormikProps, FormikProvider } from 'formik';
 import { ParamProduct, ProductType } from '@/api_type/Product';
 import { TEXT_FIELD_PRODUCT } from '@/constants/constant';
 import { CategoryType } from '@/api_type/Category';
+import SelectField from '@/components/atoms/SelectField';
 
 interface ProductWrapperProps {
   validationProduct: FormikProps<ParamProduct>;
@@ -61,12 +61,15 @@ const ProductWrapper = ({
     setDialog(false);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
+      validationProduct.setFieldValue('image', file);
     }
   };
 
@@ -98,6 +101,8 @@ const ProductWrapper = ({
           return (
             <TextField
               className="product-wrapper__input"
+              type={e.type}
+              value={validationProduct.values[e.value] || ''}
               key={e.id}
               fullWidth
               id={e.value}
@@ -115,16 +120,22 @@ const ProductWrapper = ({
             />
           );
         })}
+
         <FormikProvider value={validationProduct}>
-         <SelectField label="Category" name="category" options={category} />
+          <SelectField label="Category" name="categoryId" options={category} />
         </FormikProvider>
+
         <InputUpload
-          urlImage={selectedImage}
+          urlImage={validationProduct.values['image'] ? selectedImage : ''}
           handleFileChange={handleFileChange}
           classes="mt-4"
           handleClose={handleClose}
         />
+        {validationProduct.touched.image && validationProduct.errors.image && (
+          <div style={{ color: 'red' }}>{validationProduct.errors.image}</div>
+        )}
       </DialogWrapper>
+
       <Paper
         sx={{
           width: '100%',
