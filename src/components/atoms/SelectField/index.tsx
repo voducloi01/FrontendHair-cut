@@ -12,14 +12,16 @@ type SelectFormProps = {
   label: string;
   name: string;
   options: CategoryType[];
+  value: string | number;
 };
 
 const SelectField = ({
   label,
   name,
   options,
+  value,
 }: SelectFormProps) => {
-  const { values, handleChange, errors, touched } = useFormikContext<any>();
+  const { handleChange, errors, touched } = useFormikContext<any>();
   
   const hasError = Boolean(touched[name] && errors[name]);
 
@@ -29,7 +31,7 @@ const SelectField = ({
       <Select
         label={label}
         name={name}
-        value={values[name] || ''}
+        value={value}
         onChange={handleChange}
         labelId={name}
         id={name}

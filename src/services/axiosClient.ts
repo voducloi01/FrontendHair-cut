@@ -91,6 +91,12 @@ class AxiosClient {
   apiCreateProduct(params: FormData) {
     return this.axios.post('/api/product/create', params, this.config);
   }
+
+  //api create product
+  apiUpdateProduct(params: FormData, id: number) {
+    return this.axios.put(`/api/product/update/${id}`, params, this.config);
+  }
+
   //api get category
   apiGetCategory() {
     return this.axios.get('/api/categories', this.config);
