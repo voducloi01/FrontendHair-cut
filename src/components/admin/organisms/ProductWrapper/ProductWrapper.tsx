@@ -44,6 +44,8 @@ const ProductWrapper = ({
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const { t } = useTranslation();
+  const [typeAction, setTypeAction] = useState<boolean>(false);
+  const [idProduct, setIdProduct] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<string>('');
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
@@ -71,15 +73,26 @@ const ProductWrapper = ({
     try {
       preloader.show();
       const formData = new FormData();
-      formData.append('productName', values.productName);
-      formData.append('price', values.price.toString());
-      formData.append('categoryId', values.categoryId.toString());
-      formData.append('image', values.image);
-      await API.apiCreateProduct(formData);
-      await getProduct();
-      actions.resetForm({
-        values: formik.initialValues,
-      });
+      if (typeAction) {
+        formData.append('productName', values.productName);
+        formData.append('price', values.price.toString());
+        formData.append('categoryId', values.categoryId.toString());
+        formData.append('image', values.image);
+        await API.apiCreateProduct(formData);
+        actions.resetForm({
+          values: formik.initialValues,
+        });
+      } else {
+        formData.append('productName', values.productName);
+        formData.append('price', values.price.toString());
+        formData.append('categoryId', values.categoryId.toString());
+        formData.append('image', values.image);
+        await API.apiUpdateProduct(formData, idProduct);
+        console.log('update');
+      }
+      getProduct();
+      formik.resetForm();
+      setSelectedImage('');
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
       alertDialog.show(message, false);
@@ -96,6 +109,11 @@ const ProductWrapper = ({
     setPage(0);
   };
 
+  const handleCreate = () => {
+    setDialog(true);
+    setTypeAction(true);
+  };
+
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -108,8 +126,21 @@ const ProductWrapper = ({
     }
   };
 
-  const handleClose = () => {
+  const handleEdit = (product: ProductType) => {
+    setDialog(true);
+    setTypeAction(false);
+    formik.setFieldValue('productName', product.productName);
+    formik.setFieldValue('price', product.price);
+    formik.setFieldValue('categoryId', product.categoryID);
+    formik.setFieldValue('image', product.urlImg);
+    setIdProduct(product.id);
+    setSelectedImage(product.urlImg);
+  };
+
+  const handleCloseDialog = () => {
+    setDialog(false);
     setSelectedImage('');
+    formik.resetForm();
   };
 
   return (
@@ -120,7 +151,7 @@ const ProductWrapper = ({
           color="success"
           size="medium"
           variant="contained"
-          onClick={() => setDialog(true)}
+          onClick={handleCreate}
         >
           {t('product.create')}
         </Button>
@@ -128,8 +159,8 @@ const ProductWrapper = ({
       <DialogWrapper
         maxWidth="sm"
         open={dialog}
-        title="Create Product"
-        onClose={() => setDialog(false)}
+        title={typeAction ? t('product.create') : t('product.edit')}
+        onClose={handleCloseDialog}
         onClickSave={formik.handleSubmit}
       >
         {TEXT_FIELD_PRODUCT.map((e) => {
@@ -151,14 +182,19 @@ const ProductWrapper = ({
         })}
 
         <FormikProvider value={formik}>
-          <SelectField label="Category" name="categoryId" options={category} />
+          <SelectField
+            value={formik.values['categoryId'] || ''}
+            label="Category"
+            name="categoryId"
+            options={category}
+          />
         </FormikProvider>
 
         <InputUpload
-          urlImage={formik.values['image'] ? selectedImage : ''}
+          urlImage={selectedImage}
           handleFileChange={handleFileChange}
           classes="mt-4"
-          handleClose={handleClose}
+          handleClose={() => setSelectedImage('')}
         />
         {formik.touched.image && formik.errors.image && (
           <div style={{ color: 'red' }}>{formik.errors.image}</div>
@@ -171,7 +207,7 @@ const ProductWrapper = ({
           overflow: 'hidden',
           borderRadius: 2,
           border: 'none',
-          height:'100%',
+          height: '100%',
         }}
       >
         <TableContainer sx={{ maxHeight: 700 }}>
@@ -198,7 +234,10 @@ const ProductWrapper = ({
                           >
                             {column.id === 'action' ? (
                               <div className="product-wrapper__action">
-                                <div className="product-wrapper__action__edit">
+                                <div
+                                  onClick={() => handleEdit(product)}
+                                  className="product-wrapper__action__edit"
+                                >
                                   <EditOutlined />
                                 </div>
                                 <div className="product-wrapper__action__delete">

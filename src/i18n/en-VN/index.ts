@@ -8,6 +8,7 @@ export default {
       create: 'Tạo Mới',
       cancel: 'Hủy Bỏ',
       save : 'Lưu',
+      edit: 'Chỉnh sửa'
     },
     dashboard: {
       logout: 'Đăng xuất'

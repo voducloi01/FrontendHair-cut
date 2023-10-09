@@ -9,6 +9,7 @@ export default {
       create: 'Create',
       cancel: 'Cancel',
       save: 'Save',
+      edit: 'Edit'
     },
     dashboard: {
       logout: 'Logout'
