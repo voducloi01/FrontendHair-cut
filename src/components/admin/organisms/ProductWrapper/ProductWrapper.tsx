@@ -9,7 +9,7 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import HeaderTable from '../../atoms/HeaderTable/HeaderTable';
 import { COL_PRODUCT } from '@/type/TableType/table_type';
@@ -17,33 +17,76 @@ import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
 import './ProductWrapper.scss';
 import DialogWrapper from '../../atoms/Dialog';
 import InputUpload from '@/components/atoms/InputUpload/InputUpload';
-import { FormikProps, FormikProvider } from 'formik';
+import { FormikHelpers, FormikProvider, useFormik } from 'formik';
 import { ParamProduct, ProductType } from '@/api_type/Product';
 import { TEXT_FIELD_PRODUCT } from '@/constants/constant';
 import { CategoryType } from '@/api_type/Category';
 import SelectField from '@/components/atoms/SelectField';
+import { validationProductSchema } from '@/validations/product_validation';
+import { LoadingContext } from '@/context/LoadingContext';
+import { AlertDialogContext } from '@/context/AlertDialogContext';
+import API from '@/services/axiosClient';
+import _ from 'lodash';
 
 interface ProductWrapperProps {
-  validationProduct: FormikProps<ParamProduct>;
   product: ProductType[];
-  onClickSubmit: () => void;
   category: CategoryType[];
+  getProduct: () => void;
 }
 
 //TODO
 const ProductWrapper = ({
   product,
-  validationProduct,
   category,
+  getProduct,
 }: ProductWrapperProps) => {
   const [dialog, setDialog] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState<string>('');
+  const preloader = useContext(LoadingContext);
+  const alertDialog = useContext(AlertDialogContext);
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      productName: '',
+      price: 0,
+      categoryId: 0,
+      image: '',
+    },
+    validationSchema: validationProductSchema,
+    onSubmit: (values: ParamProduct, actions: FormikHelpers<ParamProduct>) =>
+      HandleCreateProduct(values, actions),
+  });
+
+  const HandleCreateProduct = async (
+    values: ParamProduct,
+    actions: FormikHelpers<ParamProduct>,
+  ) => {
+    try {
+      preloader.show();
+      const formData = new FormData();
+      formData.append('productName', values.productName);
+      formData.append('price', values.price.toString());
+      formData.append('categoryId', values.categoryId.toString());
+      formData.append('image', values.image);
+      await API.apiCreateProduct(formData);
+      await getProduct();
+      actions.resetForm({
+        values: formik.initialValues,
+      });
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message, false);
+    } finally {
+      setDialog(false);
+      preloader.hidden();
+    }
   };
 
   const handleChangeRowsPerPage = (
@@ -51,14 +94,6 @@ const ProductWrapper = ({
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  const handleCreateProduct = () => {
-    setDialog(true);
-  };
-
-  const handleCancelDialog = () => {
-    setDialog(false);
   };
 
   const handleFileChange = async (
@@ -69,7 +104,7 @@ const ProductWrapper = ({
       const file = files[0];
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      validationProduct.setFieldValue('image', file);
+      formik.setFieldValue('image', file);
     }
   };
 
@@ -85,7 +120,7 @@ const ProductWrapper = ({
           color="success"
           size="medium"
           variant="contained"
-          onClick={handleCreateProduct}
+          onClick={() => setDialog(true)}
         >
           {t('product.create')}
         </Button>
@@ -94,45 +129,39 @@ const ProductWrapper = ({
         maxWidth="sm"
         open={dialog}
         title="Create Product"
-        onClose={handleCancelDialog}
-        onClickSave={validationProduct.handleSubmit}
+        onClose={() => setDialog(false)}
+        onClickSave={formik.handleSubmit}
       >
         {TEXT_FIELD_PRODUCT.map((e) => {
           return (
             <TextField
               className="product-wrapper__input"
               type={e.type}
-              value={validationProduct.values[e.value] || ''}
+              value={formik.values[e.value] || ''}
               key={e.id}
               fullWidth
               id={e.value}
               label={e.label}
               variant="outlined"
-              onChange={validationProduct.handleChange}
-              error={
-                validationProduct.touched[e.value] &&
-                Boolean(validationProduct.errors[e.value])
-              }
-              helperText={
-                validationProduct.touched[e.value] &&
-                validationProduct.errors[e.value]
-              }
+              onChange={formik.handleChange}
+              error={formik.touched[e.value] && Boolean(formik.errors[e.value])}
+              helperText={formik.touched[e.value] && formik.errors[e.value]}
             />
           );
         })}
 
-        <FormikProvider value={validationProduct}>
+        <FormikProvider value={formik}>
           <SelectField label="Category" name="categoryId" options={category} />
         </FormikProvider>
 
         <InputUpload
-          urlImage={validationProduct.values['image'] ? selectedImage : ''}
+          urlImage={formik.values['image'] ? selectedImage : ''}
           handleFileChange={handleFileChange}
           classes="mt-4"
           handleClose={handleClose}
         />
-        {validationProduct.touched.image && validationProduct.errors.image && (
-          <div style={{ color: 'red' }}>{validationProduct.errors.image}</div>
+        {formik.touched.image && formik.errors.image && (
+          <div style={{ color: 'red' }}>{formik.errors.image}</div>
         )}
       </DialogWrapper>
 
@@ -142,9 +171,10 @@ const ProductWrapper = ({
           overflow: 'hidden',
           borderRadius: 2,
           border: 'none',
+          height:'100%',
         }}
       >
-        <TableContainer sx={{ maxHeight: 480 }}>
+        <TableContainer sx={{ maxHeight: 500 }}>
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_PRODUCT} />
             <TableBody>
