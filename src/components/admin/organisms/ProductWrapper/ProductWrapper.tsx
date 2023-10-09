@@ -174,7 +174,7 @@ const ProductWrapper = ({
           height:'100%',
         }}
       >
-        <TableContainer sx={{ maxHeight: 500 }}>
+        <TableContainer sx={{ maxHeight: 700 }}>
           <Table stickyHeader sx={{ m: 0 }}>
             <HeaderTable columns={COL_PRODUCT} />
             <TableBody>
