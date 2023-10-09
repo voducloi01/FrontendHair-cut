@@ -137,6 +137,19 @@ const ProductWrapper = ({
     setSelectedImage(product.urlImg);
   };
 
+  const handleDelete = async (product: ProductType) => {
+    try {
+      preloader.show();
+      await API.apiDeleteProduct(product.id);
+      getProduct();
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message, false);
+    } finally {
+      preloader.hidden();
+    }
+  };
+
   const handleCloseDialog = () => {
     setDialog(false);
     setSelectedImage('');
@@ -240,7 +253,10 @@ const ProductWrapper = ({
                                 >
                                   <EditOutlined />
                                 </div>
-                                <div className="product-wrapper__action__delete">
+                                <div
+                                  onClick={() => handleDelete(product)}
+                                  className="product-wrapper__action__delete"
+                                >
                                   <DeleteForeverOutlined />
                                 </div>
                               </div>
@@ -254,6 +270,16 @@ const ProductWrapper = ({
                                 height={100}
                                 width={100}
                               />
+                            ) : column.id === 'categoryID' ? (
+                              category.map((e) => {
+                                return (
+                                  <div>
+                                    {e.id === product.categoryID
+                                      ? e.categoryName
+                                      : ''}
+                                  </div>
+                                );
+                              })
                             ) : (
                               value
                             )}
