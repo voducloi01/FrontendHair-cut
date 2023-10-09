@@ -16,6 +16,8 @@ const InputUpload = ({
   classes,
   handleClose,
 }: InputProps) => {
+  
+
   return (
     <div className={`${classes ? classes : ''} upload-image-wrapper`}>
       <input
@@ -43,9 +45,10 @@ const InputUpload = ({
           <CloseIcon />
         </div>
         <img
+          className='upload-image-wrapper__item__image'
           src={urlImage !== '' ? urlImage : 'no_image.jpg'}
           alt="Selected"
-          width="200"
+          width="150"
           height="150"
         ></img>
       </div>

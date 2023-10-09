@@ -11,8 +11,9 @@ interface DialogUserProps {
   title: string;
   open: boolean;
   onClose: () => void;
-  onClickSave: () => void | any;
+  onClickSave?: () => void | any;
   children: React.ReactNode;
+  maxWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const DialogWrapper = ({
@@ -21,17 +22,20 @@ const DialogWrapper = ({
   children,
   onClose,
   onClickSave,
+  maxWidth,
 }: DialogUserProps) => {
   return (
-    <Dialog open={open}>
-      <DialogTitle textAlign={'center'} fontSize={30} fontWeight={600}>
+    <Dialog fullWidth maxWidth={maxWidth} open={open}>
+      <DialogTitle textAlign={'center'} fontSize={30}>
         {title}
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button type='submit'>Save</Button>
-      </DialogActions>
+      <form onSubmit={onClickSave}>
+        <DialogContent>{children}</DialogContent>
+        <DialogActions className='pa-4'>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="contained" color='success' type="submit">Save</Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

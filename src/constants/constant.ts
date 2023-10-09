@@ -399,9 +399,9 @@ export const TEXT_FIELD_LOGIN: TextFieldLoginType[] = [
 // type form login text field
 export type TextFieldProductType = {
   id: string;
-  type: 'text';
+  type: 'text'| 'number';
   label: string;
-  value: 'name_product' | 'price';
+  value: 'productName' | 'price';
   margin?: 'none' | 'dense' | 'normal' | undefined;
   autoComplete?: string | undefined;
   classes: string;
@@ -413,14 +413,14 @@ export const TEXT_FIELD_PRODUCT: TextFieldProductType[] = [
     id: '1',
     type: 'text',
     label: 'Name Product',
-    value: 'name_product',
+    value: 'productName',
     margin: 'dense',
     autoComplete: 'off',
     classes: 'mt-2',
   },
   {
     id: '2',
-    type: 'text',
+    type: 'number',
     label: 'Price',
     value: 'price',
     margin: 'dense',

@@ -20,7 +20,7 @@ const HederAdmin = ({
   return (
     <div className="header-admin">
       <div className="header-admin__logo">
-        <img src="logo.png" style={{ height: 50, width: 50 }} />
+        <img src="Logo.png" style={{ height: 50, width: 50 }} />
         <div className="header-admin__logo__title">BARBER</div>
         <div className="header-admin__logo__menu" onClick={onClickScale}>
           <Menu sx={{ fontSize: 25 }} />

@@ -9,8 +9,10 @@ export type ProductType = {
 };
 
 export type ParamProduct = {
-  name_product: string;
+  productName: string;
   price: number;
+  categoryId: number;
+  image: File | '';
 };
 
 export type ProductPResponseType = {

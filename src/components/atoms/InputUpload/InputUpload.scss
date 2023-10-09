@@ -1,7 +1,7 @@
 .upload-image-wrapper {
   &__item {
     position: relative;
-    width: 200px;
+    width: 150px;
     cursor: pointer;
     :hover {
       background-color: gray;
@@ -13,6 +13,9 @@
       position: absolute;
       top: 0;
       right: 0;
+    }
+    &__image{
+      object-fit: cover;
     }
   }
 }

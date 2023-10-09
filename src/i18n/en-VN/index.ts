@@ -6,7 +6,8 @@ export default {
     product: {
       title: 'Sản Phẩm',
       create: 'Tạo Mới',
-      cancel: 'Hủy Bỏ'
+      cancel: 'Hủy Bỏ',
+      save : 'Lưu',
     },
     dashboard: {
       logout: 'Đăng xuất'

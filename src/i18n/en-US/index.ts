@@ -7,7 +7,8 @@ export default {
     product: {
       title: 'Product',
       create: 'Create',
-      cancel: 'Cancel'
+      cancel: 'Cancel',
+      save: 'Save',
     },
     dashboard: {
       logout: 'Logout'
