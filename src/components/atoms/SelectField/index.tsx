@@ -6,27 +6,26 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { CategoryType } from '@/api_type/Category';
+
+export type TypeOption = {
+  id: number;
+  name: string;
+};
 
 type SelectFormProps = {
   label: string;
   name: string;
-  options: CategoryType[];
+  options: TypeOption[];
   value: string | number;
 };
 
-const SelectField = ({
-  label,
-  name,
-  options,
-  value,
-}: SelectFormProps) => {
+const SelectField = ({ label, name, options, value }: SelectFormProps) => {
   const { handleChange, errors, touched } = useFormikContext<any>();
-  
+
   const hasError = Boolean(touched[name] && errors[name]);
 
   return (
-    <FormControl fullWidth variant="outlined" error={hasError}>
+    <FormControl fullWidth variant="outlined" error={hasError} margin='dense'>
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <Select
         label={label}
@@ -38,7 +37,7 @@ const SelectField = ({
       >
         {options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
-            {option.categoryName}
+            {option.name}
           </MenuItem>
         ))}
       </Select>

@@ -1,14 +1,4 @@
-import {
-  Box,
-  Container,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from '@mui/material';
+import { Container, IconButton, TextField } from '@mui/material';
 import DashboardWrapper from '@/components/admin/organisms/DashboardWrapper/DashboardWrapper';
 import UsersWrapper from '@/components/admin/organisms/UsersWrapper/UsersWrapper';
 import { useContext, useEffect, useState } from 'react';
@@ -16,67 +6,58 @@ import API from '@/services/axiosClient';
 import { LoadingContext } from '@/context/LoadingContext';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
 import _ from 'lodash';
-import { UserType } from '@/api_type/Login';
+import { UserCreate, UserEdit, UserType } from '@/api_type/Login';
 import DialogWrapper from '@/components/admin/atoms/Dialog';
 import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
 import {
   DATA_DIALOG_CREATE_USER,
-  DATA_DIALOG_USER,
+  DATA_DIALOG_EDIT_USER,
+  ROLE,
 } from '@/constants/constant';
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { validationCreateUserSchema } from '@/validations/auth_validation';
+import {
+  validationCreateUserSchema,
+  validationEditUserSchema,
+} from '@/validations/auth_validation';
+import SelectField from '@/components/atoms/SelectField';
 
 const UserPage = () => {
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
 
-  // validation hook
+  // validation create user hook
   const validationCreateUser = useFormik({
     initialValues: {
       name: '',
       email: '',
       password: '',
-      phone: '',
     },
     validationSchema: validationCreateUserSchema,
-    onSubmit: (value) => handleSaveCreate(value),
+    onSubmit: (values: UserCreate) => handleSaveCreate(values),
   });
+
+  // validation edit hook
+  const validationEditUser = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      role: 0,
+    },
+    validationSchema: validationEditUserSchema,
+    onSubmit: (values: UserEdit) => handleClickEditSave(values),
+  });
+
   const [dataUsers, setDataUsers] = useState<UserType[]>([]);
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
   const [isOpenCreate, setIsOpenCreate] = useState<boolean>(false);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [idUser, setIdUser] = useState<number>(0);
   const [dataDelete, setDataDelete] = useState<{ id: string; name: string }>({
     id: '',
     name: '',
   });
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const [valueFormEdit, setValueFormEdit] = useState<{
-    id: string;
-    name: string;
-    email: string;
-    phone: number;
-    role: number;
-  }>({
-    id: '',
-    name: '',
-    email: '',
-    phone: 0,
-    role: 0,
-  });
-
-  // handle change value and select value edit
-  const handleChangeValueEdit = (
-    e:
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | SelectChangeEvent<number>,
-    fieldName: string,
-  ) => {
-    setValueFormEdit((prevFormEdit) => ({
-      ...prevFormEdit,
-      [fieldName]: e.target.value,
-    }));
-  };
 
   // get all user
   useEffect(() => {
@@ -100,24 +81,18 @@ const UserPage = () => {
 
   // click edit show dialog get get value
   const onClickEdit = (user: UserType) => {
-    setValueFormEdit({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      phone: 0,
-    });
+    validationEditUser.setFieldValue('name', user.name);
+    validationEditUser.setFieldValue('email', user.email);
+    validationEditUser.setFieldValue('role', user.role);
+    setIdUser(Number(user.id));
     setIsOpenEdit(true);
   };
 
   // Click save edit
-  const handleClickEditSave = async () => {
+  const handleClickEditSave = async (value: UserEdit) => {
     try {
       preloader.show();
-      const updateUser = await API.apiUpdateUser(
-        Number(valueFormEdit.id),
-        valueFormEdit,
-      );
+      const updateUser = await API.apiUpdateUser(idUser, value);
       const { message } = updateUser.data;
       await getUSers();
       setIsOpenEdit(false);
@@ -132,7 +107,6 @@ const UserPage = () => {
 
   // handle show dialog create
   const onClickCreate = () => {
-    validationCreateUser.resetForm();
     setIsOpenCreate(true);
   };
 
@@ -159,8 +133,8 @@ const UserPage = () => {
     }
   };
 
-  // handle create new user
-  const handleSaveCreate = async (value: any) => {
+  // Handle Create new user
+  const handleSaveCreate = async (value: UserCreate) => {
     try {
       preloader.show();
       const response = await API.apiCreateUser(value);
@@ -186,43 +160,7 @@ const UserPage = () => {
           dataUsers={dataUsers ?? []}
         />
       </DashboardWrapper>
-      <DialogWrapper
-        onClickSave={handleClickEditSave}
-        title={'Edit User'}
-        open={isOpenEdit}
-        onClose={() => setIsOpenEdit(false)}
-      >
-        {DATA_DIALOG_USER.map((user) => {
-          return (
-            <TextField
-              key={user.id}
-              sx={{ pb: 2 }}
-              margin="dense"
-              id={user.value}
-              label={user.label}
-              type={user.type}
-              fullWidth
-              value={valueFormEdit[user.value]}
-              onChange={(e) => handleChangeValueEdit(e, user.value)}
-            />
-          );
-        })}
-        <Box sx={{ minWidth: 400 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Role</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={valueFormEdit.role}
-              onChange={(e) => handleChangeValueEdit(e, 'role')}
-              label="Role"
-            >
-              <MenuItem value={1}>Staff</MenuItem>
-              <MenuItem value={0}>Admin</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-      </DialogWrapper>
+
       <DialogQuestions
         open={isOpenDelete}
         title={'Delete'}
@@ -232,52 +170,91 @@ const UserPage = () => {
       />
 
       <DialogWrapper
-        onClickSave={() => validationCreateUser.handleSubmit()}
+        maxWidth="sm"
+        onClickSave={validationEditUser.handleSubmit}
+        title={'Edit User'}
+        open={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+      >
+        {DATA_DIALOG_EDIT_USER.map((user) => {
+          return (
+            <TextField
+              error={
+                validationEditUser.touched[user.value] &&
+                !!validationEditUser.errors[user.value]
+              }
+              helperText={
+                validationEditUser.touched[user.value] &&
+                validationEditUser.errors[user.value]
+              }
+              key={user.id}
+              sx={{ pb: 1 }}
+              margin={user.margin}
+              id={user.value}
+              label={user.label}
+              fullWidth
+              autoComplete={user.autoComplete}
+              onChange={validationEditUser.handleChange}
+              value={validationEditUser.values[user.value] || ''}
+            />
+          );
+        })}
+        <FormikProvider value={validationEditUser}>
+          <SelectField
+            value={validationEditUser.values['role'] || ''}
+            label="Role"
+            name="role"
+            options={ROLE}
+          />
+        </FormikProvider>
+      </DialogWrapper>
+
+      <DialogWrapper
+        maxWidth="sm"
+        onClickSave={validationCreateUser.handleSubmit}
         title={'Create User'}
         open={isOpenCreate}
         onClose={() => setIsOpenCreate(false)}
       >
-        <form>
-          {DATA_DIALOG_CREATE_USER.map((user) => {
-            return (
-              <TextField
-                error={
-                  validationCreateUser.touched[user.value] &&
-                  !!validationCreateUser.errors[user.value]
-                }
-                helperText={
-                  validationCreateUser.touched[user.value] &&
-                  validationCreateUser.errors[user.value]
-                }
-                InputProps={{
-                  endAdornment: user.type === 'password' && (
-                    <IconButton
-                      onClick={() => setIsShowPassword(!isShowPassword)}
-                      edge="end"
-                    >
-                      {isShowPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  ),
-                }}
-                key={user.id}
-                sx={{ pb: 1 }}
-                margin={user.margin}
-                id={user.id}
-                label={user.label}
-                type={
-                  user.type === 'password'
-                    ? isShowPassword
-                      ? 'text'
-                      : 'password'
-                    : user.type
-                }
-                fullWidth
-                autoComplete={user.autoComplete}
-                {...validationCreateUser.getFieldProps(user.value)}
-              />
-            );
-          })}
-        </form>
+        {DATA_DIALOG_CREATE_USER.map((user) => {
+          return (
+            <TextField
+              error={
+                validationCreateUser.touched[user.value] &&
+                !!validationCreateUser.errors[user.value]
+              }
+              helperText={
+                validationCreateUser.touched[user.value] &&
+                validationCreateUser.errors[user.value]
+              }
+              InputProps={{
+                endAdornment: user.type === 'password' && (
+                  <IconButton
+                    onClick={() => setIsShowPassword(!isShowPassword)}
+                    edge="end"
+                  >
+                    {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                ),
+              }}
+              key={user.id}
+              sx={{ pb: 1 }}
+              margin={user.margin}
+              id={user.id}
+              label={user.label}
+              type={
+                user.type === 'password'
+                  ? isShowPassword
+                    ? 'text'
+                    : 'password'
+                  : user.type
+              }
+              fullWidth
+              autoComplete={user.autoComplete}
+              {...validationCreateUser.getFieldProps(user.value)}
+            />
+          );
+        })}
       </DialogWrapper>
     </Container>
   );

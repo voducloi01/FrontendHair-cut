@@ -11,13 +11,13 @@ import { ProductType } from '@/api_type/Product';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
-  const [category, setCategory] = useState<CategoryType[]>([]);
+  const [category, setCategory] = useState<[]>([]);
 
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
 
   useEffect(() => {
-    Promise.all([getProduct(), getALLCategory()]);
+    Promise.all([getProduct(), getAllCategory()]);
   }, []);
 
   const getProduct = async () => {
@@ -34,12 +34,13 @@ const ProductPage = () => {
     }
   };
 
-  const getALLCategory = async () => {
+  const getAllCategory = async () => {
     try {
       preloader.show();
       const response = await API.apiGetCategory();
       const { data } = response;
-      setCategory(data.result);
+      const customCategory =  data.result.map((e: CategoryType) => { return ({id: e.id , name: e.categoryName})})   
+      setCategory(customCategory);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
       alertDialog.show(message, false);

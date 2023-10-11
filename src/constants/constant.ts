@@ -306,9 +306,9 @@ export const DATA_DASHBOARD: DataDasBoardType[] = [
 
 export type DataDialogUserType = {
   id: string;
-  type: 'text' | 'email' | 'number';
-  label: 'Name' | 'Email' | 'Phone';
-  value: 'name' | 'email' | 'phone';
+  type: 'text' | 'email';
+  label: 'Name' | 'Email';
+  value: 'name' | 'email';
   margin?: 'none' | 'dense' | 'normal';
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -319,14 +319,13 @@ export type DataDialogUserType = {
 export const DATA_DIALOG_USER: DataDialogUserType[] = [
   { id: '1', type: 'text', label: 'Name', value: 'name', margin: 'dense' },
   { id: '2', type: 'email', label: 'Email', value: 'email', margin: 'dense' },
-  { id: '3', type: 'number', label: 'Phone', value: 'phone', margin: 'normal' },
 ];
 
 export type DataDialogCreateUserType = {
   id: string;
   type: 'text' | 'email' | 'password' | 'number';
   label: string;
-  value: 'name' | 'email' | 'password' | 'phone';
+  value: 'name' | 'email' | 'password';
   margin?: 'none' | 'dense' | 'normal';
   autoComplete?: string;
 };
@@ -356,13 +355,33 @@ export const DATA_DIALOG_CREATE_USER: DataDialogCreateUserType[] = [
     margin: 'dense',
     autoComplete: 'off',
   },
+];
+
+export type DataDialogEditUserType = {
+  id: string;
+  type: 'text' | 'email' | 'number';
+  label: string;
+  value: 'name' | 'email' | 'role';
+  margin?: 'none' | 'dense' | 'normal';
+  autoComplete?: string;
+};
+
+export const DATA_DIALOG_EDIT_USER: DataDialogEditUserType[] = [
   {
-    id: '4',
-    type: 'number',
-    label: 'Phone',
-    value: 'phone',
+    id: '1',
+    type: 'text',
+    label: 'Name',
+    value: 'name',
     margin: 'dense',
-    autoComplete: undefined,
+    autoComplete: 'off',
+  },
+  {
+    id: '2',
+    type: 'email',
+    label: 'Email',
+    value: 'email',
+    margin: 'dense',
+    autoComplete: 'off',
   },
 ];
 
@@ -399,7 +418,7 @@ export const TEXT_FIELD_LOGIN: TextFieldLoginType[] = [
 // type form login text field
 export type TextFieldProductType = {
   id: string;
-  type: 'text'| 'number';
+  type: 'text' | 'number';
   label: string;
   value: 'productName' | 'price';
   margin?: 'none' | 'dense' | 'normal' | undefined;
@@ -428,3 +447,15 @@ export const TEXT_FIELD_PRODUCT: TextFieldProductType[] = [
     classes: 'mt-4',
   },
 ];
+
+type typeRole = {
+  id: 1 | 2;
+  name: 'Admin' | 'Staff';
+};
+
+export const ROLE: typeRole[] = [
+  { id: 1, name: 'Staff' },
+  { id: 2, name: 'Admin' },
+];
+
+export const ROLE_USER = { staff: 1, admin: 2 };
