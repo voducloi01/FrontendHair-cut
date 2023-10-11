@@ -20,8 +20,7 @@ import InputUpload from '@/components/atoms/InputUpload/InputUpload';
 import { FormikHelpers, FormikProvider, useFormik } from 'formik';
 import { ParamProduct, ProductType } from '@/api_type/Product';
 import { TEXT_FIELD_PRODUCT } from '@/constants/constant';
-import { CategoryType } from '@/api_type/Category';
-import SelectField from '@/components/atoms/SelectField';
+import SelectField, { TypeOption } from '@/components/atoms/SelectField';
 import { validationProductSchema } from '@/validations/product_validation';
 import { LoadingContext } from '@/context/LoadingContext';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
@@ -30,7 +29,7 @@ import _ from 'lodash';
 
 interface ProductWrapperProps {
   product: ProductType[];
-  category: CategoryType[];
+  category: TypeOption[];
   getProduct: () => void;
 }
 
@@ -190,6 +189,7 @@ const ProductWrapper = ({
               onChange={formik.handleChange}
               error={formik.touched[e.value] && Boolean(formik.errors[e.value])}
               helperText={formik.touched[e.value] && formik.errors[e.value]}
+              margin='dense'
             />
           );
         })}
@@ -274,9 +274,7 @@ const ProductWrapper = ({
                               category.map((e) => {
                                 return (
                                   <div>
-                                    {e.id === product.categoryID
-                                      ? e.categoryName
-                                      : ''}
+                                    {e.id === product.categoryID ? e.name : ''}
                                   </div>
                                 );
                               })

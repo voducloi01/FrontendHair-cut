@@ -3,13 +3,22 @@ export type ParamsLogin = {
   password: string;
 };
 
+export type UserCreate = {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export type UserEdit = {
+  name: string;
+  email: string;
+  role: number;
+}
+
 export type UserType = {
   id: string;
   name: string;
   email: string;
-  password: string;
-  age: number;
-  phone: number;
   role: number;
   action?: undefined;
 };

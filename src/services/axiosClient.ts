@@ -1,6 +1,11 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from '@/store/index';
-import { LoginResponse, ParamsLogin, UserAll } from '@/api_type/Login';
+import {
+  LoginResponse,
+  ParamsLogin,
+  UserAll,
+  UserEdit,
+} from '@/api_type/Login';
 import _ from 'lodash';
 
 /** Setting timeout of axios */
@@ -73,8 +78,10 @@ class AxiosClient {
   }
 
   // api update user
-  apiUpdateUser(id: number, params: Object) {
-    return this.axios.put(`api/update-user/${id}`, params, this.config);
+  apiUpdateUser(id: number, params: Partial<UserEdit>) {
+    console.log(params);
+
+    return this.axios.put(`api/update-user/${id}`, params);
   }
 
   // api delete user

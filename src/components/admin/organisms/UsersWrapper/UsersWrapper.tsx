@@ -14,6 +14,7 @@ import { COL_USERS } from '@/type/TableType/table_type';
 import { UserType } from '@/api_type/Login';
 import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
 import Button from '@/components/atoms/Button/Button';
+import { ROLE_USER } from '@/constants/constant';
 
 interface UsersWrapperProps {
   dataUsers: UserType[];
@@ -103,7 +104,7 @@ const UsersWrapper = ({
                               index + 1
                             ) : column.id === 'role' ? (
                               <div className="user-wrapper__action__label">
-                                {user.role === 0 ? 'Admin' : 'Staff'}{' '}
+                                {user.role === ROLE_USER.admin ? 'Admin' : 'Staff'}
                               </div>
                             ) : (
                               value
