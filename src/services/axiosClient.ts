@@ -7,6 +7,7 @@ import {
   UserEdit,
 } from '@/api_type/Login';
 import _ from 'lodash';
+import { ProductPResponseType } from '@/api_type/Product';
 
 /** Setting timeout of axios */
 const AXIOS_TIMEOUT: number = 10000;
@@ -79,8 +80,6 @@ class AxiosClient {
 
   // api update user
   apiUpdateUser(id: number, params: Partial<UserEdit>) {
-    console.log(params);
-
     return this.axios.put(`api/update-user/${id}`, params);
   }
 
@@ -96,7 +95,7 @@ class AxiosClient {
 
   //api create product
   apiCreateProduct(params: FormData) {
-    return this.axios.post('/api/product/create', params, this.config);
+    return this.axios.post<ProductPResponseType>('/api/product/create', params, this.config);
   }
 
   //api update product

@@ -17,7 +17,7 @@ import { DeleteForeverOutlined, EditOutlined } from '@mui/icons-material';
 import './ProductWrapper.scss';
 import DialogWrapper from '../../atoms/Dialog';
 import InputUpload from '@/components/atoms/InputUpload/InputUpload';
-import { FormikHelpers, FormikProvider, useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
 import { ParamProduct, ProductType } from '@/api_type/Product';
 import { TEXT_FIELD_PRODUCT } from '@/constants/constant';
 import SelectField, { TypeOption } from '@/components/atoms/SelectField';
@@ -26,6 +26,8 @@ import { LoadingContext } from '@/context/LoadingContext';
 import { AlertDialogContext } from '@/context/AlertDialogContext';
 import API from '@/services/axiosClient';
 import _ from 'lodash';
+import { formatPrice } from '@/utils';
+import DialogQuestions from '../../atoms/DialogQuestions/DialogQuestions';
 
 interface ProductWrapperProps {
   product: ProductType[];
@@ -46,6 +48,7 @@ const ProductWrapper = ({
   const [typeAction, setTypeAction] = useState<boolean>(false);
   const [idProduct, setIdProduct] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<string>('');
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const preloader = useContext(LoadingContext);
   const alertDialog = useContext(AlertDialogContext);
 
@@ -61,33 +64,25 @@ const ProductWrapper = ({
       image: '',
     },
     validationSchema: validationProductSchema,
-    onSubmit: (values: ParamProduct, actions: FormikHelpers<ParamProduct>) =>
-      HandleCreateProduct(values, actions),
+    onSubmit: (values: ParamProduct) => HandleCreateProduct(values),
   });
 
-  const HandleCreateProduct = async (
-    values: ParamProduct,
-    actions: FormikHelpers<ParamProduct>,
-  ) => {
+  const HandleCreateProduct = async (values: ParamProduct) => {
     try {
       preloader.show();
       const formData = new FormData();
+      formData.append('productName', values.productName);
+      formData.append('price', values.price.toString());
+      formData.append('categoryId', values.categoryId.toString());
+      formData.append('image', values.image);
       if (typeAction) {
-        formData.append('productName', values.productName);
-        formData.append('price', values.price.toString());
-        formData.append('categoryId', values.categoryId.toString());
-        formData.append('image', values.image);
-        await API.apiCreateProduct(formData);
-        actions.resetForm({
-          values: formik.initialValues,
-        });
+        const res = await API.apiCreateProduct(formData);
+        const { message } = res.data;
+        alertDialog.show(message, true);
       } else {
-        formData.append('productName', values.productName);
-        formData.append('price', values.price.toString());
-        formData.append('categoryId', values.categoryId.toString());
-        formData.append('image', values.image);
-        await API.apiUpdateProduct(formData, idProduct);
-        console.log('update');
+        const res = await API.apiUpdateProduct(formData, idProduct);
+        const { message } = res.data;
+        alertDialog.show(message, true);
       }
       getProduct();
       formik.resetForm();
@@ -126,21 +121,33 @@ const ProductWrapper = ({
   };
 
   const handleEdit = (product: ProductType) => {
+    const initialValues = {
+      productName: product.productName,
+      price: product.price,
+      categoryId: product.categoryID,
+      image: product.urlImg,
+    };
+
+    formik.setValues(initialValues);
     setDialog(true);
     setTypeAction(false);
-    formik.setFieldValue('productName', product.productName);
-    formik.setFieldValue('price', product.price);
-    formik.setFieldValue('categoryId', product.categoryID);
-    formik.setFieldValue('image', product.urlImg);
     setIdProduct(product.id);
     setSelectedImage(product.urlImg);
   };
 
   const handleDelete = async (product: ProductType) => {
+    setIdProduct(product.id);
+    setIsOpenDelete(true);
+  };
+
+  const handleAgreeDelete = async () => {
     try {
       preloader.show();
-      await API.apiDeleteProduct(product.id);
+      const res = await API.apiDeleteProduct(idProduct);
       getProduct();
+      const { message } = res.data;
+      setIsOpenDelete(false);
+      alertDialog.show(message, false);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
       alertDialog.show(message, false);
@@ -189,7 +196,7 @@ const ProductWrapper = ({
               onChange={formik.handleChange}
               error={formik.touched[e.value] && Boolean(formik.errors[e.value])}
               helperText={formik.touched[e.value] && formik.errors[e.value]}
-              margin='dense'
+              margin="dense"
             />
           );
         })}
@@ -213,6 +220,14 @@ const ProductWrapper = ({
           <div style={{ color: 'red' }}>{formik.errors.image}</div>
         )}
       </DialogWrapper>
+
+      <DialogQuestions
+        open={isOpenDelete}
+        title={'Delete'}
+        content={`Do you want delete Product ID: ${idProduct} ?`}
+        handleClose={() => setIsOpenDelete(false)}
+        handleAgree={handleAgreeDelete}
+      />
 
       <Paper
         sx={{
@@ -273,11 +288,13 @@ const ProductWrapper = ({
                             ) : column.id === 'categoryID' ? (
                               category.map((e) => {
                                 return (
-                                  <div>
+                                  <div key={e.id}>
                                     {e.id === product.categoryID ? e.name : ''}
                                   </div>
                                 );
                               })
+                            ) : column.id === 'price' ? (
+                              formatPrice(product.price)
                             ) : (
                               value
                             )}

@@ -12,7 +12,7 @@ export type ParamProduct = {
   productName: string;
   price: number;
   categoryId: number;
-  image: File | '';
+  image: File | string;
 };
 
 export type ProductPResponseType = {

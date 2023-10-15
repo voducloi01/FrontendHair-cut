@@ -38,7 +38,7 @@ const DialogQuestions = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleAgree}>OK</Button>
+        <Button variant="contained" color='success' onClick={handleAgree}>OK</Button>
       </DialogActions>
     </Dialog>
   );
