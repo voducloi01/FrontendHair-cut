@@ -75,24 +75,7 @@ export type DataIntroduceType = {
   title: string;
   description: string;
 };
-export const DATA_INTRODUCE: DataIntroduceType[] = [
-  {
-    id: 1,
-    img: 'https://storage.30shine.com/ResourceWeb/data/images/hanh-trinh-toa-sang/30shine-toc-mullet.jpg',
-    title:
-      ' Phúc lột xác mái tóc để suốt bao năm giúp ngoại hình mới cực cuốn hút',
-    description:
-      'Thay đổi kiểu tóc đã để suốt bao năm là một quyết định vô cùng khó khăn nhưng Phúc đã vượt qua nỗi sợ đó và tạo một kiểu tóc mới hoàn toàn ',
-  },
-  {
-    id: 2,
-    img: 'https://storage.30shine.com/ResourceWeb/data/images/hanh-trinh-toa-sang/30shine-toc-mullet.jpg',
-    title:
-      ' Phúc lột xác mái tóc để suốt bao năm giúp ngoại hình mới cực cuốn hút',
-    description:
-      'Thay đổi kiểu tóc đã để suốt bao năm là một quyết định vô cùng khó khăn nhưng Phúc đã vượt qua nỗi sợ đó và tạo một kiểu tóc mới hoàn toàn ',
-  },
-];
+
 
 export const DATA_PRICELIST = [
   {

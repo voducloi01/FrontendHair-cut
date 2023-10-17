@@ -2,6 +2,7 @@ import SearchDialog from '../SearchDialog/SearchDialog';
 import { useState } from 'react';
 import { DATA_HEADER } from '@/constants/constant';
 import './Header.scss';
+import { goTo } from '@/ts/router';
 
 const Header = () => {
   const [isShowSearchDialog, setIsShowSearchDialog] = useState(false);
@@ -13,12 +14,12 @@ const Header = () => {
   return (
     <div className="wrapper_header">
       <a>
-        <img src="logo.png" alt="" className="item_logo" />
+        <img src="Logo1.png" alt="" className="item_logo" />
       </a>
       {DATA_HEADER.map((e) => (
         <div
           onClick={() => {
-            // f7.view.main.router.navigate(e.routerName!);
+            goTo(e.routerName);
           }}
           className="color-theme-black title_text"
           key={e.id}
