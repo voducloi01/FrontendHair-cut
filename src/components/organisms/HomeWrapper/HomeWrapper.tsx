@@ -1,4 +1,4 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { DataSlideType } from '@/constants/constant';
 import 'swiper/css';
@@ -15,14 +15,17 @@ interface HomeWrapperProps {
 const HomeWrapper = ({ slideData }: HomeWrapperProps) => {
   return (
     <Swiper
-      // install Swiper modules
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={100}
-      slidesPerView={1}
-      navigation
-      autoplay={{ delay: 1000 }}
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
+      spaceBetween={30}
+      centeredSlides={true}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      pagination={{
+        clickable: true,
+      }}
+      navigation={true}
+      modules={[Autoplay, Pagination, Navigation]}
     >
       {slideData.map((e) => (
         <SwiperSlide key={e.id}>

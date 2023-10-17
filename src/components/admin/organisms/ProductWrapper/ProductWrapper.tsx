@@ -147,7 +147,7 @@ const ProductWrapper = ({
       getProduct();
       const { message } = res.data;
       setIsOpenDelete(false);
-      alertDialog.show(message, false);
+      alertDialog.show(message, true);
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
       alertDialog.show(message, false);

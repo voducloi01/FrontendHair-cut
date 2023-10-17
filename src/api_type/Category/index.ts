@@ -1,10 +1,13 @@
+import { ProductType } from '../Product';
+
 export type CategoryType = {
-    id: number;
-    categoryName: string;
-    description: string;
+  id: string;
+  categoryName: string;
+  description: string;
+  products: ProductType[];
 };
 
 export type GetAllCategoryResponse = {
-    result: CategoryType[];
-    message: string;
+  result: CategoryType[];
+  message: string;
 };
