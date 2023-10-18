@@ -50,7 +50,7 @@ const Introduce = () => {
   };
 
   return (
-    <Container id="introduce" sx={{ overflowY: 'scroll' }}>
+    <Container id="introduce">
       <Header />
       <TitleIntroduce />
       <IntroduceWrapper
