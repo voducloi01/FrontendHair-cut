@@ -1,5 +1,6 @@
 import { DataTrainingType } from '@/constants/constant';
 import './TrainingWrapper.scss';
+import ContentCutIcon from '@mui/icons-material/ContentCut';
 
 interface TrainingWrapperProps {
   dataTraining: DataTrainingType[];
@@ -7,14 +8,14 @@ interface TrainingWrapperProps {
 
 const TrainingWrapper = ({ dataTraining }: TrainingWrapperProps) => {
   return (
-    <div className="informationWrapper">
-      <h1 className="informationTitle"> THÔNG TIN KHOÁ HỌC</h1>
-      <div className="wrapperItem">
-        <div className="wrapper">
+    <div className="information__wrapper">
+      <h1 className="information__wrapper__title"> THÔNG TIN KHOÁ HỌC</h1>
+      <div className="information__wrapper__content">
+        <div className="information__wrapper__content__item">
           {dataTraining.map((e) => (
-            <div className="item" key={e.id}>
-              <img alt={e.icon}></img>
-              <p className="itemTitle">{e.title}</p>
+            <div className="information__wrapper__content__item__wrapper" key={e.id}>
+              <ContentCutIcon className='mx-3'/>
+              <p className="information__wrapper__content__item__wrapper__title">{e.title}</p>
             </div>
           ))}
         </div>
