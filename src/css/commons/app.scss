@@ -6,8 +6,9 @@
 
   .MuiContainer-root {
     padding: 0;
-    height: 100vh;
+    max-height: 100vh;
     max-width: initial;
+    overflow-y: auto;
   }
 
   .MuiCircularProgress-root {

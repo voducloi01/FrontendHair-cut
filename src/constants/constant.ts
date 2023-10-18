@@ -77,7 +77,7 @@ export type DataIntroduceType = {
 };
 
 
-export const DATA_PRICELIST = [
+export const DATA_PRICE_LIST = [
   {
     id: 1,
     title: 'Cắt tóc (combo 6 bước)',
@@ -187,7 +187,7 @@ export const DATA_COMBO = [
   },
   {
     id: 3,
-    title: 'COMBO CẠO MẶT + RÁY TAI + ĐÁNH MẮT',
+    title: 'COMBO CẠO MẶT \n RÁY TAI + ĐÁNH MẮT',
     price: 85000,
     image:
       'https://artbarbershop.com/wp-content/uploads/2021/04/icon-cao-mat.png',

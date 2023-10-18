@@ -11,7 +11,12 @@ export default {
       edit: 'Chỉnh sửa'
     },
     dashboard: {
-      logout: 'Đăng xuất'
-    }
+      logout: 'Đăng xuất',
+    },
+    price: {
+      service : 'Dịch Vụ',
+      fee: 'Gía Tiền',
+      list_price: 'Bảng Gía'
+    } 
   },
 };

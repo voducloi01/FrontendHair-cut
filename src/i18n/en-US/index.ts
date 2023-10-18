@@ -13,6 +13,11 @@ export default {
     },
     dashboard: {
       logout: 'Logout'
-    }
+    },
+    price: {
+      service : 'Service',
+      fee: 'Fee',
+      list_price: 'List Price',
+    } 
   },
 };
