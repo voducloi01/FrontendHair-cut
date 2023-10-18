@@ -1,0 +1,11 @@
+.footer__wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: black;
+    &__item{
+        color: white;
+        &__img{
+            background-color: white;
+        }
+    }
+}

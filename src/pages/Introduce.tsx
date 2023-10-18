@@ -9,6 +9,7 @@ import { AlertDialogContext } from '@/context/AlertDialogContext';
 import API from '@/services/axiosClient';
 import _ from 'lodash';
 import { CategoryType } from '@/api_type/Category';
+import Footer from '@/components/atoms/Footer/Footer';
 
 const Introduce = () => {
   const [dataProduct, setDataProduct] = useState<ProductType[]>([]);
@@ -56,6 +57,7 @@ const Introduce = () => {
         dataProduct={dataProduct || []}
         category={category || []}
       />
+      <Footer/>
     </Container>
   );
 };
