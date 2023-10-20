@@ -56,15 +56,15 @@ export type DataSlideType = {
 export const DATA_SLIDE: DataSlideType[] = [
   {
     id: 1,
-    img: 'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2021/04/Barber-shops-in-Singapore.png',
+    img: 'slice3.png',
   },
   {
     id: 2,
-    img: 'https://sgp1.digitaloceanspaces.com/tz-mag-ph/wp-content/uploads/2022/04/060604045656/Dapper-Dons-Barbershop.png',
+    img: 'slice1.jpg',
   },
   {
     id: 3,
-    img: 'https://previews.123rf.com/images/kostsov/kostsov1801/kostsov180100081/93958941-modern-barbershop-interior-with-chairs-3d-rendering.jpg',
+    img: 'slice2.png',
   },
 ];
 
