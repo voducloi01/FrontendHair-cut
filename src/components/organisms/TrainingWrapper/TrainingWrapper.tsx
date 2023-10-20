@@ -8,7 +8,7 @@ interface TrainingWrapperProps {
 
 const TrainingWrapper = ({ dataTraining }: TrainingWrapperProps) => {
   return (
-    <div className="information__wrapper">
+    <div className="information__wrapper my-4 pb-4">
       <h1 className="information__wrapper__title"> THÔNG TIN KHOÁ HỌC</h1>
       <div className="information__wrapper__content">
         <div className="information__wrapper__content__item">

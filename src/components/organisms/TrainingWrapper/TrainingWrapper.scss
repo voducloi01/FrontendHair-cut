@@ -19,7 +19,6 @@
 }
 .information__wrapper {
   height: 100vh;
-  background-image: url('https://xmen.cdn.jaysoft.asia/wp-content/uploads/2019/10/Capture.jpg');
   object-fit: cover;
   &__title {
     @include  text-animation;
