@@ -1,9 +1,13 @@
 import { TableHead, TableRow, TableCell } from '@mui/material';
-import { ColumnUser, ColumnProduct } from '@/type/TableType/table_type';
+import {
+  ColumnUser,
+  ColumnProduct,
+  ColumnSchedule,
+} from '@/type/TableType/table_type';
 import './HeaderTable.scss';
 
 interface HeaderTableProps {
-  columns: readonly ColumnUser[] | ColumnProduct[];
+  columns: readonly ColumnUser[] | ColumnProduct[] | ColumnSchedule[];
 }
 
 const HeaderTable = ({ columns }: HeaderTableProps) => {

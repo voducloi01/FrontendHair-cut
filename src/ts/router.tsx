@@ -11,12 +11,15 @@ import UserPage from '@/pages-auth/UserPage';
 import DefaultPage from '@/pages-auth/DefaultPage';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { PrivateAdmin, PrivateRouteLogin } from '@/private/private_router';
+import Schedule from '@/pages/Schedule';
 
 const router: RouteObject[] = [
   { path: ROUTE_PATH.index, element: <HomePage /> },
   { path: ROUTE_PATH.introduce, element: <Introduce /> },
-  { path: ROUTE_PATH.listprice, element: <ListPrice /> },
+  { path: ROUTE_PATH.listPrice, element: <ListPrice /> },
   { path: ROUTE_PATH.training, element: <Training /> },
+  { path: ROUTE_PATH.schedule_user, element: <Schedule /> },
+
   {
     path: ROUTE_PATH.login,
     element: (

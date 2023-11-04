@@ -172,13 +172,13 @@ const ProductWrapper = ({
           variant="contained"
           onClick={handleCreate}
         >
-          {t('product.create')}
+          {t('button.create')}
         </Button>
       </div>
       <DialogWrapper
         maxWidth="sm"
         open={dialog}
-        title={typeAction ? t('product.create') : t('product.edit')}
+        title={typeAction ? t('button.create') : t('button.edit')}
         onClose={handleCloseDialog}
         onClickSave={formik.handleSubmit}
       >

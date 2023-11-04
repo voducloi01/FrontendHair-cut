@@ -1,0 +1,24 @@
+.schedule__wrapper {
+  display: flex;
+  gap: 10px;
+  &__form {
+    flex: 1;
+    padding: 10px;
+    &__input {
+      display: flex;
+      align-items: center;
+      &__label {
+        min-width: 120px;
+      }
+      &__action{
+        display: flex;
+        justify-content: end;
+      }
+    }
+  }
+  &__list {
+    flex: 2;
+    background-color: rgb(225, 231, 231); /* Màu nền cho col 2 */
+    padding: 10px;
+  }
+}
