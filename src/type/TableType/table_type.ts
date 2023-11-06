@@ -78,3 +78,47 @@ export const COL_USERS: readonly ColumnUser[] = [
   { id: 'role', label: 'Role', minWidth: 10, width: 100, align: 'center' },
   { id: 'action', label: 'Actions', minWidth: 10, width: 100, align: 'center' },
 ];
+
+export interface ColumnSchedule {
+  id: 'id' | 'name' | 'email' | 'phone' | 'dateSchedule' | 'action';
+  align?: 'left' | 'right' | 'center';
+  minWidth?: number;
+  label: string;
+  width?: number;
+  format?: (value: number) => string;
+}
+
+export const COL_SCHEDULE: ColumnSchedule[] = [
+  {
+    id: 'id',
+    label: 'STT',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'name',
+    label: 'Name',
+    minWidth: 170,
+    width: 100,
+    align: 'center',
+  },
+
+  { id: 'email', label: 'Email', minWidth: 10, width: 100, align: 'center' },
+
+  {
+    id: 'phone',
+    label: 'Phone',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  {
+    id: 'dateSchedule',
+    label: 'Schedule',
+    minWidth: 10,
+    width: 100,
+    align: 'center',
+  },
+  { id: 'action', label: 'Actions', minWidth: 10, width: 100, align: 'center' },
+];

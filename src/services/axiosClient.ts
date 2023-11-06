@@ -8,6 +8,7 @@ import {
 } from '@/api_type/Login';
 import _ from 'lodash';
 import { ProductPResponseType } from '@/api_type/Product';
+import { ParamSchedule } from '@/api_type/Schedule';
 
 /** Setting timeout of axios */
 const AXIOS_TIMEOUT: number = 10000;
@@ -95,7 +96,11 @@ class AxiosClient {
 
   //api create product
   apiCreateProduct(params: FormData) {
-    return this.axios.post<ProductPResponseType>('/api/product/create', params, this.config);
+    return this.axios.post<ProductPResponseType>(
+      '/api/product/create',
+      params,
+      this.config,
+    );
   }
 
   //api update product
@@ -111,6 +116,21 @@ class AxiosClient {
   //api get category
   apiGetCategory() {
     return this.axios.get('/api/categories', this.config);
+  }
+
+  //api get schedule
+  apiGetAllSchedule() {
+    return this.axios.get('api/order');
+  }
+
+  //api create schedule
+  apiCreateSchedule(params: ParamSchedule) {
+    return this.axios.post('/api/order/create', params);
+  }
+
+  //api delete schedule
+  apiDeleteSchedule(idSchedule: number) {
+    return this.axios.delete(`api/order/delete/${idSchedule}`);
   }
 }
 

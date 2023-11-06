@@ -11,9 +11,10 @@ export const ROUTE_PATH = {
   index: '/',
   home: '/home',
   introduce: '/introduce',
-  listprice: '/listprice',
+  listPrice: '/listPrice',
   register: '/register',
   training: '/training',
+  schedule_user: '/user-schedule',
 
   // Admin
   login: '/admin-login',
@@ -26,10 +27,10 @@ export const ROUTE_PATH = {
 // Data header
 export const DATA_HEADER = [
   { id: 1, name: 'TRANG CHỦ', routerName: '/' },
-  { id: 2, name: 'GIỚI THIỆU', routerName: '/introduce' },
+  { id: 2, name: 'GIỚI THIỆU SẢN PHẨM', routerName: '/introduce' },
   { id: 3, name: 'BẢNG GIÁ DỊCH VỤ', routerName: '/listprice' },
   { id: 4, name: 'ĐÀO TẠO', routerName: '/training' },
-  { id: 5, name: 'BLOG', routerName: '' },
+  { id: 5, name: 'ĐẶT LỊCH', routerName: '/user-schedule' },
   { id: 6, name: 'LIÊN HỆ', routerName: '' },
 ];
 
@@ -75,7 +76,6 @@ export type DataIntroduceType = {
   title: string;
   description: string;
 };
-
 
 export const DATA_PRICE_LIST = [
   {
@@ -442,3 +442,31 @@ export const ROLE: typeRole[] = [
 ];
 
 export const ROLE_USER = { staff: 1, admin: 2 };
+
+export type TYPE_DATA_SCHEDULE = {
+  id: number;
+  value: 'name' | 'email' | 'phone';
+  label: string;
+  type: 'number' | 'text' | 'email';
+};
+
+export const DATA_SCHEDULE: TYPE_DATA_SCHEDULE[] = [
+  {
+    id: 1,
+    value: 'name',
+    label: 'Name',
+    type: 'text',
+  },
+  {
+    id: 2,
+    value: 'email',
+    label: 'Email',
+    type: 'email',
+  },
+  {
+    id: 3,
+    value: 'phone',
+    label: 'Phone',
+    type: 'number',
+  },
+];

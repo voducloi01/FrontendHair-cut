@@ -9,15 +9,31 @@ export default {
       create: 'Create',
       cancel: 'Cancel',
       save: 'Save',
-      edit: 'Edit'
+      edit: 'Edit',
     },
     dashboard: {
-      logout: 'Logout'
+      logout: 'Logout',
     },
     price: {
-      service : 'Service',
+      service: 'Service',
       fee: 'Fee',
       list_price: 'List Price',
-    } 
+    },
+    schedule: {
+      order_schedule: 'Order schedule',
+      list_schedule: 'My Schedule',
+    },
+    button: {
+      create: 'Create',
+      cancel: 'Cancel',
+      save: 'Save',
+      edit: 'Edit',
+    },
+    information: {
+      name: 'Name',
+      phone: 'Phone',
+      email: 'Email',
+      calendar: 'Calendar',
+    },
   },
 };

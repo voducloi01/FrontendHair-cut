@@ -1,0 +1,57 @@
+.schedule__wrapper {
+  display: flex;
+  gap: 10px;
+  &__form {
+    flex: 1;
+    padding: 10px;
+    &__input {
+      display: flex;
+      align-items: center;
+      &__label {
+        min-width: 120px;
+      }
+      &__action {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+  &__list {
+    flex: 2;
+    background-color: rgb(225, 231, 231); /* Màu nền cho col 2 */
+    padding: 10px;
+    overflow: auto;
+    &__container {
+      &__table {
+        &__body {
+          &__row {
+            &__cell {
+              background-color: white;
+              &__action {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &__delete {
+                  display: flex;
+                  height: 35px;
+                  width: 35px;
+                  border-radius: 50%;
+                  background-color: beige;
+                  align-items: center;
+                  justify-content: center;
+                  &:hover {
+                    cursor: pointer;
+                    background-color: red;
+                    svg {
+                      color: white;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
