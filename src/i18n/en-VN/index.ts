@@ -30,5 +30,13 @@ export default {
       email: 'Email',
       calendar: 'Lịch',
     },
+    header: {
+      home: 'TRANG CHỦ',
+      product: 'SẢN PHẨM',
+      price: 'BẢNG GIÁ DỊCH VỤ',
+      training: 'ĐÀO TẠO',
+      order: 'ĐẶT LỊCH',
+      contact: 'LIÊN HỆ',
+    },
   },
 };

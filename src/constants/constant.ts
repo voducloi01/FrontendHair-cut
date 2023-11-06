@@ -24,14 +24,20 @@ export const ROUTE_PATH = {
   user: '/admin-user',
 };
 
+type TypeHeader = {
+  id: number;
+  name: string;
+  routerName: string;
+};
+
 // Data header
-export const DATA_HEADER = [
-  { id: 1, name: 'TRANG CHỦ', routerName: '/' },
-  { id: 2, name: 'GIỚI THIỆU SẢN PHẨM', routerName: '/introduce' },
-  { id: 3, name: 'BẢNG GIÁ DỊCH VỤ', routerName: '/listprice' },
-  { id: 4, name: 'ĐÀO TẠO', routerName: '/training' },
-  { id: 5, name: 'ĐẶT LỊCH', routerName: '/user-schedule' },
-  { id: 6, name: 'LIÊN HỆ', routerName: '' },
+export const DATA_HEADER: TypeHeader[] = [
+  { id: 1, name: 'home', routerName: '/' },
+  { id: 2, name: 'product', routerName: '/introduce' },
+  { id: 3, name: 'price', routerName: '/listprice' },
+  { id: 4, name: 'training', routerName: '/training' },
+  { id: 5, name: 'order', routerName: '/user-schedule' },
+  { id: 6, name: 'contact', routerName: '' },
 ];
 
 //data author
