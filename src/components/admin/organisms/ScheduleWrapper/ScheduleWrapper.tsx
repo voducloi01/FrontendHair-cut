@@ -1,3 +1,5 @@
+import './ScheduleWrapper.scss';
+
 const ScheduleWrapper = () => {
   return <div>ScheduleWrapper</div>;
 };

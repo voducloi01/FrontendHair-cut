@@ -1,53 +1,39 @@
-import SearchDialog from '../SearchDialog/SearchDialog';
-import { useState } from 'react';
 import { DATA_HEADER } from '@/constants/constant';
 import './Header.scss';
 import { goTo } from '@/ts/router';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
-  const [isShowSearchDialog, setIsShowSearchDialog] = useState(false);
-
-  const handleCloseSearchDialog = () => {
-    setIsShowSearchDialog(!isShowSearchDialog);
-  };
+  const { t } = useTranslation();
 
   return (
-    <div className="wrapper_header">
-      <a>
-        <img src="Logo1.png" alt="" className="item_logo" />
-      </a>
+    <div className="wrapper__header">
+      <div className="wrapper__header__logo">
+        <img src="Logo.png" alt="" className="wrapper__header__logo__image" />
+      </div>
       {DATA_HEADER.map((e) => (
         <div
           onClick={() => {
             goTo(e.routerName);
           }}
-          className="color-theme-black title_text"
+          className="wrapper__header__title"
           key={e.id}
         >
-          {e.name}
+          {t(`header.${e.name}`)}
         </div>
       ))}
-      <span className="separate">|</span>
-
-      <div className="wrapper_fb">
-        <a href="https://www.youtube.com/" target="_blank">
-          <img src="fb.png" alt="" className="fb_Image " />
-        </a>
-        <a>
-          <img src="tik_tok.png" alt="" className="fb_Image" />
-        </a>
-        <a>
-          <img
-            src="search.png"
-            alt=""
-            className="fb_Image"
-            onClick={handleCloseSearchDialog}
-          />
-        </a>
-      </div>
-      {isShowSearchDialog && (
-        <SearchDialog handleCloseSearchDialog={handleCloseSearchDialog} />
-      )}
+      <Link
+        to="https://www.facebook.com/profile.php?id=100082137683982"
+        target="_blank"
+      >
+        <FacebookIcon
+          color="info"
+          fontSize="large"
+          className="wrapper__header__icon"
+        />
+      </Link>
     </div>
   );
 };

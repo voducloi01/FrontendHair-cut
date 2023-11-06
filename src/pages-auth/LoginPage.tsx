@@ -51,7 +51,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Container id="login">
+    <Container id="login" sx={{ height: '100vh' }}>
       <LoginWrapper
         validationLogin={validationLogin}
         onClick={() => validationLogin.handleSubmit()}

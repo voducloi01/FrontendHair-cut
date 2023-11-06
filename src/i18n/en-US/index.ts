@@ -35,5 +35,13 @@ export default {
       email: 'Email',
       calendar: 'Calendar',
     },
+    header: {
+      home: 'HOME',
+      product: 'MY PRODUCT',
+      price: 'PRICE SERVICE',
+      training: 'TRAINING',
+      order: 'ORDER CUT',
+      contact: 'CONTACT',
+    },
   },
 };
