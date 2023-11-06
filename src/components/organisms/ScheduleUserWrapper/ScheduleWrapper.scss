@@ -10,9 +10,9 @@
       &__label {
         min-width: 120px;
       }
-      &__action{
+      &__action {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
       }
     }
   }
@@ -20,5 +20,38 @@
     flex: 2;
     background-color: rgb(225, 231, 231); /* Màu nền cho col 2 */
     padding: 10px;
+    overflow: auto;
+    &__container {
+      &__table {
+        &__body {
+          &__row {
+            &__cell {
+              background-color: white;
+              &__action {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &__delete {
+                  display: flex;
+                  height: 35px;
+                  width: 35px;
+                  border-radius: 50%;
+                  background-color: beige;
+                  align-items: center;
+                  justify-content: center;
+                  &:hover {
+                    cursor: pointer;
+                    background-color: red;
+                    svg {
+                      color: white;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

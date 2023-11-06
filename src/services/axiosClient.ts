@@ -96,7 +96,11 @@ class AxiosClient {
 
   //api create product
   apiCreateProduct(params: FormData) {
-    return this.axios.post<ProductPResponseType>('/api/product/create', params, this.config);
+    return this.axios.post<ProductPResponseType>(
+      '/api/product/create',
+      params,
+      this.config,
+    );
   }
 
   //api update product
@@ -119,9 +123,14 @@ class AxiosClient {
     return this.axios.get('api/order');
   }
 
-  //api create shedule
+  //api create schedule
   apiCreateSchedule(params: ParamSchedule) {
     return this.axios.post('/api/order/create', params);
+  }
+
+  //api delete schedule
+  apiDeleteSchedule(idSchedule: number) {
+    return this.axios.delete(`api/order/delete/${idSchedule}`);
   }
 }
 

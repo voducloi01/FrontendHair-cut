@@ -44,6 +44,7 @@ const Schedule = () => {
       });
       const { message } = res.data;
       alertDialog.show(message, true);
+      getAllSchedule();
       formikSchedule.resetForm();
     } catch (error) {
       const message = _.get(error, 'message', JSON.stringify(error));
@@ -67,6 +68,21 @@ const Schedule = () => {
     }
   };
 
+  const handleAgreeDelete = async (idSchedule: number) => {
+    try {
+      preloader.show();
+      const res = await API.apiDeleteSchedule(idSchedule);
+      const { message } = res.data;
+      getAllSchedule();
+      alertDialog.show(message, true);
+    } catch (error) {
+      const message = _.get(error, 'message', JSON.stringify(error));
+      alertDialog.show(message, false);
+    } finally {
+      preloader.hidden();
+    }
+  };
+
   return (
     <Container id="schedule__user">
       <Header />
@@ -74,6 +90,7 @@ const Schedule = () => {
         dataSchedule={dataSchedule}
         formik={formikSchedule}
         handleDateChange={handleChangeSchedule}
+        handleAgreeDelete={(id) => handleAgreeDelete(id)}
       />
       <Footer />
     </Container>

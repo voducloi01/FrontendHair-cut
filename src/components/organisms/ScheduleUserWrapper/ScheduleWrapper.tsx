@@ -21,22 +21,26 @@ import { TypeSchedule } from '@/api_type/Schedule';
 import { DeleteForeverOutlined } from '@mui/icons-material';
 import { useState } from 'react';
 import moment from 'moment';
-import './ScheduleWrapper.scss';
+import DialogQuestions from '@/components/admin/atoms/DialogQuestions/DialogQuestions';
 
 type PropsSchedule = {
   formik: any;
   handleDateChange: (e: Date | null) => void;
   dataSchedule: TypeSchedule[];
+  handleAgreeDelete: (id: number) => void;
 };
 
 const ScheduleWrapper = ({
   formik,
   handleDateChange,
   dataSchedule,
+  handleAgreeDelete,
 }: PropsSchedule) => {
   const { t } = useTranslation();
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [idSchedule, setIdSchedule] = useState<number>(0);
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
@@ -47,6 +51,11 @@ const ScheduleWrapper = ({
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleDelete = (dataSchedule: TypeSchedule) => {
+    setIdSchedule(dataSchedule.id);
+    setIsOpenDelete(true);
   };
 
   return (
@@ -122,7 +131,9 @@ const ScheduleWrapper = ({
         </form>
       </div>
       <div className="schedule__wrapper__list">
-        <h1>{t('schedule.list_schedule')}</h1>
+        <h1 className="schedule__wrapper__list__title">
+          {t('schedule.list_schedule')}
+        </h1>
         <Paper
           sx={{
             width: '100%',
@@ -132,36 +143,52 @@ const ScheduleWrapper = ({
             height: '100%',
           }}
         >
-          <TableContainer sx={{ maxHeight: 700 }}>
-            <Table stickyHeader sx={{ m: 0 }}>
+          <TableContainer
+            className="schedule__wrapper__list__container"
+            sx={{ maxHeight: 700 }}
+          >
+            <Table
+              stickyHeader
+              sx={{ m: 0 }}
+              className="schedule__wrapper__list__container__table"
+            >
               <HeaderTable columns={COL_SCHEDULE} />
-              <TableBody>
+              <TableBody className="schedule__wrapper__list__container__table__body">
                 {dataSchedule
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((product, index) => {
+                  .reverse()
+                  .map((e, index) => {
                     return (
                       <TableRow
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={product.id.toString()}
+                        key={e.id.toString()}
+                        className="schedule__wrapper__list__container__table__body__row"
                       >
                         {COL_SCHEDULE.map((column) => {
-                          const value = product[column.id];
+                          const value = e[column.id];
                           return (
                             <TableCell
                               key={column.id}
                               align={column.align}
-                              className="table"
+                              className="schedule__wrapper__list__container__table__body__row__cell"
                             >
                               {column.id === 'action' ? (
-                                <div className="product-wrapper__action__delete">
-                                  <DeleteForeverOutlined />
+                                <div
+                                  className="schedule__wrapper__list__container__table__body__row__cell__action"
+                                  onClick={() => handleDelete(e)}
+                                >
+                                  <div className="schedule__wrapper__list__container__table__body__row__cell__action__delete">
+                                    <DeleteForeverOutlined />
+                                  </div>
                                 </div>
                               ) : column.id === 'id' ? (
                                 index + 1
                               ) : column.id === 'dateSchedule' ? (
-                                moment(value).format('DD/MM/YYYY HH:mm A')
+                                <div className="schedule__wrapper__list__container__table__body__row__cell__content">
+                                  {moment(value).format('DD/MM/YYYY HH:mm A')}
+                                </div>
                               ) : (
                                 value
                               )}
@@ -185,6 +212,16 @@ const ScheduleWrapper = ({
           />
         </Paper>
       </div>
+      <DialogQuestions
+        open={isOpenDelete}
+        title={'Delete'}
+        content={`Do you want delete Schedule ID ${idSchedule}?`}
+        handleClose={() => setIsOpenDelete(false)}
+        handleAgree={() => {
+          handleAgreeDelete(idSchedule);
+          setIsOpenDelete(false);
+        }}
+      />
     </div>
   );
 };
